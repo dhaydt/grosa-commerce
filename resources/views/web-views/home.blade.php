@@ -327,8 +327,8 @@
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset("storage/app/public/category/$category->icon")}}"
                                  alt="{{$category->name}}">
-                            <p class="text-center small"
-                               style="margin-top: -20px">{{Str::limit($category->name, 17)}}</p>
+                            <p class="text-center"
+                               style="margin-top: -20px; font-size: 24px;">{{Str::limit($category->name, 17)}}</p>
                         </a>
                     </div>
                 @endforeach
@@ -338,7 +338,7 @@
 
     {{-- small banner --}}
     <section>
-       <div class="container my-4">
+       <div class="container my-5">
         <div class="row mt-2">
             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                 <div class="col-4">
@@ -389,7 +389,7 @@
     <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-header fd rtl row justify-content-between">
+        <div class="section-header mb-4 fd rtl row justify-content-between">
           <div class="col-md-2" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
             <div class="d-inline-flex displayTab">
               <span class="flash_deal_title ">
@@ -502,7 +502,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-header fd rtl row justify-content-between">
+        <div class="section-header mb-4 fd rtl row justify-content-between">
           <div class="col-md-2" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
             <div class="d-inline-flex displayTab">
               <span class="flash_deal_title ">
@@ -608,7 +608,7 @@
   @endif
 
   {{--brands--}}
-    <section class="container rtl">
+    <section class="container rtl mb-5">
         <!-- Heading-->
         <div class="section-header">
             <div class="feature_header" style="color: black">
