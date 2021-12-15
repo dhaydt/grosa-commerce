@@ -994,7 +994,7 @@ fetch('https://ipapi.co/json/')
     return response.json();
   })
   .then(function(data) {
-    // console.log('location',data);
+    console.log('location',data);
 
             $('#auto-loc').append(data.city)
             $('#nav-global-location-slot').attr('data-original-title', data.country_name + ', ' + data.region);
