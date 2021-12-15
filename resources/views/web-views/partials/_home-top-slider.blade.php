@@ -7,12 +7,12 @@
         height: 100%;
         background-color: white;
     } */
-    .carousel-inner, .footer_banner_img{
+    .carousel-inner {
         border-radius: 20px
     }
 </style>
 
-<div class="row rtl">
+<div class="row rtl mb-4">
     <div class="col-xl-12 col-md-12" style="margin-top: 11px">
         @php($main_banner=\App\Model\Banner::where('banner_type','Main Banner')->where('published',1)->orderBy('id','desc')->get())
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -47,7 +47,7 @@
             </a>
         </div>
 
-        <div class="row mt-2">
+        {{-- <div class="row mt-2">
             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                 <div class="col-4">
                     <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             @endforeach
-        </div>
+        </div> --}}
     </div>
     <!-- Banner group-->
 </div>

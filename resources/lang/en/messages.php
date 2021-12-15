@@ -1390,4 +1390,5 @@
   'Please_choose_the_shipping_method_again' => 'Please choose the shipping method again',
   'Because_you_changed_the_address' => 'Because you changed the address',
   'You_changed_address' => 'You changed address',
+  'sign_up' => 'Sign up',
 );

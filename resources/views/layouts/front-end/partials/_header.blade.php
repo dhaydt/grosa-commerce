@@ -1,5 +1,32 @@
 {{-- navabr / _header --}}
 <style>
+    body > header > div > div.navbar.navbar-expand-md.navbar-light > div > ul.navbar-nav.mega-nav.pr-2.pl-2 > li > a::after {
+        display: none;
+    }
+
+    .just-padding {
+        padding: 15px;
+        border: 1px solid #ccccccb3;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        height: 100%;
+        background-color: white;
+    }
+
+    .category-canva{
+        position: absolute;
+        left: -17vw;
+        width: 83vw;
+        /* display: block; */
+    }
+
+    .mega-right {
+        left: 96%;
+        top: -80%;
+        padding-left: 50px;
+        text-align: left;
+        position: absolute;
+    }
     #nav-global-location-slot {
         border: 2px solid transparent;
         padding: 10px;
@@ -260,7 +287,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand d-none d-sm-block {{Session::get('direction') === " rtl" ? 'ml-3' : 'mr-3' }}
+        <a class="navbar-brand d-none d-sm-block mr-0
           flex-shrink-0 tab-logo" href="{{route('home')}}" style="min-width: 7rem;">
           <img width="250" height="60" style="height: 60px!important;"
                          src="{{asset("storage/app/public/company")."/".$web_config['web_logo']->value}}"
@@ -274,29 +301,210 @@
           onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
           alt="{{$web_config['name']->value}}"/>
         </a>
-        <!-- Search-->
-        <!--  <div class="input-group-overlay d-none d-md-block mx-4"
-                     style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}}">
-                    <form action="{{route('products')}}" type="submit" class="search_form">
-                        <input class="form-control appended-form-control search-bar-input" type="text"
-                               autocomplete="off"
-                               placeholder="{{\App\CPU\translate('search')}}"
-                               name="name">
-                        <button class="input-group-append-overlay search_button" type="submit"
-                                style="border-radius: {{Session::get('direction') === "rtl" ? '7px 0px 0px 7px; right: unset; left: 0' : '0px 7px 7px 0px; left: unset; right: 0'}};">
-                                <span class="input-group-text" style="font-size: 20px;">
-                                    <i class="czi-search text-white"></i>
-                                </span>
-                        </button>
-                        <input name="data_from" value="search" hidden>
-                        <input name="page" value="1" hidden>
-                        <diV class="card search-card"
-                             style="position: absolute;background: white;z-index: 999;width: 100%;display: none">
-                            <div class="card-body search-result-box"
-                                 style="overflow:scroll; height:400px;overflow-x: hidden"></div>
-                        </diV>
-                    </form>
-                </div> -->
+
+        @php($categories=\App\CPU\CategoryManager::parents())
+          <ul class="navbar-nav mega-nav pr-2 pl-2" style="max-width: 70px;">
+                        <!--web-->
+                        <li class=" nav-item {{!request()->is('/none')?'dropdown':''}}">
+            <a class="nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
+              data-toggle="dropdown">
+              <i class="czi-menu align-middle mt-n1"></i>
+              <span style="margin-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 5px
+                !important;margin-{{Session::get('direction')==="rtl" ? 'left' : 'right' }}: 5px">
+                {{-- {{ \App\CPU\translate('categories')}} --}}
+              </span>
+            </a>
+            @if(request()->is('/'))
+               <ul class="dropdown-menu category-canva"
+                    style="right: 0; box-shadow: none;min-width: 303px !important;{{Session::get('direction') === "rtl" ? 'margin-right: 1px!important;text-align: right;' : 'margin-left: 1px!important;text-align: left;'}}padding-bottom: 0px!important;">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-md-3">
+                                            @foreach($categories as $key=>$category)
+                                            @if($key<11)
+                                                <li class="dropdown">
+                                                    <a class="dropdown-item flex-between"
+                                                       <?php if ($category->childes->count() > 0) echo "data-toggle='dropdown'"?> href="javascript:"
+                                                       onclick="location.href='{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}'">
+                                                        <div>
+                                                            {{-- <img
+                                                                src="{{asset("storage/app/public/category/$category->icon")}}"
+                                                                onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                                                style="width: 50px; height: 50px; "> --}}
+                                                            <span
+                                                                class="{{Session::get('direction') === "rtl" ? 'pr-3' : 'pl-3'}}">{{$category['name']}}</span>
+                                                        </div>
+                                                        @if ($category->childes->count() > 0)
+                                                            <div>
+                                                                <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}" style="line-height: 1;" ></i>
+                                                            </div>
+                                                        @endif
+                                                    </a>
+                                                    @if($category->childes->count()>0)
+                                                        <ul class="dropdown-menu mega-right"
+                                                            style="right: 100%; text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                                                            @foreach($category['childes'] as $subCategory)
+                                                                <li class="dropdown">
+                                                                    <a class="dropdown-item flex-between"
+                                                                       <?php if ($subCategory->childes->count() > 0) echo "data-toggle='dropdown'"?> href="javascript:"
+                                                                       onclick="location.href='{{route('products',['id'=> $subCategory['id'],'data_from'=>'category','page'=>1])}}'">
+                                                                        <div>
+                                                                            <span
+                                                                                class="{{Session::get('direction') === "rtl" ? 'pr-3' : 'pl-3'}}">{{$subCategory['name']}}</span>
+                                                                        </div>
+                                                                        @if ($subCategory->childes->count() > 0)
+                                                                            <div>
+                                                                                <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}" style="line-height: 3;"></i>
+                                                                            </div>
+                                                                        @endif
+                                                                    </a>
+                                                                    @if($subCategory->childes->count()>0)
+                                                                        <ul class="dropdown-menu"
+                                                                            style="right: 100%; text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                                                                            @foreach($subCategory['childes'] as $subSubCategory)
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                       href="{{route('products',['id'=> $subSubCategory['id'],'data_from'=>'category','page'=>1])}}">{{$subSubCategory['name']}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                        <a class="dropdown-item" href="{{route('categories')}}"
+                                           style="{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 29%">
+                                            {{\App\CPU\translate('view_more')}}
+                                        </a>
+                                        </div>
+                                        <div class="col-xl-9 col-md-9">
+                                                {{-- <div class="just-padding"></div> --}}
+                                        </div>
+                                    </div>
+
+                                </ul>
+                            @else
+                                <ul class="dropdown-menu"
+                                    style="right: 0; text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                                    @foreach($categories as $category)
+                                        <li class="dropdown">
+                                            <a class="dropdown-item flex-between <?php if ($category->childes->count() > 0) echo "data-toggle='dropdown"?> "
+                                               <?php if ($category->childes->count() > 0) echo "data-toggle='dropdown'"?> href="javascript:"
+                                               onclick="location.href='{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}'">
+                                                <div>
+                                                    <img src="{{asset("storage/app/public/category/$category->icon")}}"
+                                                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                                         style="width: 50px; height: 50px; ">
+                                                    <span
+                                                        class="{{Session::get('direction') === "rtl" ? 'pr-3' : 'pl-3'}}">{{$category['name']}}</span>
+                                                </div>
+                                                @if ($category->childes->count() > 0)
+                                                    <div>
+                                                        <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}" style="line-height: 3;"></i>
+                                                    </div>
+                                                @endif
+                                            </a>
+                                            @if($category->childes->count()>0)
+                                                <ul class="dropdown-menu"
+                                                    style="right: 100%; text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                                                    @foreach($category['childes'] as $subCategory)
+                                                        <li class="dropdown">
+                                                            <a class="dropdown-item flex-between <?php if ($subCategory->childes->count() > 0) echo "data-toggle='dropdown"?> "
+                                                               <?php if ($subCategory->childes->count() > 0) echo "data-toggle='dropdown'"?> href="javascript:"
+                                                               onclick="location.href='{{route('products',['id'=> $subCategory['id'],'data_from'=>'category','page'=>1])}}'">
+                                                                <div>
+                                                                    <span
+                                                                        class="{{Session::get('direction') === "rtl" ? 'pr-3' : 'pl-3'}}">{{$subCategory['name']}}</span>
+                                                                </div>
+                                                                @if ($subCategory->childes->count() > 0)
+                                                                    <div>
+                                                                        <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}" style="line-height: 3;"></i>
+                                                                    </div>
+                                                                @endif
+                                                            </a>
+                                                            @if($subCategory->childes->count()>0)
+                                                                <ul class="dropdown-menu"
+                                                                    style="right: 100%; text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                                                                    @foreach($subCategory['childes'] as $subSubCategory)
+                                                                        <li>
+                                                                            <a class="dropdown-item"
+                                                                               href="{{route('products',['id'=> $subSubCategory['id'],'data_from'=>'category','page'=>1])}}">{{$subSubCategory['name']}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                    <a class="dropdown-item" href="{{route('categories')}}"
+                                       style="{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 29%">
+                                        {{\App\CPU\translate('view_more')}}
+                                    </a>
+                                </ul>
+                            @endif
+                        </li>
+                    </ul>
+
+
+          <ul class="navbar-nav mega-nav1 pr-2 pl-2 d-block d-xl-none">
+            <!--mobile-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
+                data-toggle="dropdown">
+                <i class="czi-menu align-middle mt-n1 d-none {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"></i>
+                <span style="margin-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: -8px !important;">{{
+                  \App\CPU\translate('categories')}}</span>
+              </a>
+              <ul class="dropdown-menu" style="right: 0%; text-align: {{Session::get('direction') === " rtl" ? 'right'
+                : 'left' }};">
+                @foreach($categories as $category)
+                <li class="dropdown">
+                  <a class="dropdown-item <?php if ($category->childes->count() > 0) echo " dropdown-toggle"?> "
+                    <?php if ($category->childes->count() > 0) echo "data-toggle='dropdown'"?>
+                    href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}">
+                    <img src="{{asset("storage/app/public/category/$category->icon")}}"
+                    onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                    style="width: 50px; height: 40px; ">
+                    <span class="{{Session::get('direction') === " rtl" ? 'pr-3' : 'pl-3'
+                      }}">{{$category['name']}}</span>
+                  </a>
+                  @if($category->childes->count()>0)
+                  <ul class="dropdown-menu" style="right: 100%; text-align: {{Session::get('direction') === " rtl"
+                    ? 'right' : 'left' }};">
+                    @foreach($category['childes'] as $subCategory)
+                    <li class="dropdown">
+                      <a class="dropdown-item <?php if ($subCategory->childes->count() > 0) echo " dropdown-toggle"?> "
+                        <?php if ($subCategory->childes->count() > 0) echo "data-toggle='dropdown'"?>
+                        href="{{route('products',['id'=> $subCategory['id'],'data_from'=>'category','page'=>1])}}">
+                        <span class="{{Session::get('direction') === " rtl" ? 'pr-3' : 'pl-3'
+                          }}">{{$subCategory['name']}}</span>
+                      </a>
+                      @if($subCategory->childes->count()>0)
+                      <ul class="dropdown-menu" style="right: 100%; text-align: {{Session::get('direction') === " rtl"
+                        ? 'right' : 'left' }};">
+                        @foreach($subCategory['childes'] as $subSubCategory)
+                        <li>
+                          <a class="dropdown-item"
+                            href="{{route('products',['id'=> $subSubCategory['id'],'data_from'=>'category','page'=>1])}}">{{$subSubCategory['name']}}</a>
+                        </li>
+                        @endforeach
+                      </ul>
+                      @endif
+                    </li>
+                    @endforeach
+                  </ul>
+                  @endif
+                </li>
+                @endforeach
+              </ul>
+            </li>
+          </ul>
 
         <!-- new search -->
           <div id="nav-global-location-slot" data-toggle="tooltip" data-placement="top" title="Location">
@@ -390,12 +598,12 @@
               style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left' }};">
               <a class="dropdown-item" href="{{route('customer.auth.login')}}">
                 <i class="fa fa-sign-in {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"></i>
-                {{\App\CPU\translate('sing_in')}}
+                {{\App\CPU\translate('sign_in')}}
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{route('customer.auth.register')}}">
                 <i class="fa fa-user-circle {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2'
-                  }}"></i>{{\App\CPU\translate('sing_up')}}
+                  }}"></i>{{\App\CPU\translate('sign_up')}}
               </a>
             </div>
           </div>
@@ -406,43 +614,23 @@
         </div>
       </div>
     </div>
-    <div class="navbar navbar-expand-md navbar-stuck-menu bg-light border-top">
+
+    {{-- Bottom Nav --}}
+    <div class="navbar navbar-expand-md navbar-stuck-menu bg-light border-top d-none">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarCollapse" style="text-align: {{Session::get('direction') === "
           rtl" ? 'right' : 'left' }}">
 
-          <!-- Search-->
-          <!-- <div class="input-group-overlay d-md-none my-3">
-                        <form action="{{route('products')}}" type="submit" class="search_form">
-                            <input class="form-control appended-form-control search-bar-input-mobile" type="text"
-                                   autocomplete="off"
-                                   placeholder="{{\App\CPU\translate('search')}}" name="name">
-                            <input name="data_from" value="search" hidden>
-                            <input name="page" value="1" hidden>
-                            <button class="input-group-append-overlay search_button" type="submit"
-                                    style="border-radius: {{Session::get('direction') === "rtl" ? '7px 0px 0px 7px; right: unset; left: 0' : '0px 7px 7px 0px; left: unset; right: 0'}};">
-                            <span class="input-group-text" style="font-size: 20px;">
-                                <i class="czi-search text-white"></i>
-                            </span>
-                            </button
-                            <diV class="card search-card"
-                                 style="position: absolute;background: white;z-index: 999;width: 100%;display: none">
-                                <div class="card-body search-result-box" id=""
-                                     style="overflow:scroll; height:400px;overflow-x: hidden"></div>
-                            </diV>
-                        </form>
-                    </div> -->
-
-          @php($categories=\App\CPU\CategoryManager::parents())
+        @php($categories=\App\CPU\CategoryManager::parents())
           <ul class="navbar-nav mega-nav pr-2 pl-2 {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}">
                         <!--web-->
-                        <li class=" nav-item">
+                        <li class=" nav-item {{!request()->is('/none')?'dropdown':''}}">
             <a class="nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
               data-toggle="dropdown">
-              <i class="czi-menu align-middle mt-n1 {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"></i>
-              <span style="margin-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 40px
-                !important;margin-{{Session::get('direction')==="rtl" ? 'left' : 'right' }}: 50px">
-                {{-- {{ \App\CPU\translate('categories')}} --}}
+              <i class="czi-menu align-middle mt-n1"></i>
+              <span style="margin-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 5px
+                !important;margin-{{Session::get('direction')==="rtl" ? 'left' : 'right' }}: 5px">
+                {{ \App\CPU\translate('categories')}}
               </span>
             </a>
             @if(request()->is('/'))
