@@ -4,7 +4,7 @@
 # /storage/*.key
 # /vendor
 /public
-.env
+# .env
 /storage
 index.copy.php
 # .env.backup

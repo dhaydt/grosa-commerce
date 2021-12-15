@@ -436,7 +436,7 @@
           @php($categories=\App\CPU\CategoryManager::parents())
           <ul class="navbar-nav mega-nav pr-2 pl-2 {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}">
                         <!--web-->
-                        <li class=" nav-item {{!request()->is('/')?'dropdown':''}}">
+                        <li class=" nav-item">
             <a class="nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
               data-toggle="dropdown">
               <i class="czi-menu align-middle mt-n1 {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"></i>
@@ -808,8 +808,8 @@ fetch('https://ipapi.co/json/')
   .then(function(data) {
     // console.log('location',data);
 
-            $('#auto-loc').append(data.country_name)
-            $('#nav-global-location-slot').attr('data-original-title', data.city + ', ' + data.region);
+            $('#auto-loc').append(data.city)
+            $('#nav-global-location-slot').attr('data-original-title', data.country_name + ', ' + data.region);
   });
 </script>
 @endpush
