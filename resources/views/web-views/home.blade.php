@@ -328,7 +328,7 @@
                                  src="{{asset("storage/app/public/category/$category->icon")}}"
                                  alt="{{$category->name}}">
                             <p class="text-center"
-                               style="margin-top: -20px; font-size: 18px;">{{Str::limit($category->name, 17)}}</p>
+                               style="margin-top: 0px; font-size: 15px;">{{Str::limit($category->name, 17)}}</p>
                         </a>
                     </div>
                 @endforeach
