@@ -869,10 +869,6 @@ fetch('https://ipapi.co/json/')
   .then(function(data) {
     console.log('location',data);
 
-    $.ajax({
-         url: "set_session.php",
-         data: { location: data.City }
-    });
             if(data.region !== "West Java"){
                 $('#auto-loc').append('Out of range').attr('style', 'font-size: 16px; width: 90px;')
             }else{

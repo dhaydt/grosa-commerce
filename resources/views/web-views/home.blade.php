@@ -327,8 +327,8 @@
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset("storage/app/public/category/$category->icon")}}"
                                  alt="{{$category->name}}">
-                            <p class="text-center"
-                               style="margin-top: 0px; font-size: 15px;">{{Str::limit($category->name, 17)}}</p>
+                                 <p class="text-center"
+                                 style="margin-top: 0px; font-size: 15px; display: inline-block; white-space: nowrap; width: 100%;">{{Str::limit($category->name, 17)}}</p>
                         </a>
                     </div>
                 @endforeach
