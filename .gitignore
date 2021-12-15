@@ -3,9 +3,10 @@
 /public/storage
 # /storage/*.key
 # /vendor
-/public
+/public/public
+/public/storage/app/public
 # .env
-/storage
+/storage/app/public
 index.copy.php
 # .env.backup
 # .phpunit.result.cache
