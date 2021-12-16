@@ -84,7 +84,7 @@
                 </a>
                 @else
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="javascript:"
-                onclick="storeCart({{ $product->id }})">
+                onclick="addCart({{ $product->id }})"
                     <i style="font-weight: 900;font-size: 11px; margin-top: 2px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
                     Keranjang
                 </a>
@@ -94,37 +94,49 @@
 </div>
 @push('script')
 <script>
-    function storeCart(val) {
-        console.log(val);
-        jQuery.ajax({
-            url: "/cart/add",
-            type: 'POST',
-            data: {
-                "_token": `{{ csrf_token() }}`,
-                "id" : val,
-                'quantity': 1
-            },
-            dataType: 'json',
-
-            success: function(data){
-                console.log(data)
-                jQuery.ajax({
-                    url:"/cart/nav-cart-items",
-                    data: {
-                        "_token" : `{{ csrf_token() }}`
-                    },
-                    dataType: 'json',
-                    type: "POST",
-
-                    success: function(reload){
-                        console.log('added',reload)
-                        alert('Sukses menambahkan ke keranjang');
-     location.reload();
+    function addCart(val) {
+        if (checkAddToCartValidity()) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.post({
+                url: 'http://127.0.0.1:8000/cart/add',
+                data: {'id' : val, 'quantity': 1},
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (response) {
+                    // console.log(response);
+                    if (response.status == 1) {
+                        updateNavCart();
+                        toastr.success(response.message, {
+                            CloseButton: true,
+                            ProgressBar: true
+                        });
+                        $('.call-when-done').click();
+                        return false;
+                    } else if (response.status == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Cart',
+                            text: response.message
+                        });
+                        return false;
                     }
-                })
-                // Toastr::success('Berhasil menambahkan ke keranjang');
-            }
-        })
+                },
+                complete: function () {
+                    $('#loading').hide();
+                }
+            });
+        } else {
+            Swal.fire({
+                type: 'info',
+                title: 'Cart',
+                text: 'Please choose all the options'
+            });
+        }
     }
 
 </script>
