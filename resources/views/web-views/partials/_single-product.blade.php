@@ -27,12 +27,12 @@
                 <a href="{{route('product',$product->slug)}}">
                     <img src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"
                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                        style="width: 100%;max-height: 215px!important;">
+                        style="min-width:200px; width: 100%;min-height: 200px; max-height: 200px!important;">
                 </a>
             </div>
         </div>
 
-        <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:4.5rem; margin-bottom: 23px;">
+        <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:6.5rem; min-height:6.5rem; margin-bottom: 23px;">
             {{-- <div class="rating-show">
                 <span class="d-inline-block font-size-sm text-body">
                     @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">

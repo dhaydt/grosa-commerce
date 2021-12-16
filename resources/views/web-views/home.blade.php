@@ -566,8 +566,8 @@
             </div> --}}
             @endif
             <div class=" d-flex">
-              <div class="d-flex align-items-center justify-content-center" style="min-width: 110px">
-                <img style="height: 130px!important;"
+              <div class="d-flex align-items-center justify-content-center" style="min-width: 130px">
+                <img style="min-height: 130px!important; max-height: 130px!important; min-width:130px; max-width:130px;"
                   src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                   onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
               </div>
