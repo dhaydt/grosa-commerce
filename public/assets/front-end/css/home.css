@@ -1,5 +1,5 @@
 body {
-    background-color: #f2f3f7 !important;
+    background-color: #f9f9f9 !important;
 }
 .navbar-tool-icon {
     color: #000 !important;
@@ -22,8 +22,8 @@ a {
     }
 
 .category_div {
-    background: #fcfcfc no-repeat padding-box;
-    border: 1px solid #e2f0ff;
+    /* background: #fcfcfc no-repeat padding-box; */
+    /* border: 1px solid #e2f0ff; */
     border-radius: 5px;
     opacity: 1;
     padding: 5px;
