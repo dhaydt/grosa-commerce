@@ -109,7 +109,7 @@
                 }
             });
             $.post({
-                url: 'http://127.0.0.1:8000/cart/add',
+                url: '/cart/add',
                 data: {'id' : val, 'quantity': 1},
                 beforeSend: function () {
                     $('#loading').show();
