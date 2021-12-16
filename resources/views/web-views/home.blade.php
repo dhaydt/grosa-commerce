@@ -561,9 +561,9 @@
               </span>
             </div>
             @else
-            <div class="">
+            {{-- <div class="">
               <span class="for-discoutn-value-null"></span>
-            </div>
+            </div> --}}
             @endif
             <div class=" d-flex">
               <div class="d-flex align-items-center justify-content-center" style="min-width: 110px">
@@ -571,7 +571,7 @@
                   src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                   onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
               </div>
-              <div class="flash_deal_product_details pl-2 pr-1 d-flex align-items-center">
+              <div class="flash_deal_product_details pl-2 pr-1 py-2 d-flex align-items-center">
                 <div>
                   <h6 class="flash-product-title">
                     {{$deal->product['name']}}
@@ -777,7 +777,7 @@
 
     <div class="row mt-2 mb-3">
             @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
-            @if($key<12) <div class="col-xl-2 col-sm-3 col-6" style="margin-bottom: 10px">
+            @if($key<12) <div class="col-xl-2 col-sm-3 col-6 h-100" style="margin-bottom: 10px">
                 @if (empty($country))
                 @include('web-views.partials._single-product',['product'=>$product])
                 @else

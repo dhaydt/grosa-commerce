@@ -6,7 +6,7 @@
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
 
-        <div class="card-header inline_product clickable" style="cursor: pointer;max-height: 193px;min-height: 193px">
+        <div class="card-header inline_product clickable" style="cursor: pointer;max-height: 193px;min-height: 193px; padding: 0px;margin-bottom: 25px;">
             @if($product->discount > 0)
             <div class="d-flex" style="right: 0;top:0;position: absolute">
                 <span class="for-discoutn-value pr-1 pl-1">
