@@ -387,7 +387,7 @@
                             tabindex="0">
                             <img class="mt-1 mr-1" style="height: 20px; width: auto;" src="{{asset('public/assets/front-end/img/loc.png')}}" alt="">
                             <div class="mr-2 d-flex flex-column justify-content-center">
-                                <span class="nav-line-1 nav-progressive-content">Deliver to</span>
+                                <span class="nav-line-1 nav-progressive-content">Dikirim Ke</span>
                                 <span class="nav-line-2 nav-progressive-content d-flex" id="auto-loc">
                                     {{-- Indonesia --}}
                                 </span>
@@ -400,7 +400,9 @@
           <form action="{{route('products')}}" type="submit" class="search_form">
             <input class="form-control appended-form-control search-bar-input" type="text" autocomplete="off"
               placeholder="{{\App\CPU\translate('search')}}" name="name"
-              style="border: 2px solid #23a4e5; border-radius: 50px; border-top-right-radius: 50px !important; border-bottom-right-radius: 50px !important;">
+              style="border: 2px solid {{
+                $web_config['primary_color']
+              }}; border-radius: 50px; border-top-right-radius: 50px !important; border-bottom-right-radius: 50px !important;">
             <button class="input-group-append-overlay search_button" type="submit"
               style="border-radius: {{Session::get('direction') === " rtl" ? '50px 0px 0px 50px; right: unset; left: 0'
               : '0px 50px 50px 0px; left: unset; right: 0' }};">
@@ -870,7 +872,7 @@ fetch('https://ipapi.co/json/')
     console.log('location',data);
 
             if(data.region !== "West Java"){
-                $('#auto-loc').append('Out of range').attr('style', 'font-size: 16px; width: 90px;')
+                $('#auto-loc').append('Diluar jangkauan').attr('style', 'font-size: 16px; width: 120px;')
             }else{
                 $('#auto-loc').append(data.city)
             }
