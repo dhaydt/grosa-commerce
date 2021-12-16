@@ -1391,4 +1391,5 @@
   'Because_you_changed_the_address' => 'Because you changed the address',
   'You_changed_address' => 'You changed address',
   'sign_up' => 'Sign up',
+  '+ Keranjang' => '+ Keranjang',
 );

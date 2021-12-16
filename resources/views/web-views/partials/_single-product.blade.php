@@ -32,8 +32,8 @@
             </div>
         </div>
 
-        <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:7.5rem; margin-bottom: 23px;">
-            <div class="rating-show">
+        <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:4.5rem; margin-bottom: 23px;">
+            {{-- <div class="rating-show">
                 <span class="d-inline-block font-size-sm text-body">
                     @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
                         </i>
@@ -43,7 +43,7 @@
                         @endfor
                         <label class="badge-style">( {{$product->reviews_count}} )</label>
                 </span>
-            </div>
+            </div> --}}
             <div style="position: relative;" class="product-title1">
                 <a href="{{route('product',$product->slug)}}">
                     {{ Str::limit($product['name'], 25) }}
@@ -65,7 +65,7 @@
             </div>
 
         </div>
-        <div class="d-flex justify-content-left w-100" style="position: absolute;bottom: 11px;left: 15px;z-index: 2;">
+        {{-- <div class="d-flex justify-content-left w-100" style="position: absolute;bottom: 11px;left: 15px;z-index: 2;">
             <div class="flag">
                 <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
                     src="{{asset('public/assets/front-end')}}/img/flags/{{ strtolower($product['country'])  }}.png"
@@ -73,7 +73,7 @@
             </div>
            @php($c_name = App\Country::where('country', $product['country'])->get())
             <span style="font-size: 13px; color: #616166; line-height: 1.6;">{{ $c_name[0]->country_name }}</span>
-        </div>
+        </div> --}}
 
         <div class="card-body card-body-hidden" style="padding-bottom: 5px!important;">
             <div class="text-center">
@@ -84,11 +84,48 @@
                 </a>
                 @else
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="javascript:"
-                    onclick="quickView('{{$product->id}}')">
-                    <i class="czi-eye align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
-                    {{\App\CPU\translate('Quick')}} {{\App\CPU\translate('View')}}
+                onclick="storeCart({{ $product->id }})">
+                    <i style="font-weight: 900;font-size: 11px; margin-top: 2px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
+                    Keranjang
                 </a>
                 @endif
             </div>
         </div>
 </div>
+@push('script')
+<script>
+    function storeCart(val) {
+        console.log(val);
+        jQuery.ajax({
+            url: "/cart/add",
+            type: 'POST',
+            data: {
+                "_token": `{{ csrf_token() }}`,
+                "id" : val,
+                'quantity': 1
+            },
+            dataType: 'json',
+
+            success: function(data){
+                console.log(data)
+                jQuery.ajax({
+                    url:"/cart/nav-cart-items",
+                    data: {
+                        "_token" : `{{ csrf_token() }}`
+                    },
+                    dataType: 'json',
+                    type: "POST",
+
+                    success: function(reload){
+                        console.log('added',reload)
+                        alert('Sukses menambahkan ke keranjang');
+     location.reload();
+                    }
+                })
+                // Toastr::success('Berhasil menambahkan ke keranjang');
+            }
+        })
+    }
+
+</script>
+@endpush

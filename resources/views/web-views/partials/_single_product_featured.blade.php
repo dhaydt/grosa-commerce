@@ -36,7 +36,7 @@
 
         <div class="card-body inline_product text-center p-1 clickable"
             style="cursor: pointer; height:5.5rem; max-height: 5.5rem">
-            <div class="rating-show">
+            {{-- <div class="rating-show">
                 <span class="d-inline-block font-size-sm text-body">
                     @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
                         </i>
@@ -46,7 +46,7 @@
                         @endfor
                         <label class="badge-style">( {{$product->reviews()->count()}} )</label>
                 </span>
-            </div>
+            </div> --}}
             <div style="position: relative;" class="product-title1">
                 <a href="{{route('product',$product->slug)}}">
                     {{ Str::limit($product['name'], 30) }}
@@ -68,7 +68,7 @@
             </div>
 
         </div>
-        <div class="d-flex justify-content-start w-100" style="position: absolute;bottom: 0px;left: 5px;z-index: 1;">
+        {{-- <div class="d-flex justify-content-start w-100" style="position: absolute;bottom: 0px;left: 5px;z-index: 1;">
             <div class="flag">
                 <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
                     src="{{asset('public/assets/front-end')}}/img/flags/{{ strtolower($product->country)  }}.png"
@@ -76,9 +76,9 @@
             </div>
             @php($c_name = App\Country::where('country', $product->country)->get())
             <span style="font-size: 13px; color: #616166; line-height: 1.6;">{{ $c_name[0]->country_name }}</span>
-        </div>
+        </div> --}}
 
-        <div class="card-body card-body-hidden" style="padding-bottom: 5px!important;">
+        <div class="card-body card-body-hidden" style="padding-bottom: 5px!important; margin-top: -3.875rem;">
             <div class="text-center">
                 @if(Request::is('product/*'))
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="{{route('product',$product->slug)}}"
@@ -88,11 +88,51 @@
                 </a>
                 @else
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="javascript:"
-                    onclick="quickView('{{$product->id}}')" style="padding: 0.425rem 0.3rem; font-size: .7125rem;">
-                    <i class="czi-eye align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
-                    {{\App\CPU\translate('Quick')}} {{\App\CPU\translate('View')}}
+                    {{-- onclick="quickView('{{$product->id}}')"  --}}
+                    onclick="storeCart({{ $product['id'] }})"
+                    style="padding: 0.425rem 0.3rem; font-size: .7125rem;">
+                    <i style="font-weight: 900;font-size: 11px; margin-top: 2px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
+                    Keranjang
                 </a>
                 @endif
             </div>
         </div>
 </div>
+
+@push('script')
+<script>
+    function storeCart(val) {
+        console.log(val);
+        jQuery.ajax({
+            url: "/cart/add",
+            type: 'POST',
+            data: {
+                "_token": `{{ csrf_token() }}`,
+                "id" : val,
+                'quantity': 1
+            },
+            dataType: 'json',
+
+            success: function(data){
+                console.log(data)
+                jQuery.ajax({
+                    url:"/cart/nav-cart-items",
+                    data: {
+                        "_token" : `{{ csrf_token() }}`
+                    },
+                    dataType: 'json',
+                    type: "POST",
+
+                    success: function(reload){
+                        console.log('added',reload)
+                        alert('Sukses menambahkan ke keranjang');
+     location.reload();
+                    }
+                })
+                // Toastr::success('Berhasil menambahkan ke keranjang');
+            }
+        })
+    }
+
+</script>
+@endpush

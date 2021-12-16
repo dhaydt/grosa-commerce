@@ -234,7 +234,7 @@
                     <div class="d-flex align-items-center mb-2 pro">
                         <span
                             class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-md-2 ml-sm-0 pl-2' : 'mr-md-2 mr-sm-0 pr-2'}}">{{$overallRating[0]}}</span>
-                        <div class="star-rating">
+                       {{--  <div class="star-rating">
                             @for($inc=0;$inc<5;$inc++)
                                 @if($inc<$overallRating[0])
                                     <i class="sr-star czi-star-filled active"></i>
@@ -242,7 +242,7 @@
                                     <i class="sr-star czi-star"></i>
                                 @endif
                             @endfor
-                        </div>
+                        </div>  --}}
                         <span
                             class="font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-1 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-1 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">{{$overallRating[1]}} {{\App\CPU\translate('Reviews')}}</span>
                         <span style="width: 0px;height: 10px;border: 0.5px solid #707070; margin-top: 6px"></span>

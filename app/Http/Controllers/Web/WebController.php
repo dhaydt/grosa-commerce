@@ -272,6 +272,7 @@ class WebController extends Controller
     public function shop_cart()
     {
         if (auth('customer')->check() && Cart::where(['customer_id' => auth('customer')->id()])->count() > 0) {
+            $user = auth('customer')->id();
             if (auth('customer')->user()->district == null) {
                 // dd('no distrcit');
                 $country = DB::table('country')->get();
@@ -281,7 +282,6 @@ class WebController extends Controller
                 return view('web-views.addAddress', compact('country'));
             }
 
-            $user = auth('customer')->id();
             $address = ShippingAddress::where('customer_id', $user)->first();
 
             // dd($address);
