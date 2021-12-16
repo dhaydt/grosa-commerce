@@ -84,8 +84,8 @@
                 </a>
                 @else
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="javascript:"
-                onclick="addCart({{ $product->id }})"
-                    <i style="font-weight: 900;font-size: 11px; margin-top: 2px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
+                onclick="addCart({{ $product->id }})">
+                    <i style="font-weight: 900;font-size: 9px; margin-top: -1px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
                     Keranjang
                 </a>
                 @endif

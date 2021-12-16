@@ -91,7 +91,7 @@
                     {{-- onclick="quickView('{{$product->id}}')"  --}}
                     onclick="addCart({{ $product['id'] }})"
                     style="padding: 0.425rem 0.3rem; font-size: .7125rem;">
-                    <i style="font-weight: 900;font-size: 11px; margin-top: 2px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
+                    <i style="font-weight: 900;font-size: 9px; margin-top: 1px;" class="czi-add align-middle {{Session::get('direction') === " rtl" ? 'ml-1' : 'mr-1' }}"></i>
                     Keranjang
                 </a>
                 @endif
