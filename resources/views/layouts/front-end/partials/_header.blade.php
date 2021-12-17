@@ -223,6 +223,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        {{-- {{ dd($web_config) }} --}}
+
         <a class="navbar-brand d-none d-sm-block mr-0
           flex-shrink-0 tab-logo" href="{{route('home')}}" style="min-width: 7rem;">
           <img width="250" height="60" style="height: 60px!important;"

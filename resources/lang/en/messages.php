@@ -1392,4 +1392,5 @@
   'You_changed_address' => 'You changed address',
   'sign_up' => 'Sign up',
   '+ Keranjang' => '+ Keranjang',
+  'Flash_Sale_Banner' => 'Flash Sale Banner',
 );

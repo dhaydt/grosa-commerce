@@ -29,7 +29,6 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     public function boot()
     {
         try {
@@ -42,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
                 'name' => Helpers::get_settings($web, 'company_name'),
                 'phone' => Helpers::get_settings($web, 'company_phone'),
                 'web_logo' => Helpers::get_settings($web, 'company_web_logo'),
+                'flash_banner' => Helpers::get_settings($web, 'flash_sale_banner'),
                 'mob_logo' => Helpers::get_settings($web, 'company_mobile_logo'),
                 'fav_icon' => Helpers::get_settings($web, 'company_fav_icon'),
                 'email' => Helpers::get_settings($web, 'company_email'),
@@ -60,7 +60,6 @@ class AppServiceProvider extends ServiceProvider
 
             Schema::defaultStringLength(191);
         } catch (\Exception $ex) {
-
         }
     }
 }

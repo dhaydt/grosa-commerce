@@ -18,6 +18,27 @@
 <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css" />
 
 <style>
+.div-flash {
+  position: relative;
+  width: 100%; /* The size you want */
+}
+.div-flash:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+}
+
+.div-flash img {
+  position: absolute; /* Take your picture out of the flow */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; /* Make the picture taking the size of it's parent */
+  width: 100%; /* This if for the object-fit */
+  height: 100%; /* This if for the object-fit */
+  object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
+  object-position: center;
+}
   .media {
     background: white;
   }
@@ -544,7 +565,8 @@
             </div>
           </div>
         </div>
-        <div class="owl-carousel owl-theme" id="flash-deal-slider">
+        @include('web-views.partials._flash-deal')
+        {{-- <div class="owl-carousel owl-theme" id="flash-deal-slider">
           @foreach($flash_deals->products as $key=>$deal)
           @if( $deal->product)
           @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
@@ -560,12 +582,12 @@
                 @endif OFF
               </span>
             </div>
-            @else
+            @else --}}
             {{-- <div class="">
               <span class="for-discoutn-value-null"></span>
             </div> --}}
-            @endif
-            <div class=" d-flex">
+            {{-- @endif --}}
+            {{-- <div class=" d-flex">
               <div class="d-flex align-items-center justify-content-center" style="min-width: 130px">
                 <img style="min-height: 130px!important; max-height: 130px!important; min-width:130px; max-width:130px;"
                   src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
@@ -601,7 +623,7 @@
           </div>
           @endif
           @endforeach
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>
@@ -953,10 +975,10 @@
     $('#flash-deal-slider').owlCarousel({
             loop: true,
             autoplay: true,
-            margin: 5,
+            margin: 20,
             nav: false,
             //navText: ["<i class='czi-arrow-left'></i>", "<i class='czi-arrow-right'></i>"],
-            dots: true,
+            dots: false,
             autoplayHoverPause: true,
             // center: true,
             responsive: {
@@ -987,11 +1009,11 @@
                 },
                 //Extra large
                 1200: {
-                    items: 4
+                    items: 5
                 },
                 //Extra extra large
                 1400: {
-                    items: 4
+                    items: 5
                 }
             }
         })

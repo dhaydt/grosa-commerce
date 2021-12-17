@@ -1073,6 +1073,36 @@
                     </div>
                 </div>
 
+                {{-- New Flash banner --}}
+                <div class="row" style="padding-bottom: 20px">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>{{\App\CPU\translate('Flash_Sale_Banner')}}</h5>
+                                <span class="badge badge-soft-danger">( 240x480 px )</span>
+                            </div>
+                            <div class="card-body" style="padding: 20px">
+                                <center>
+                                    <img width="233" id="viewerWFS"
+                                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                         src="{{asset('storage/app/public/company')}}/{{\App\Model\BusinessSetting::where(['type' => 'flash_sale_banner'])->pluck('value')[0]}}">
+                                </center>
+                                <hr>
+                                <div class="row pl-4 pr-4">
+                                    <div class="col-12" style="text-align: left">
+                                        <input type="file" name="flash_sale_banner" id="customFileUploadWFS"
+                                               class="custom-file-input"
+                                               accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+                                        <label class="custom-file-label"
+                                               for="customFileUploadWFS">{{\App\CPU\translate('choose')}} {{\App\CPU\translate('file')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="row" style="padding-bottom: 20px">
                     <div class="col-md-4">
                         <div class="card">
@@ -1208,6 +1238,9 @@
 
         $("#customFileUploadWFL").change(function () {
             read_image(this, 'viewerWFL');
+        });
+        $("#customFileUploadWFS").change(function () {
+            read_image(this, 'viewerWFS');
         });
 
         $("#customFileUploadML").change(function () {
