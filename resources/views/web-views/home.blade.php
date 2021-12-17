@@ -18,6 +18,40 @@
 <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css" />
 
 <style>
+    .unf-bottomnav {
+        height: 50px;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-bottom: 50px;
+        background-color: var(--N0,#FFFFFF);
+        box-shadow: rgb(108 114 124 / 16%) 0px -2px 4px 0px;
+        z-index: 20;
+        display: flex;
+        /* max-width: 500px; */
+        margin: 0px auto;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .css-11rf802{
+        padding: 4px 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 16px;
+    color: rgba(49, 53, 59, 0.68);
+    text-decoration: initial;
+    white-space: nowrap;
+    }
+
 .div-flash {
   position: relative;
   width: 100%; /* The size you want */
@@ -817,152 +851,11 @@
   </section>
   @endif
   @endforeach
-
-
-  <!-- Product widgets-->
-  {{-- <section class="container pb-4 pb-md-5 rtl">
-    <div class="row">
-      <!-- Bestsellers-->
-      <div class="col-12 col-sm-6 col-md-4 mb-2 py-3">
-        <div class="widget">
-          <div class="d-flex justify-content-between">
-            <h3 class="widget-title">{{ \App\CPU\translate('best_sellings')}}</h3>
-            <div>
-              <a class="btn btn-outline-accent btn-sm"
-                href="{{route('products',['data_from'=>'best-selling','page'=>1])}}">{{ \App\CPU\translate('view_all')}}
-                <i class="czi-arrow-{{Session::get('direction') === " rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'
-                  }}"></i>
-              </a>
-            </div>
-          </div>
-          @foreach($bestSellProduct as $key=>$bestSell)
-          @if($bestSell->product && $key<4) <div class="media align-items-center pt-2 pb-2 mb-1"
-            data-href="{{route('product',$bestSell->product->slug)}}">
-            <a class="d-block {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"
-              href="{{route('product',$bestSell->product->slug)}}">
-              <img style="height: 54px; width: 54px"
-                onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$bestSell->product['thumbnail']}}"
-                alt="Product" />
-            </a>
-            <div class="media-body">
-              <h6 class="widget-product-title">
-                <a class="ptr" href="{{route('product',$product->slug)}}">{{substr($bestSell->product['name'],0,30)}}
-                  {{strlen($bestSell->product['name'])>30?'...':''}}</a>
-              </h6>
-              <div class="widget-product-meta">
-                <span class="text-accent">
-                  {{\App\CPU\Helpers::currency_converter(
-                  $bestSell->product->unit_price-(\App\CPU\Helpers::get_product_discount($bestSell->product,$bestSell->product->unit_price))
-                  )}}
-
-                  @if($bestSell->product->discount > 0)
-                  <strike style="font-size: 12px!important;color: grey!important;">
-                    {{\App\CPU\Helpers::currency_converter($bestSell->product->unit_price)}}
-                  </strike>
-                  @endif
-                </span>
-              </div>
-            </div>
-        </div>
-        @endif
-        @endforeach
-      </div>
+<div class="mobile-footer" id="mobile-footer">
+    <div class="container">
+        <div class="unf-bottomnav css-15iqbvc"><a class="active css-11rf802" href="/" data-cy="bottomnavHome" data-testid="icnFooterHome"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/20f068ca.svg" alt="home" class="css-mw28ox"></div>Home</a><a class="css-11rf802" href="/feed" data-cy="bottomnavFeed" id="bottomnavFeed" data-testid="icnFooterFeed"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/66eb4811.svg" alt="feed" class="css-mw28ox"></div>Feed</a><a class="css-11rf802" href="/official-store/" data-cy="bottomnavOS" data-testid="icnFooterOfficialStore"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/6a81d896.svg" alt="os" class="css-mw28ox"></div>Official Store</a><a class="css-11rf802" href="/wishlist" id="bottomnavWishlist" data-cy="bottomnavWishlist" data-testid="icnFooterWishlist"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/eb6fad37.svg" alt="wishlist" class="css-mw28ox"></div>Wishlist</a><a class="css-11rf802" href="/order-list" id="bottomnavTransaksi" data-cy="bottomnavTransaksi" data-testid="icnFooterTransaksi"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/18f3fc93.svg" alt="transaksi" class="css-mw28ox"></div>Transaksi</a></div>
     </div>
-    <!-- New arrivals-->
-    <div class="col-12 col-sm-6 col-md-4 mb-2 py-3">
-      <div class="widget">
-        <div class="d-flex justify-content-between">
-          <h3 class="widget-title">{{\App\CPU\translate('new_arrivals')}}</h3>
-          <div>
-            <a class="btn btn-outline-accent btn-sm" href="{{route('products',['data_from'=>'latest','page'=>1])}}">{{
-              \App\CPU\translate('view_all')}}
-              <i class="czi-arrow-{{Session::get('direction') === " rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'
-                }}"></i>
-            </a>
-          </div>
-        </div>
-        @foreach($latest_products as $key=>$product)
-        @if($key<4) <div class="media align-items-center pt-2 pb-2 mb-1"
-          data-href="{{route('product',$product->slug)}}">
-          <a class="d-block {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"
-            href="{{route('product',$product->slug)}}">
-            <img style="height: 54px; width: 54px"
-              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-              src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"
-              alt="Product" />
-          </a>
-          <div class="media-body">
-            <h6 class="widget-product-title">
-              <a class="ptr" href="{{route('product',$product->slug)}}">
-                {{substr($product['name'],0,30)}} {{strlen($product['name'])>30?'...':''}}
-              </a>
-            </h6>
-            <div class="widget-product-meta">
-              <span class="text-accent">
-                {{\App\CPU\Helpers::currency_converter(
-                $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))
-                )}}
-                @if($product->discount > 0)
-                <strike style="font-size: 12px!important;color: grey!important;">
-                  {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
-                </strike>
-                @endif
-              </span>
-            </div>
-          </div>
-      </div>
-      @endif
-      @endforeach
-    </div>
-    </div>
-    <!-- Top rated-->
-    <div class="col-12 col-sm-6 col-md-4 mb-2 py-3">
-      <div class="widget">
-        <div class="d-flex justify-content-between">
-          <h3 class="widget-title">{{\App\CPU\translate('top_rated')}}</h3>
-          <div><a class="btn btn-outline-accent btn-sm"
-              href="{{route('products',['data_from'=>'top-rated','page'=>1])}}">{{ \App\CPU\translate('view_all')}}
-              <i class="czi-arrow-{{Session::get('direction') === " rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'
-                }}"></i></a></div>
-        </div>
-        @foreach($topRated as $key=>$top)
-        @if($top->product && $key<4) <div class="media align-items-center pt-2 pb-2 mb-1"
-          data-href="{{route('product',$top->product->slug)}}">
-          <a class="d-block {{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}"
-            href="{{route('product',$top->product->slug)}}">
-            <img style="height: 54px; width: 54px"
-              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-              src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$top->product['thumbnail']}}"
-              alt="Product" />
-          </a>
-          <div class="media-body">
-            <h6 class="widget-product-title">
-              <a class="ptr" href="{{route('product',$top->product->slug)}}">
-                {{substr($top->product['name'],0,30)}} {{strlen($top->product['name'])>30?'...':''}}
-              </a>
-            </h6>
-            <div class="widget-product-meta">
-              <span class="text-accent">
-                {{\App\CPU\Helpers::currency_converter(
-                $top->product->unit_price-(\App\CPU\Helpers::get_product_discount($top->product,$top->product->unit_price))
-                )}}
-
-                @if($top->product->discount > 0)
-                <strike style="font-size: 12px!important;color: grey!important;">
-                  {{\App\CPU\Helpers::currency_converter($top->product->unit_price)}}
-                </strike>
-                @endif
-              </span>
-            </div>
-          </div>
-      </div>
-      @endif
-      @endforeach
-    </div>
-    </div>
-    </div>
-  </section> --}}
+</div>
   @endsection
 
   @push('script')
@@ -972,6 +865,14 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        console.log('android')
+        $('#mobile-footer').addClass('d-block')
+    }else{
+        $('#mobile-footer').addClass('d-none')
+        console.log('desktop')
+    }
+
     $('#flash-deal-slider').owlCarousel({
             loop: true,
             autoplay: true,
