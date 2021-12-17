@@ -23,9 +23,7 @@
         position: fixed;
         bottom: 0px;
         width: 100%;
-        padding-left: 10%;
-        padding-right: 10%;
-        padding-bottom: 50px;
+       padding: 50px;
         background-color: var(--N0,#FFFFFF);
         box-shadow: rgb(108 114 124 / 16%) 0px -2px 4px 0px;
         z-index: 20;
@@ -34,7 +32,7 @@
         margin: 0px auto;
         -webkit-box-pack: justify;
         justify-content: space-between;
-        align-items: flex-start;
+        /* align-items: flex-start; */
     }
 
     .css-11rf802{
@@ -852,9 +850,7 @@
   @endif
   @endforeach
 <div class="mobile-footer" id="mobile-footer">
-    <div class="container">
         <div class="unf-bottomnav css-15iqbvc"><a class="active css-11rf802" href="/" data-cy="bottomnavHome" data-testid="icnFooterHome"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/20f068ca.svg" alt="home" class="css-mw28ox"></div>Home</a><a class="css-11rf802" href="/feed" data-cy="bottomnavFeed" id="bottomnavFeed" data-testid="icnFooterFeed"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/66eb4811.svg" alt="feed" class="css-mw28ox"></div>Feed</a><a class="css-11rf802" href="/official-store/" data-cy="bottomnavOS" data-testid="icnFooterOfficialStore"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/6a81d896.svg" alt="os" class="css-mw28ox"></div>Official Store</a><a class="css-11rf802" href="/wishlist" id="bottomnavWishlist" data-cy="bottomnavWishlist" data-testid="icnFooterWishlist"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/eb6fad37.svg" alt="wishlist" class="css-mw28ox"></div>Wishlist</a><a class="css-11rf802" href="/order-list" id="bottomnavTransaksi" data-cy="bottomnavTransaksi" data-testid="icnFooterTransaksi"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/18f3fc93.svg" alt="transaksi" class="css-mw28ox"></div>Transaksi</a></div>
-    </div>
 </div>
   @endsection
 
