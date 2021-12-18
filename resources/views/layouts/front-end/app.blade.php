@@ -5,7 +5,8 @@
     <title>
         @yield('title')
     </title>
-    <meta name="viewport" content="width=1024">
+    {{-- <meta name="viewport" content="width=1024"> --}}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
@@ -46,6 +47,41 @@
         body {
             background-color: #f7f8fa94;
         }
+
+        .mobile-footer{
+    }
+    .unf-bottomnav {
+        padding: 10px 20px 10px 20px;
+        height: 50px;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        padding-bottom: 50px;
+        background-color: var(--N0,#FFFFFF);
+        box-shadow: rgb(108 114 124 / 16%) 0px -2px 4px 0px;
+        z-index: 20;
+        display: flex;
+        max-width: 500px;
+        margin: 0px auto;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .css-11rf802{
+    padding: 4px 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 16px;
+    color: rgba(49, 53, 59, 0.68);
+    text-decoration: initial;
+    white-space: nowrap;
+    }
 
         .rtl {
             direction: {{ Session::get('direction') }};
@@ -666,7 +702,7 @@
 
 <!-- Page Content-->
 @yield('content')
-
+@include('layouts.front-end.partials._mobile_footer')
 <!-- Footer-->
 <!-- Footer-->
 @include('layouts.front-end.partials._footer')
@@ -706,6 +742,14 @@
 {!! Toastr::message() !!}
 
 <script>
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        console.log('android')
+        $('#mobile-footer').addClass('d-block')
+    }else{
+        $('#mobile-footer').addClass('d-none')
+        console.log('desktop')
+    }
+
     function addWishlist(product_id) {
         $.ajaxSetup({
             headers: {

@@ -1,4 +1,14 @@
 {{--code improved Md. Al imrun Khandakar--}}
+<style>
+    @media (max-width: 600px){
+        .navbar-tool {
+            margin-left: 0.3rem !important;
+        }
+        .navbar-tool-icon.czi-cart {
+            color: white !important;
+        }
+    }
+</style>
 <div class="navbar-tool dropdown {{Session::get('direction') === "rtl" ? 'mr-3' : 'ml-3'}}"
      style="margin-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}: 6px">
     <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="{{route('shop-cart')}}">
@@ -6,7 +16,7 @@
             @php($cart=\App\CPU\CartManager::get_cart())
             {{$cart->count()}}
         </span>
-        <i class="navbar-tool-icon czi-cart"></i>
+        <i class="navbar-tool-icon czi-cart text-white"></i>
     </a>
     <a class="navbar-tool-text" href="{{route('shop-cart')}}"><small>{{\App\CPU\translate('my_cart')}}</small>
         {{\App\CPU\Helpers::currency_converter(\App\CPU\CartManager::cart_total_applied_discount(\App\CPU\CartManager::get_cart()))}}

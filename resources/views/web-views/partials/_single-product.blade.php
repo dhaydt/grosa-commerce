@@ -1,5 +1,20 @@
+<style>
+    .center-div a img {
+        min-width:200px;
+        width: 100%;
+        min-height: 200px;
+        max-height: 200px!important;
+        }
+    @media (max-width: 600px) {
+        .center-div a img {
+            min-width: 168px;
+            max-width: 168px;
+            min-height: 168px;
+            max-height: 168px;
+        }
+    }
+</style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
-
 <div class="product-card card {{$product['current_stock']==0?'stock-card':''}}"
     style="margin-bottom: 40px;display: flex; align-items: center; justify-content: center;">
     @if($product['current_stock']<=0) <label style="left: 29%!important; top: 29%!important;"
@@ -26,24 +41,12 @@
             <div class="d-flex d-block center-div element-center" style="cursor: pointer">
                 <a href="{{route('product',$product->slug)}}">
                     <img src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"
-                        onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                        style="min-width:200px; width: 100%;min-height: 200px; max-height: 200px!important;">
+                        onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'">
                 </a>
             </div>
         </div>
 
         <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:6.5rem; min-height:6.5rem; margin-bottom: 23px;">
-            {{-- <div class="rating-show">
-                <span class="d-inline-block font-size-sm text-body">
-                    @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
-                        </i>
-                        @else
-                        <i class="sr-star czi-star"></i>
-                        @endif
-                        @endfor
-                        <label class="badge-style">( {{$product->reviews_count}} )</label>
-                </span>
-            </div> --}}
             <div style="position: relative;" class="product-title1">
                 <a href="{{route('product',$product->slug)}}">
                     {{ Str::limit($product['name'], 25) }}

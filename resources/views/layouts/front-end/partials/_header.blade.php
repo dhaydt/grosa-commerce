@@ -1,7 +1,11 @@
 {{-- navabr / _header --}}
 <style>
-    body > header > div > div.navbar.navbar-expand-md.navbar-light > div > ul.navbar-nav.mega-nav.pr-2.pl-2 > li > a::after {
-        display: none;
+    .mobile-head .navbar.navbar-dark{
+        background-color: {{ $web_config['primary_color'] }};
+    }
+
+    .cate-mobile::after {
+        display: none
     }
 
     .just-padding {
@@ -209,7 +213,7 @@
   }
 </style>
 
-<header class="box-shadow-sm rtl">
+<header class="box-shadow-sm rtl d-none d-md-block">
 
   <div class="navbar-sticky bg-light mobile-head">
     <div class="navbar navbar-expand-md navbar-light">
@@ -861,6 +865,11 @@
       </div>
     </div>
   </div>
+</header>
+
+{{-- Mobile navbar --}}
+<header class="box-shadow-sm rtl d-block d-md-none">
+    @include('layouts.front-end.partials._mobile_header')
 </header>
 
 @push('script')

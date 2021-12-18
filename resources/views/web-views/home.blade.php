@@ -18,38 +18,6 @@
 <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css" />
 
 <style>
-    .unf-bottomnav {
-        height: 50px;
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
-       padding: 50px;
-        background-color: var(--N0,#FFFFFF);
-        box-shadow: rgb(108 114 124 / 16%) 0px -2px 4px 0px;
-        z-index: 20;
-        display: flex;
-        /* max-width: 500px; */
-        margin: 0px auto;
-        -webkit-box-pack: justify;
-        justify-content: space-between;
-        /* align-items: flex-start; */
-    }
-
-    .css-11rf802{
-        padding: 4px 0px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 16px;
-    color: rgba(49, 53, 59, 0.68);
-    text-decoration: initial;
-    white-space: nowrap;
-    }
-
 .div-flash {
   position: relative;
   width: 100%; /* The size you want */
@@ -168,6 +136,10 @@
     max-width: none;
   }
 
+  section.brands {
+    margin-top: 100px;
+  }
+
   @media (max-width: 375px) {
     .cz-countdown {
       display: flex !important;
@@ -185,6 +157,13 @@
   }
 
   @media (max-width: 600px) {
+    section.brands {
+        margin-top: 50px;
+    }
+    .footer_banner_img {
+        min-height: 99.8px;
+        max-height: 99.8px;
+    }
     .flash_deal_title {
       font-weight: 600;
       font-size: 18px;
@@ -390,14 +369,14 @@
     </section>
 
     {{-- small banner --}}
-    <section>
+    <section class="banner">
        <div class="container my-5">
-        <div class="row mt-2">
+        <div class="row mt-2 justify-content-center">
             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
-                <div class="col-4">
+                <div class="col-md-4 col-6 h-100 w-100">
                     <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
-                       style="cursor: pointer;">
-                        <img class="d-block footer_banner_img" style="width: 100%"
+                       style="cursor: pointer;" class="w-100 h-100">
+                        <img class="d-block footer_banner_img w-100 h-100"
                              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                              src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}">
                     </a>
@@ -552,7 +531,7 @@
 @endif
 
   @if (isset($flash_deals) && empty($country))
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col-md-12">
         <div class="section-header mb-4 fd rtl row justify-content-between">
@@ -662,7 +641,7 @@
   @endif
 
   {{--brands--}}
-    <section class="container rtl mb-5">
+    <section class="brands container rtl mb-5">
         <!-- Heading-->
         <div class="section-header">
             <div class="feature_header" style="color: black">
@@ -849,9 +828,7 @@
   </section>
   @endif
   @endforeach
-<div class="mobile-footer" id="mobile-footer">
-        <div class="unf-bottomnav css-15iqbvc"><a class="active css-11rf802" href="/" data-cy="bottomnavHome" data-testid="icnFooterHome"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/20f068ca.svg" alt="home" class="css-mw28ox"></div>Home</a><a class="css-11rf802" href="/feed" data-cy="bottomnavFeed" id="bottomnavFeed" data-testid="icnFooterFeed"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/66eb4811.svg" alt="feed" class="css-mw28ox"></div>Feed</a><a class="css-11rf802" href="/official-store/" data-cy="bottomnavOS" data-testid="icnFooterOfficialStore"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/6a81d896.svg" alt="os" class="css-mw28ox"></div>Official Store</a><a class="css-11rf802" href="/wishlist" id="bottomnavWishlist" data-cy="bottomnavWishlist" data-testid="icnFooterWishlist"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/eb6fad37.svg" alt="wishlist" class="css-mw28ox"></div>Wishlist</a><a class="css-11rf802" href="/order-list" id="bottomnavTransaksi" data-cy="bottomnavTransaksi" data-testid="icnFooterTransaksi"><div class="css-mw28ox"><img width="24" height="24" src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/18f3fc93.svg" alt="transaksi" class="css-mw28ox"></div>Transaksi</a></div>
-</div>
+  @include('layouts.front-end.partials._mobile_footer')
   @endsection
 
   @push('script')
@@ -861,14 +838,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-        console.log('android')
-        $('#mobile-footer').addClass('d-block')
-    }else{
-        $('#mobile-footer').addClass('d-none')
-        console.log('desktop')
-    }
-
     $('#flash-deal-slider').owlCarousel({
             loop: true,
             autoplay: true,
@@ -884,13 +853,13 @@
                     items: 1
                 },
                 360: {
-                    items: 1
+                    items: 2
                 },
                 375: {
                     items: 1
                 },
                 540: {
-                    items: 2
+                    items: 1
                 },
                 //Small
                 576: {
@@ -898,7 +867,7 @@
                 },
                 //Medium
                 768: {
-                    items: 3
+                    items: 2
                 },
                 //Large
                 992: {
