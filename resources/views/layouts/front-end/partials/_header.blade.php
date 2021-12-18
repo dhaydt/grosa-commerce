@@ -1,5 +1,8 @@
 {{-- navabr / _header --}}
 <style>
+    .span-cat::after{
+        display: none;
+    }
     .mobile-head .navbar.navbar-dark{
         background-color: {{ $web_config['primary_color'] }};
     }
@@ -248,7 +251,7 @@
           <ul class="navbar-nav mega-nav pr-2 pl-2" style="max-width: 70px;">
                         <!--web-->
                         <li class=" nav-item {{!request()->is('/none')?'dropdown':''}}">
-            <a class="nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
+            <a class="span-cat nav-link dropdown-toggle {{Session::get('direction') === " rtl" ? 'pr-0' : 'pl-0' }}" href="#"
               data-toggle="dropdown">
               <i class="czi-menu align-middle mt-n1"></i>
               <span style="margin-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 5px

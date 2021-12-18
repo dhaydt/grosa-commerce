@@ -1,4 +1,4 @@
-<div class="mobile-footer" id="mobile-footer">
+<div class="mobile-footer d-block d-md-none" id="mobile-footer">
     <div class="unf-bottomnav css-15iqbvc">
         <a class="active css-11rf802" href="/" data-cy="bottomnavHome"
             data-testid="icnFooterHome">
