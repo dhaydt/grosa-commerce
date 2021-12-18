@@ -136,10 +136,6 @@
     max-width: none;
   }
 
-  section.brands {
-    margin-top: 100px;
-  }
-
   @media (max-width: 375px) {
     .cz-countdown {
       display: flex !important;
@@ -531,7 +527,7 @@
 @endif
 
   @if (isset($flash_deals) && empty($country))
-  <div class="container mb-5">
+  <div class="container mb-4">
     <div class="row">
       <div class="col-md-12">
         <div class="section-header mb-4 fd rtl row justify-content-between">

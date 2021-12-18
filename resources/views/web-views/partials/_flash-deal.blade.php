@@ -1,11 +1,12 @@
 <style>
     .bandiv{
             min-height: 400px;
+            max-height: 400px;
             width: 96%;
             background-color: {{ $web_config['primary_color'] }};
             border-radius:10px;
         }
-    .bandiv .img {
+    .bandiv img {
         max-height: 400px;
         min-height: 400px;
     }
