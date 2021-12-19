@@ -10,6 +10,13 @@
     .carousel-inner {
         border-radius: 20px
     }
+    @media(max-width: 600px){
+        .carousel-inner .carousel-item a img{
+            min-height: 138px;
+            max-height: 138px !important;
+            transition: .3s
+        }
+    }
 </style>
 
 <div class="row rtl mb-4">

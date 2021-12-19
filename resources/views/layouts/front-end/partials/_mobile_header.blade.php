@@ -3,7 +3,7 @@
         <div class="container ">
             <div class="row w-100">
 
-                <div class="col-md-6 col-sm-9 col-9">
+                <div class="col-md-6 col-sm-10 col-10">
                     <div class="input-group-overlay" style="text-align: {{Session::get('direction') === " rtl"
                         ? 'right' : 'left' }}">
                         <form action="{{route('products')}}" type="submit" class="search_form">
@@ -26,7 +26,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-3 col-3">
+                <div class="col-md-2 col-2">
                      <!-- Toolbar-->
                     <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
                         <a class="navbar-tool navbar-stuck-toggler" href="#">
@@ -43,7 +43,7 @@
                                 <i class="navbar-tool-icon czi-heart"></i>
                             </a>
                         </div> --}}
-                        @if(auth('customer')->check())
+                        {{-- @if(auth('customer')->check())
                         <div class="dropdown">
                             <a class="navbar-tool ml-2 mr-2 " type="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -90,7 +90,7 @@
                                 </a>
                             </div>
                         </div>
-                        @endif
+                        @endif --}}
                         <div id="cart_items">
                             @include('layouts.front-end.partials.cart')
                         </div>
@@ -99,3 +99,40 @@
             </div>
     </div>
 </div>
+<div class="bottom-nav" style="background-color: #f2f3f7">
+    <div id="loc-mobile" class="d-flex container p-2 px-4" data-toggle="tooltip" data-placement="top" title="Location">
+        <span id="nav-global-location-data-modal-action" class="a-declarative nav-progressive-attribute">
+            <a id="nav-global-location-popover-link"
+                class="d-flex align-items-center nav-a nav-a-2 a-popover-trigger a-declarative nav-progressive-attribute"
+                tabindex="0">
+
+            </a>
+        </span>
+        <div class="mr-2 d-flex align-items-center justify-content-center">
+            <span class="nav-line-1 nav-progressive-content mr-2" style="color: #5a5757">Area pengiriman</span>
+            <img class="mr-1" style="height: 14px; width: auto;" src="{{asset('public/assets/front-end/img/loc.png')}}" alt="">
+            <span class="nav-line-2 nav-progressive-content d-flex" id="auto-loc-mobile">
+                {{-- Indonesia --}}
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+fetch('https://ipapi.co/json/')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    console.log('location mobile',data);
+
+            if(data.region !== "West Java"){
+                $('#auto-loc-mobile').append('Diluar jangkauan').attr('style', 'font-size: 16px; width: 120px;color: #5a5757;')
+            }else{
+                $('#auto-loc-mobile').append(data.city)
+            }
+            $('#loc-mobile').attr('data-original-title', data.country_name + ', ' + data.region);
+  });
+</script>
