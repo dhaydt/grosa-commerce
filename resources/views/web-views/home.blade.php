@@ -198,8 +198,8 @@
     }
     .product-item {
         flex: 0 0 auto;
-        max-width: 140px;
-        min-width: 140px;
+        max-width: 150px;
+        min-width: 150px;
     }
 
     .feature_header span {
@@ -748,7 +748,7 @@
 
     <div class="row product-wrapper  mt-2 mb-3">
             @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
-            @if($key<12) <div class="product-item  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
+            @if($key<12) <div class="product-item pl-0  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
                 @if (empty($country))
                 @include('web-views.partials._single-product',['product'=>$product])
                 @else
