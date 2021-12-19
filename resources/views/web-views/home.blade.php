@@ -291,6 +291,9 @@
     }
 
     @media (max-width:768px) {
+        .cat-header {
+            font-size: 20px !important
+        }
       .nav-item.dropdown.ml-auto {
         margin-left: 0px !important;
       }
@@ -361,7 +364,7 @@
     <section class="container rtl">
         <!-- Heading-->
         <div class="section-header">
-            <div class="feature_header">
+            <div class="feature_header cat-header">
                 <span>{{ \App\CPU\translate('categories')}}</span>
             </div>
             <div>
