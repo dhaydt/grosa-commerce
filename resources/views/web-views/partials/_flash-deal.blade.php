@@ -259,13 +259,11 @@
             <div class="css-13ekl7h" data-testid="master-product-card">
                 <div class="css-2lm59p" data-testid="">
                     <div class="pcv3__container css-gfx8z3">
-                        <div class="css-zimbi"><a
-                                href="/sinigrosir/kipas-angin-heli-fan-15w-arashi-ceiling-fan-4-daun-garansi-1-tahun?trkid=f%3DP0Cb0_src%3Dsprint-sale_page%3D1_ob%3D29_catid%3D3939&amp;xClientId=1975345108.1637341028">
+                        <div class="css-zimbi">
                                 <div class="css-1sfomcl" data-testid="imgProduct"><img crossorigin="anonymous"
                                     src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                        title="" alt=""></div>
-                            </a></div>
+                                        title="" alt=""></div></div>
                         <div class="css-974ipl">
                             <h6 class="flash-product-title">
                                 {{$deal->product['name']}}
