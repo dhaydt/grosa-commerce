@@ -1013,7 +1013,7 @@
             margin: 5,
             nav: false,
             // navText: ["<i class='czi-arrow-left'></i>","<i class='czi-arrow-right'></i>"],
-            dots: true,
+            dots: false,
             autoplayHoverPause: true,
             // center: true,
             responsive: {
