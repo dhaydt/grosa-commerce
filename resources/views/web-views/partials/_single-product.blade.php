@@ -14,15 +14,15 @@
         }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 180px;
-            min-height: 180px;
-            margin-bottom: 20px;
+            max-height: 140px;
+            min-height: 140px;
+            margin-bottom: 5px;
         }
         .center-div a img {
             min-width: 100%;
             max-width: 100%;
-            max-height: 180px;
-            min-height: 180px;
+            max-height: 140px;
+            min-height: 140px;
             border-radius: 10px 10px;
         }
 
@@ -33,12 +33,21 @@
         .product-card.card .card-body-hidden {
             visibility: visible !important;
             opacity: 1 !important;
-            margin-top: -31px;
+            margin-top: -28px;
+            padding-top: 0;
             z-index: 2;
+        }
+
+        .product-card.card .card-body-hidden .text-center a{
+            font-size:10px;
         }
 
         .product-title1 a{
             font-size: 14px;
+        }
+
+        .product-price .text-accent {
+            font-size: 14px !important;
         }
     }
 </style>

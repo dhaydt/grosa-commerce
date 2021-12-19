@@ -110,6 +110,10 @@
 
   }
 
+  .brand_div {
+      background-color: transparent !important;
+  }
+
   .category_div:hover {
     color: {{$web_config['secondary_color']}};
   }
@@ -194,16 +198,16 @@
     }
     .product-item {
         flex: 0 0 auto;
-        max-width: 180px;
-        min-width: 180px;
+        max-width: 140px;
+        min-width: 140px;
     }
 
     .feature_header span {
-        font-size: 20px !important;
+        font-size: 18px !important;
     }
 
     .flash_deal_title {
-        font-size: 20px !important;
+        font-size: 18px !important;
     }
 
     .footer_banner_img {
@@ -469,7 +473,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="section-header mb-2 fd rtl row justify-content-between">
-          <div class="col-md-2 col-3 mt-1" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
+          <div class="col-md-2 col-3 mt-2" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
             <div class="d-inline-flex displayTab">
               <span class="flash_deal_title ">
                 {{$flash_deals['title']}}
@@ -889,10 +893,10 @@
                     items: 3
                 },
                 375: {
-                    items: 3
+                    items: 6
                 },
                 540: {
-                    items: 4
+                    items: 6
                 },
                 //Small
                 576: {
