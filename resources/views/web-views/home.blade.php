@@ -160,16 +160,19 @@
   }
 
   @media (max-width: 600px) {
+    .cat-header span{
+            font-size: 20px !important
+        }
     .cat-link img {
-    height: auto;
-  }
+        height: auto;
+    }
 
   .cat-link p {
     font-size: 13px;
   }
 
     body > section.banner > div > div > div:nth-child(1){
-        margin-left: 192vw;
+        margin-left: 125vw;
     }
     .banner-wrapper {
         display: flex;
@@ -178,13 +181,15 @@
     }
     .banner-item {
         flex: 0 0 auto;
+        max-width: 75vw;
     }
     section.brands {
         margin-top: 50px;
     }
     .footer_banner_img {
-        min-height: 185.8px;
-        max-height: 185.8px;
+        min-height: 130px;
+        max-height: 130px;
+
     }
     .flash_deal_title {
       font-weight: 600;
@@ -291,9 +296,6 @@
     }
 
     @media (max-width:768px) {
-        .cat-header {
-            font-size: 20px !important
-        }
       .nav-item.dropdown.ml-auto {
         margin-left: 0px !important;
       }
