@@ -23,7 +23,7 @@
             max-width: 100%;
             max-height: 150px;
             min-height: 150px;
-            border-radius: 10px 10px;
+            border-radius: 10px 10px 0 0;
         }
 
         .product-card.card {
