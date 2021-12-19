@@ -160,6 +160,9 @@
   }
 
   @media (max-width: 600px) {
+    .flash_deal_title {
+        font-size: 20px
+    }
     .cat-header span{
             font-size: 20px !important
         }
@@ -183,9 +186,26 @@
         flex: 0 0 auto;
         max-width: 75vw;
     }
-    section.brands {
-        margin-top: 50px;
+
+    .product-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
+    .product-item {
+        flex: 0 0 auto;
+        max-width: 180px;
+        min-width: 180px;
+    }
+
+    .feature_header span {
+        font-size: 20px;
+    }
+
+    .flash_deal_title {
+        font-size: 20px;
+    }
+
     .footer_banner_img {
         min-height: 130px;
         max-height: 130px;
@@ -396,7 +416,7 @@
 
     {{-- small banner --}}
     <section class="banner">
-       <div class="container my-5">
+       <div class="container mb-2">
         <div class="row mt-2 justify-content-center banner-wrapper">
             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                 <div class="col-md-4 col-12 h-100 w-100 banner-item">
@@ -444,132 +464,19 @@
 @php($flash_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->where(['deal_type'=>'flash_deal'])->whereDate('start_date','
 <=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->first())
 
-@if (isset($country))
-    <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-header mb-4 fd rtl row justify-content-between">
-          <div class="col-md-2" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
-            <div class="d-inline-flex displayTab">
-              <span class="flash_deal_title ">
-                {{$flash_deals['title']}}
-              </span>
-            </div>
-          </div>
-          <div class="col-lg-10 col-md-8 col-sm-10 col-12 timer" style="padding-{{Session::get('direction') === " rtl"
-            ? 'left' : 'right' }}: 0">
-            <div class="view_all view-btn-div-f w-100" style="justify-content: space-between !important">
-              <div class="px-2">
-                <span class="cz-countdown" style="margin-left: -6vw;"
-                  data-countdown="{{isset($flash_deals)?date('m/d/Y',strtotime($flash_deals['end_date'])):''}} 11:59:00 PM">
-                  <span class="cz-countdown-days">
-                    <span class="cz-countdown-value"></span>
-                  </span>
-                  <span class="cz-countdown-value">:</span>
-                  <span class="cz-countdown-hours">
-                    <span class="cz-countdown-value"></span>
-                  </span>
-                  <span class="cz-countdown-value">:</span>
-                  <span class="cz-countdown-minutes">
-                    <span class="cz-countdown-value"></span>
-                  </span>
-                  <span class="cz-countdown-value">:</span>
-                  <span class="cz-countdown-seconds">
-                    <span class="cz-countdown-value"></span>
-                  </span>
-                </span>
-              </div>
-              <div class="">
-                <a class="btn btn-outline-accent btn-sm viw-btn-a"
-                  href="{{route('flash-deals',[isset($flash_deals)?$flash_deals['id']:0])}}">{{
-                  \App\CPU\translate('view_all')}}
-                  <i class="czi-arrow-{{Session::get('direction') === " rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'
-                    }}"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-          @if (count($flash->products[0]->product) > 0)
-        <div class="owl-carousel owl-theme" id="flash-deal-slider">
-          @foreach($flash->products[0]->product as $key=>$deal)
-          @if( $deal->product)
-          @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
-          <div class="flash_deal_product rtl" style="cursor: pointer;"
-            onclick="location.href='{{route('product',$deal->product->slug)}}'">
-            @if($deal->product->discount > 0)
-            <div class=" discount-top-f">
-              <span class="for-discoutn-value">
-                @if ($deal->product->discount_type == 'percent')
-                {{round($deal->product->discount)}}%
-                @elseif($deal->product->discount_type =='flat')
-                {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
-                @endif OFF
-              </span>
-            </div>
-            @else
-            <div class="">
-              <span class="for-discoutn-value-null"></span>
-            </div>
-            @endif
-            <div class=" d-flex">
-              <div class="d-flex align-items-center justify-content-center" style="min-width: 110px">
-                <img style="height: 130px!important;"
-                  src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
-                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
-              </div>
-              <div class="flash_deal_product_details pl-2 pr-1 d-flex align-items-center">
-                <div>
-                  <h6 class="flash-product-title">
-                    {{$deal->product['name']}}
-                  </h6>
-                  <div class="flash-product-price">
-                    {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
-                    @if($deal->product->discount > 0)
-                    <strike style="font-size: 12px!important;color: grey!important;">
-                      {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}
-                    </strike>
-                    @endif
-                  </div>
-                  <h6 class="flash-product-review">
-                    @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
-                      </i>
-                      @else
-                      <i class="sr-star czi-star"></i>
-                      @endif
-                      @endfor
-                      <label class="badge-style2">
-                        ( {{$deal->product->reviews()->count()}} )
-                      </label>
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          @endif
-          @endforeach
-        </div>
-        @else
-                <h4 class="text-center" style="color: #828584;">Not Availbale in this country</h4>
-            @endif
-      </div>
-    </div>
-  </div>
-@endif
-
-  @if (isset($flash_deals) && empty($country))
+  @if (isset($flash_deals))
   <div class="container mb-4">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-header mb-4 fd rtl row justify-content-between">
-          <div class="col-md-2" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
+        <div class="section-header mb-2 fd rtl row justify-content-between">
+          <div class="col-md-2 col-3 mt-1" style="padding-{{Session::get('direction') === " rtl" ? 'right' : 'left' }}: 0">
             <div class="d-inline-flex displayTab">
               <span class="flash_deal_title ">
                 {{$flash_deals['title']}}
               </span>
             </div>
           </div>
-          <div class="col-lg-10 col-md-8 col-sm-10 col-12 timer" style="padding-{{Session::get('direction') === " rtl"
+          <div class="col-lg-10 col-md-8 col-sm-10 col-9 timer" style="padding-{{Session::get('direction') === " rtl"
             ? 'left' : 'right' }}: 0">
             <div class="view_all view-btn-div-f w-100" style="justify-content: space-between !important">
               <div class="px-2">
@@ -668,7 +575,7 @@
   @endif
 
   {{--brands--}}
-    <section class="brands container rtl mb-5">
+    <section class="brands container rtl">
         <!-- Heading-->
         <div class="section-header">
             <div class="feature_header" style="color: black">
@@ -835,9 +742,9 @@
       </div>
     </div>
 
-    <div class="row mt-2 mb-3">
+    <div class="row product-wrapper  mt-2 mb-3">
             @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
-            @if($key<12) <div class="col-xl-2 col-sm-3 col-6 h-100" style="margin-bottom: 10px">
+            @if($key<12) <div class="product-item  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
                 @if (empty($country))
                 @include('web-views.partials._single-product',['product'=>$product])
                 @else
@@ -883,10 +790,10 @@
                     items: 2
                 },
                 375: {
-                    items: 1
+                    items: 2
                 },
                 540: {
-                    items: 1
+                    items: 2
                 },
                 //Small
                 576: {

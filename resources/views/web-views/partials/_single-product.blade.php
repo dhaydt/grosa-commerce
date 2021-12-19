@@ -1,4 +1,11 @@
 <style>
+    .card-header {
+        cursor: pointer;
+        max-height: 193px;
+        min-height: 193px;
+        padding: 0px;
+        margin-bottom: 25px;
+    }
     .center-div a img {
         min-width:200px;
         width: 100%;
@@ -6,11 +13,32 @@
         max-height: 200px!important;
         }
     @media (max-width: 600px) {
+        .card-header {
+            max-height: 180px;
+            min-height: 180px;
+            margin-bottom: 20px;
+        }
         .center-div a img {
-            min-width: 168px;
-            max-width: 168px;
-            min-height: 168px;
-            max-height: 168px;
+            min-width: 100%;
+            max-width: 100%;
+            max-height: 180px;
+            min-height: 180px;
+            border-radius: 10px 10px;
+        }
+
+        .product-card.card {
+            border-radius: 10px 10px;
+        }
+
+        .product-card.card .card-body-hidden {
+            visibility: visible !important;
+            opacity: 1 !important;
+            margin-top: -31px;
+            z-index: 2;
+        }
+
+        .product-title1 a{
+            font-size: 14px;
         }
     }
 </style>
@@ -21,7 +49,7 @@
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
 
-        <div class="card-header inline_product clickable" style="cursor: pointer;max-height: 193px;min-height: 193px; padding: 0px;margin-bottom: 25px;">
+        <div class="card-header inline_product clickable">
             @if($product->discount > 0)
             <div class="d-flex" style="right: 0;top:0;position: absolute">
                 <span class="for-discoutn-value pr-1 pl-1">
