@@ -199,11 +199,11 @@
     }
 
     .feature_header span {
-        font-size: 20px;
+        font-size: 20px !important;
     }
 
     .flash_deal_title {
-        font-size: 20px;
+        font-size: 20px !important;
     }
 
     .footer_banner_img {
