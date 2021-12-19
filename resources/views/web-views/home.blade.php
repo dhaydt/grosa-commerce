@@ -111,21 +111,28 @@
   }
 
   .category_div:hover {
-    color: {
-        {
-        $web_config['secondary_color']
-      }
-    }
-
-    ;
+    color: {{$web_config['secondary_color']}};
   }
 
-     .deal_of_the_day {
-            /* filter: grayscale(0.5); */
-            opacity: .8;
-            background: {{$web_config['secondary_color']}};
-            border-radius: 3px;
-        }
+  .cat-link img {
+    vertical-align: middle;
+    padding: 16%;
+    height: 98px;
+  }
+
+  .cat-link p {
+    margin-top: 0px;
+    font-size: 15px;
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+    .deal_of_the_day {
+        opacity: .8;
+        background: {{$web_config['secondary_color']}};
+        border-radius: 3px;
+    }
 
   .deal-title {
     font-size: 12px;
@@ -153,12 +160,31 @@
   }
 
   @media (max-width: 600px) {
+    .cat-link img {
+    height: auto;
+  }
+
+  .cat-link p {
+    font-size: 13px;
+  }
+
+    body > section.banner > div > div > div:nth-child(1){
+        margin-left: 192vw;
+    }
+    .banner-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .banner-item {
+        flex: 0 0 auto;
+    }
     section.brands {
         margin-top: 50px;
     }
     .footer_banner_img {
-        min-height: 99.8px;
-        max-height: 99.8px;
+        min-height: 185.8px;
+        max-height: 185.8px;
     }
     .flash_deal_title {
       font-weight: 600;
@@ -347,19 +373,18 @@
         </div>
 
         <div class="mt-2 mb-3 brand-slider">
-            <div class="owl-carousel owl-theme " id="category-slider">
+            <div class="owl-carousel owl-theme" id="category-slider">
                 @foreach($categories as $category)
-                    <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
-                        <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}">
-                            <img style="vertical-align: middle; padding: 16%;height: 98px"
-                                 onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                 src="{{asset("storage/app/public/category/$category->icon")}}"
-                                 alt="{{$category->name}}">
-                                 <p class="text-center"
-                                 style="margin-top: 0px; font-size: 15px; display: inline-block; white-space: nowrap; width: 100%;">{{Str::limit($category->name, 17)}}</p>
-                        </a>
-                    </div>
-                @endforeach
+                <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
+                    <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
+                        <img style=""
+                             onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                             src="{{asset("storage/app/public/category/$category->icon")}}"
+                             alt="{{$category->name}}">
+                             <p class="text-center">{{Str::limit($category->name, 17)}}</p>
+                    </a>
+                </div>
+            @endforeach
             </div>
         </div>
     </section>
@@ -367,9 +392,9 @@
     {{-- small banner --}}
     <section class="banner">
        <div class="container my-5">
-        <div class="row mt-2 justify-content-center">
+        <div class="row mt-2 justify-content-center banner-wrapper">
             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
-                <div class="col-md-4 col-6 h-100 w-100">
+                <div class="col-md-4 col-12 h-100 w-100 banner-item">
                     <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
                        style="cursor: pointer;" class="w-100 h-100">
                         <img class="d-block footer_banner_img w-100 h-100"
@@ -408,6 +433,7 @@
         </div>
        </div>
     </section>
+
 
 {{--flash deal--}}
 @php($flash_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->where(['deal_type'=>'flash_deal'])->whereDate('start_date','
@@ -999,14 +1025,14 @@
                     items: 3
                 },
                 375: {
-                    items: 3
+                    items: 5
                 },
                 540: {
-                    items: 4
+                    items: 6
                 },
                 //Small
                 576: {
-                    items: 5
+                    items: 6
                 },
                 //Medium
                 768: {
