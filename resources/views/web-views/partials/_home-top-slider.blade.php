@@ -29,6 +29,7 @@
         .carousel-inner .carousel-item a img{
             transition: .3s;
             max-height: 138px !important;
+            min-height: 138px !important;
         }
     }
 </style>
