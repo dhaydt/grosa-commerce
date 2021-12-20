@@ -3,7 +3,7 @@
         .mobile-head{
             position: fixed;
             width: 100vw;
-            z-index: 3;
+            z-index: 6;
         }
     }
 </style>
@@ -101,7 +101,7 @@
                         </div>
                         @endif --}}
                         <div id="cart_items">
-                            @include('layouts.front-end.partials.cart')
+                            @include('layouts.front-end.partials.cart_mobile')
                         </div>
                     </div>
                 </div>

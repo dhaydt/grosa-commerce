@@ -1,4 +1,3 @@
-{{--code improved Md. Al imrun Khandakar--}}
 <style>
     @media (max-width: 600px){
         .navbar-tool {
@@ -12,11 +11,10 @@
 <div class="navbar-tool dropdown {{Session::get('direction') === "rtl" ? 'mr-3' : 'ml-3'}}"
      style="margin-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}: 6px">
     <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="{{route('shop-cart')}}">
-        <span class="navbar-tool-label cartNumber">
+        <span class="navbar-tool-label" id="cartNumber">
             @php($cart=\App\CPU\CartManager::get_cart())
             {{$cart->count()}}
         </span>
-        <input type="hidden" id="cartCount" value="{{ $cart->count() }}">
         <i class="navbar-tool-icon czi-cart text-white"></i>
     </a>
     <a class="navbar-tool-text" href="{{route('shop-cart')}}"><small>{{\App\CPU\translate('my_cart')}}</small>

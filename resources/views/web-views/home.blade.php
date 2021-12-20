@@ -509,10 +509,22 @@
     {{-- small banner --}}
     <section class="banner">
         <div class="container mb-1">
+            <!-- Heading-->
+        <div class="section-header">
+            <div class="feature_header cat-header">
+                <span>{{ \App\CPU\translate('Penawaran Kami')}}</span>
+            </div>
+            <div class="view-all">
+                {{-- <a class="btn btn-outline-accent btn-sm viw-btn-a"
+                   href="{{route('categories')}}">{{ \App\CPU\translate('view_all')}}
+                    <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'}}"></i>
+                </a> --}}
+            </div>
+        </div>
          <div class="row mt-2 justify-content-center banner-wrapper">
              @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                  <div class="col-md-4 col-12 h-100 w-100 banner-item">
-                     <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
+                     <a href="{{$banner->url}}"
                         style="cursor: pointer;" class="w-100 h-100">
                          <img class="d-block footer_banner_img w-100 h-100"
                               onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"

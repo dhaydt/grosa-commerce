@@ -877,6 +877,15 @@
 
 @push('script')
 <script>
+    $(document).ready(function(){
+        function ObserveInputValue() {
+            // console.log($('#cartCount').val());
+            $('#cartNumber').text($('#cartCount').val())
+        }
+        setInterval(function() { ObserveInputValue() }, 2000);
+    });
+</script>
+<script>
 
 fetch('https://ipapi.co/json/')
   .then(function(response) {
