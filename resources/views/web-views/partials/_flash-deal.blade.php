@@ -134,7 +134,7 @@
 }
 
         .flash-product-title {
-            font-size: 14px;
+            font-size: 12px;
         }
         .css-974ipl .flash-product-price {
             font-weight: 700;
