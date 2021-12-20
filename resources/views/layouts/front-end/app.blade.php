@@ -868,7 +868,8 @@
                     $('#loading').show();
                 },
                 success: function (response) {
-                    console.log(response);
+                    $('.cartNumber')
+                    /* console.log(response); */
                     if (response.status == 1) {
                         updateNavCart();
                         toastr.success(response.message, {

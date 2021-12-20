@@ -187,13 +187,17 @@
     margin-bottom: 0;
   }
 
-    body > section.banner > div > div > div:nth-child(1){
+  body > div.bod > section.banner > div > div.row.mt-1.justify-content-center.banner-wrapper > div:nth-child(1){
         margin-left: 125vw;
     }
     .banner-wrapper {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
+    }
+
+    .banner-wrapper::-webkit-scrollbar {
+        display: none !important;
     }
     .banner-item {
         flex: 0 0 auto;
@@ -206,7 +210,7 @@
         overflow-x: auto;
     }
     .product-wrapper::-webkit-scrollbar {
-        display: none;
+        display: none !important;
     }
     .product-item {
         flex: 0 0 auto;
@@ -521,7 +525,7 @@
                 </a> --}}
             </div>
         </div>
-         <div class="row mt-2 justify-content-center banner-wrapper">
+         <div class="row mt-1justify-content-center banner-wrapper">
              @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                  <div class="col-md-4 col-12 h-100 w-100 banner-item">
                      <a href="{{$banner->url}}"
