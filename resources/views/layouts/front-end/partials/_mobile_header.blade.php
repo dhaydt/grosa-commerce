@@ -1,3 +1,12 @@
+<style>
+    @media(max-width:600px) {
+        .mobile-head{
+            position: fixed;
+            width: 100vw;
+            z-index: 3;
+        }
+    }
+</style>
 <div class="navbar-sticky bg-dark mobile-head">
     <div class="navbar navbar-expand-md navbar-dark p-2">
         <div class="container ">

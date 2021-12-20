@@ -8,19 +8,33 @@
         background-color: white;
     } */
     .carousel-inner {
-        border-radius: 20px
+        border-radius: 5px;
     }
     @media(max-width: 600px){
+        .row.rtl {
+        }
+        .carousel-banner-row {
+            height: 138px;
+            position: relative;
+        }
+        .carousel.slide {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -7px;
+            right: -7px;
+        }
+
+
         .carousel-inner .carousel-item a img{
-            min-height: 138px;
+            transition: .3s;
             max-height: 138px !important;
-            transition: .3s
         }
     }
 </style>
 
-<div class="row rtl mb-4">
-    <div class="col-xl-12 col-md-12" style="margin-top: 11px">
+<div class="row rtl mb-2">
+    <div class="col-xl-12 col-md-12 carousel-banner-row" style="margin-top: 11px">
         @php($main_banner=\App\Model\Banner::where('banner_type','Main Banner')->where('published',1)->orderBy('id','desc')->get())
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -34,7 +48,7 @@
                 @foreach($main_banner as $key=>$banner)
                     <div class="carousel-item {{$key==0?'active':''}}">
                         <a href="{{$banner['url']}}">
-                            <img class="d-block w-100" style="max-height: 350px"
+                            <img class="d-block w-100" style="max-height: 350px;"
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}"
                                  alt="">

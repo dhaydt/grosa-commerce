@@ -21,19 +21,20 @@
         .center-div a img {
             min-width: 100%;
             max-width: 100%;
-            max-height: 150px;
+            max-height: 150px !important;
             min-height: 150px;
-            border-radius: 10px 10px 0 0;
+            border-radius: 5px 5px 0 0;
         }
 
         .product-card.card {
-            border-radius: 10px 10px;
+            border-radius: 5px 5px;
         }
 
         .product-card.card .card-body-hidden {
             visibility: visible !important;
             opacity: 1 !important;
             margin-top: -28px;
+            padding: 0 5px;
             padding-top: 0;
             z-index: 2;
         }

@@ -47,7 +47,10 @@
     display: flex;
     justify-content: space-between;
   }
-
+.timer {
+    margin-top: 8px;
+    /* margin-left: 10px; */
+}
   .cz-countdown-days {
             color: white !important;
             background-color: {{$web_config['primary_color']}};
@@ -93,14 +96,7 @@
 
   .featured_deal_left {
     height: 130px;
-
-    background: {
-        {
-        $web_config['primary_color']
-      }
-    }
-
-    0% 0% no-repeat padding-box;
+    background: {{$web_config['primary_color']}} 0% 0% no-repeat padding-box;
     padding: 10px 100px;
     text-align: center;
   }
@@ -164,8 +160,15 @@
   }
 
   @media (max-width: 600px) {
+      .bg-transparent{
+          margin-top: 105px;
+      }
     .flash_deal_title {
         font-size: 20px
+    }
+
+    .category_div {
+        max-height: 110px !important;
     }
     .cat-header span{
             font-size: 20px !important
@@ -175,7 +178,8 @@
     }
 
   .cat-link p {
-    font-size: 13px;
+    font-size: 14px;
+    margin-bottom: 0;
   }
 
     body > section.banner > div > div > div:nth-child(1){
@@ -202,12 +206,14 @@
         min-width: 150px;
     }
 
-    .feature_header span {
-        font-size: 18px !important;
+    .section-header .feature_header span {
+        font-size: 14px !important;
+        background-color: transparent !important;
+        line-height: 2;
     }
 
     .flash_deal_title {
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 
     .footer_banner_img {
@@ -221,10 +227,25 @@
       text-transform: uppercase;
     }
 
-    .cz-countdown .cz-countdown-value {
+    .view-btn-div-f {
+        margin-top: 0 !important;
+    }
+
+    .counter {
+        padding-left: 0 !important;
+        margin-left: -10px !important;
+    }
+
+    .counter .cz-countdown .cz-countdown-value {
       font-family: "Roboto", sans-serif;
-      font-size: 11px !important;
+      font-size: 12px !important;
       font-weight: 700 !important;
+    }
+
+    .view-all .btn-outline-accent {
+        border: none;
+        margin-top: 0;
+        color: {{ $web_config['primary_color'] }} !important;
     }
 
     .featured_deal {
@@ -326,6 +347,7 @@
 
       .timer {
         margin: 0 auto;
+        margin-top: 8px
       }
 
       .timer .view_all .px-2 .cz-countdown {
@@ -393,7 +415,7 @@
             <div class="feature_header cat-header">
                 <span>{{ \App\CPU\translate('categories')}}</span>
             </div>
-            <div>
+            <div class="view-all">
                 <a class="btn btn-outline-accent btn-sm viw-btn-a"
                    href="{{route('categories')}}">{{ \App\CPU\translate('view_all')}}
                     <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'}}"></i>
@@ -401,7 +423,7 @@
             </div>
         </div>
 
-        <div class="mt-2 mb-3 brand-slider">
+        <div class="mt-2 brand-slider">
             <div class="owl-carousel owl-theme" id="category-slider">
                 @foreach($categories as $category)
                 <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
@@ -483,7 +505,7 @@
           <div class="col-lg-10 col-md-8 col-sm-10 col-9 timer" style="padding-{{Session::get('direction') === " rtl"
             ? 'left' : 'right' }}: 0">
             <div class="view_all view-btn-div-f w-100" style="justify-content: space-between !important">
-              <div class="px-2">
+              <div class="px-2 counter">
                 <span class="cz-countdown" style="margin-left: -6vw;"
                   data-countdown="{{isset($flash_deals)?date('m/d/Y',strtotime($flash_deals['end_date'])):''}} 11:59:00 PM">
                   <span class="cz-countdown-days">
@@ -503,7 +525,7 @@
                   </span>
                 </span>
               </div>
-              <div class="">
+              <div class="view-all">
                 <a class="btn btn-outline-accent btn-sm viw-btn-a"
                   href="{{route('flash-deals',[isset($flash_deals)?$flash_deals['id']:0])}}">{{
                   \App\CPU\translate('view_all')}}
@@ -585,7 +607,7 @@
             <div class="feature_header" style="color: black">
                 <span> {{\App\CPU\translate('brands')}}</span>
             </div>
-            <div>
+            <div class="view-all">
                 <a class="btn btn-outline-accent btn-sm viw-btn-a" href="{{route('brands')}}">
                     {{ \App\CPU\translate('view_all')}}
                     <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1'}}"></i>
@@ -737,7 +759,7 @@
       <div class="feature_header">
         <span class="for-feature-title">{{$category['name']}}</span>
       </div>
-      <div>
+      <div class="view-all">
         <a class="btn btn-outline-accent btn-sm viw-btn-a"
           href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}">
           {{ \App\CPU\translate('view_all')}}
