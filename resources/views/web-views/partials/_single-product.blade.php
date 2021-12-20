@@ -44,7 +44,7 @@
         }
 
         .product-title1 a{
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .product-price .text-accent {

@@ -178,7 +178,7 @@
     }
 
   .cat-link p {
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 0;
   }
 
