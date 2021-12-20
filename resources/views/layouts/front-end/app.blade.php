@@ -44,6 +44,14 @@
     <!--to make http ajax request to https-->
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <style>
+        .bod{
+            padding-bottom: 50px;
+        }
+        @media(max-width: 600px){
+            .bod {
+                margin-top: 102px;
+            }
+        }
         body {
             background-color: #f7f8fa94;
         }
@@ -701,7 +709,9 @@
 {{--loader--}}
 
 <!-- Page Content-->
-@yield('content')
+<div class="bod">
+    @yield('content')
+</div>
 @include('layouts.front-end.partials._mobile_footer')
 <!-- Footer-->
 <!-- Footer-->

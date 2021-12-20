@@ -35,7 +35,7 @@
 </style>
 
 <div class="row rtl mb-2">
-    <div class="col-xl-12 col-md-12 carousel-banner-row" style="margin-top: 11px">
+    <div class="col-xl-12 col-md-12 carousel-banner-row">
         @php($main_banner=\App\Model\Banner::where('banner_type','Main Banner')->where('published',1)->orderBy('id','desc')->get())
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">

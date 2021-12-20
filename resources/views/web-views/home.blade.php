@@ -39,6 +39,14 @@
   object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
   object-position: center;
 }
+
+.product-item {
+        margin-right: 15px;
+    }
+
+.section-header .feature_header span {
+    background-color: transparent !important;
+    }
   .media {
     background: white;
   }
@@ -160,9 +168,6 @@
   }
 
   @media (max-width: 600px) {
-      .bg-transparent{
-          margin-top: 105px;
-      }
     .flash_deal_title {
         font-size: 20px
     }
@@ -200,10 +205,14 @@
         flex-wrap: nowrap;
         overflow-x: auto;
     }
+    .product-wrapper::-webkit-scrollbar {
+        display: none;
+    }
     .product-item {
         flex: 0 0 auto;
         max-width: 150px;
         min-width: 150px;
+        max-height: 296px;
     }
 
     .section-header .feature_header span {
@@ -398,7 +407,7 @@
 
 @section('content')
 <!-- Hero (Banners + Slider)-->
-<section class="bg-transparent mb-3">
+<section class="bg-transparent mb-1">
   <div class="container">
     <div class="row ">
       <div class="col-12">
@@ -440,58 +449,12 @@
         </div>
     </section>
 
-    {{-- small banner --}}
-    <section class="banner">
-       <div class="container mb-2">
-        <div class="row mt-2 justify-content-center banner-wrapper">
-            @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
-                <div class="col-md-4 col-12 h-100 w-100 banner-item">
-                    <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
-                       style="cursor: pointer;" class="w-100 h-100">
-                        <img class="d-block footer_banner_img w-100 h-100"
-                             onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                             src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}">
-                    </a>
-                </div>
-                <div class="modal fade" id="quick_banner{{$banner->id}}" tabindex="-1"
-                     role="dialog" aria-labelledby="exampleModalLongTitle"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <p class="modal-title"
-                                   id="exampleModalLongTitle">{{ \App\CPU\translate('banner_photo')}}</p>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <img class="d-block mx-auto"
-                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                     src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}">
-                                @if ($banner->url!="")
-                                    <div class="text-center mt-2">
-                                        <a href="{{$banner->url}}"
-                                           class="btn btn-outline-accent">{{\App\CPU\translate('Explore')}} {{\App\CPU\translate('Now')}}</a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-       </div>
-    </section>
-
-
 {{--flash deal--}}
 @php($flash_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->where(['deal_type'=>'flash_deal'])->whereDate('start_date','
 <=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->first())
 
   @if (isset($flash_deals))
-  <div class="container mb-4">
+  <div class="container mb-1">
     <div class="row">
       <div class="col-md-12">
         <div class="section-header mb-2 fd rtl row justify-content-between">
@@ -537,68 +500,57 @@
           </div>
         </div>
         @include('web-views.partials._flash-deal')
-        {{-- <div class="owl-carousel owl-theme" id="flash-deal-slider">
-          @foreach($flash_deals->products as $key=>$deal)
-          @if( $deal->product)
-          @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
-          <div class="flash_deal_product rtl" style="cursor: pointer;"
-            onclick="location.href='{{route('product',$deal->product->slug)}}'">
-            @if($deal->product->discount > 0)
-            <div class=" discount-top-f">
-              <span class="for-discoutn-value">
-                @if ($deal->product->discount_type == 'percent')
-                {{round($deal->product->discount)}}%
-                @elseif($deal->product->discount_type =='flat')
-                {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
-                @endif OFF
-              </span>
-            </div>
-            @else --}}
-            {{-- <div class="">
-              <span class="for-discoutn-value-null"></span>
-            </div> --}}
-            {{-- @endif --}}
-            {{-- <div class=" d-flex">
-              <div class="d-flex align-items-center justify-content-center" style="min-width: 130px">
-                <img style="min-height: 130px!important; max-height: 130px!important; min-width:130px; max-width:130px;"
-                  src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
-                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
-              </div>
-              <div class="flash_deal_product_details pl-2 pr-1 py-2 d-flex align-items-center">
-                <div>
-                  <h6 class="flash-product-title">
-                    {{$deal->product['name']}}
-                  </h6>
-                  <div class="flash-product-price">
-                    {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
-                    @if($deal->product->discount > 0)
-                    <strike style="font-size: 12px!important;color: grey!important;">
-                      {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}
-                    </strike>
-                    @endif
-                  </div>
-                  <h6 class="flash-product-review">
-                    @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
-                      </i>
-                      @else
-                      <i class="sr-star czi-star"></i>
-                      @endif
-                      @endfor
-                      <label class="badge-style2">
-                        ( {{$deal->product->reviews()->count()}} )
-                      </label>
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          @endif
-          @endforeach
-        </div> --}}
       </div>
     </div>
   </div>
   @endif
+
+
+    {{-- small banner --}}
+    <section class="banner">
+        <div class="container mb-1">
+         <div class="row mt-2 justify-content-center banner-wrapper">
+             @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
+                 <div class="col-md-4 col-12 h-100 w-100 banner-item">
+                     <a data-toggle="modal" data-target="#quick_banner{{$banner->id}}"
+                        style="cursor: pointer;" class="w-100 h-100">
+                         <img class="d-block footer_banner_img w-100 h-100"
+                              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                              src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}">
+                     </a>
+                 </div>
+                 <div class="modal fade" id="quick_banner{{$banner->id}}" tabindex="-1"
+                      role="dialog" aria-labelledby="exampleModalLongTitle"
+                      aria-hidden="true">
+                     <div class="modal-dialog modal-lg" role="document">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <p class="modal-title"
+                                    id="exampleModalLongTitle">{{ \App\CPU\translate('banner_photo')}}</p>
+                                 <button type="button" class="close" data-dismiss="modal"
+                                         aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <img class="d-block mx-auto"
+                                      onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                      src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}">
+                                 @if ($banner->url!="")
+                                     <div class="text-center mt-2">
+                                         <a href="{{$banner->url}}"
+                                            class="btn btn-outline-accent">{{\App\CPU\translate('Explore')}} {{\App\CPU\translate('Now')}}</a>
+                                     </div>
+                                 @endif
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             @endforeach
+         </div>
+        </div>
+     </section>
+
 
   {{--brands--}}
     <section class="brands container rtl">
@@ -616,7 +568,7 @@
         </div>
     {{--<hr class="view_border">--}}
     <!-- Grid-->
-        <div class="mt-2 mb-3 brand-slider">
+        <div class="mt-2 mb-1 brand-slider">
             <div class="owl-carousel owl-theme" id="brands-slider">
                 @foreach($brands as $brand)
                     <div class="text-center">
@@ -768,7 +720,7 @@
       </div>
     </div>
 
-    <div class="row product-wrapper  mt-2 mb-3">
+    <div class="row product-wrapper  mt-2">
             @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
             @if($key<12) <div class="product-item pl-0  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
                 @if (empty($country))
