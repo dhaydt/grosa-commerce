@@ -570,7 +570,7 @@
 
 
   {{--brands--}}
-    <section class="brands container rtl">
+    <section class="brands container rtl mt-2">
         <!-- Heading-->
         <div class="section-header">
             <div class="feature_header" style="color: black">
