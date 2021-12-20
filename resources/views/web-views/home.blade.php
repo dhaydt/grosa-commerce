@@ -187,13 +187,14 @@
     margin-bottom: 0;
   }
 
-  body > div.bod > section.banner > div > div.row.mt-1.justify-content-center.banner-wrapper > div:nth-child(1){
-        margin-left: 125vw;
+  body > div.bod > section.banner > div > div.row.mt-1justify-content-center.banner-wrapper > div:nth-child(1){
+        margin-left: -1vw;
     }
     .banner-wrapper {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
+        margin-left: -14px;
     }
 
     .banner-wrapper::-webkit-scrollbar {
@@ -511,7 +512,7 @@
 
 
     {{-- small banner --}}
-    <section class="banner">
+    <section class="banner mt-2">
         <div class="container mb-1">
             <!-- Heading-->
         <div class="section-header">
@@ -525,7 +526,7 @@
                 </a> --}}
             </div>
         </div>
-         <div class="row mt-1justify-content-center banner-wrapper">
+         <div class="row mt-1 banner-wrapper">
              @foreach(\App\Model\Banner::where('banner_type','Footer Banner')->where('published',1)->orderBy('id','desc')->take(3)->get() as $banner)
                  <div class="col-md-4 col-12 h-100 w-100 banner-item">
                      <a href="{{$banner->url}}"

@@ -69,7 +69,7 @@
         box-shadow: rgb(108 114 124 / 16%) 0px -2px 4px 0px;
         z-index: 20;
         display: flex;
-        max-width: 500px;
+        max-width: 100vw;
         margin: 0px auto;
         -webkit-box-pack: justify;
         justify-content: space-between;
