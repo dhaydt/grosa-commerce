@@ -177,7 +177,7 @@
     .flash_deal_title {
         font-size: 20px
     }
-    .section-header{
+    .section-header.fd{
         border-bottom: none !important;
     }
 
