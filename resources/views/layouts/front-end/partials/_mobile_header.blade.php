@@ -7,9 +7,10 @@
         }
 
         .nav-title {
-            font-size: 21px;
+            font-size: 18px;
             text-transform: uppercase;
-            font-weight: 900;
+            font-weight: 700;
+            line-height: 2;
             color: #fff;
             white-space: nowrap;
             overflow: hidden;
@@ -17,10 +18,9 @@
         }
 
         .arrow {
-            line-height: 1;
+            line-height: 1.8;
             color: #fff !important;
-            font-size: 33px;
-            font-weight: 700;
+            font-size: 20px;
         }
     }
 </style>
@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row w-100">
                 <div class="col-2 d-flex justify-content-center">
-                    <a class="arrow" href="{{ route('home') }}"><i class="fas fa-long-arrow-alt-left"></i></i></a>
+                    <a class="arrow" href="{{ route('home') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     {{-- {{ url()->previous() }} --}}
                 </div>
                 <div class="col-10 nav-title">
