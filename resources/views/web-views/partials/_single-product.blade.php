@@ -13,11 +13,16 @@
         margin-bottom: 25px;
     }
 
+
     .card-body {
         cursor: pointer;
-        max-height:6.5rem;
-        min-height:6.5rem;
+        max-height: 5.5rem;
+        min-height: 5.5rem;
         margin-bottom: 23px;
+    }
+    .card-body-hidden {
+        padding-bottom: 5px!important;
+        min-height: 23px !important;
     }
     .center-div a img {
         min-width:200px;
@@ -27,8 +32,8 @@
         }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 150px;
-            min-height: 150px;
+            max-height: 130px;
+            min-height: 130px;
             margin-bottom: 5px;
         }
 
@@ -45,9 +50,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            min-width: 150px;
-            max-height: 150px !important;
-            min-height: 150px;
+            min-width: 130px;
+            max-height: 130px !important;
+            min-height: 130px;
             border-radius: 5px 5px 0 0;
         }
 
@@ -151,7 +156,7 @@
             <span style="font-size: 13px; color: #616166; line-height: 1.6;">{{ $c_name[0]->country_name }}</span>
         </div> --}}
 
-        <div class="card-body card-body-hidden" style="padding-bottom: 5px!important;">
+        <div class="card-body card-body-hidden">
             <div class="text-center">
                 @if(Request::is('product/*'))
                 <a class="btn btn-primary btn-sm btn-block mb-2" href="{{route('product',$product->slug)}}">

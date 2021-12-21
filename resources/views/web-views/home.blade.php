@@ -216,10 +216,10 @@
     }
     .product-item {
         flex: 0 0 auto;
-        max-width: 156px;
-        min-width: 156px;
+        max-width: 140px;
+        min-width: 140px;
         margin-right: 0;
-        max-height: 260px;
+        max-height: 242px;
     }
 
     .section-header .feature_header span {
