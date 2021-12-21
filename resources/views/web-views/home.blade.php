@@ -51,6 +51,11 @@
     background: white;
   }
 
+  .brand_div img {
+    max-height: 98px;
+    max-width: 98px;
+  }
+
   .section-header {
     display: flex;
     justify-content: space-between;
@@ -115,7 +120,8 @@
   }
 
   .brand_div {
-      background-color: transparent !important;
+    background-color: transparent !important;
+    height: 98px;
   }
 
   .category_div:hover {
@@ -171,7 +177,18 @@
     .flash_deal_title {
         font-size: 20px
     }
+    .section-header{
+        border-bottom: none !important;
+    }
 
+    .cat-owl .owl-stage-outer {
+        overflow: auto !important;
+        height: 115px;
+    }
+
+    .owl-stage-outer::-webkit-scrollbar {
+        display: none !important;
+    }
     .category_div {
         max-height: 110px !important;
     }
@@ -185,6 +202,17 @@
   .cat-link p {
     font-size: 12px;
     margin-bottom: 0;
+  }
+  .brand-slider {
+    margin-top: 0 !important;
+  }
+  .brand_div{
+      height: 70px;
+  }
+
+  .brand_div img{
+      max-height: 70px;
+      max-width: 70px;
   }
 
   body > div.bod > section.banner > div > div.row.mt-1justify-content-center.banner-wrapper > div:nth-child(1){
@@ -208,7 +236,7 @@
     .product-wrapper {
         display: flex;
         flex-wrap: nowrap;
-        height: 312px;
+        height: 256px;
         overflow-x: auto;
     }
     .product-wrapper::-webkit-scrollbar {
@@ -440,7 +468,7 @@
         </div>
 
         <div class="mt-2 brand-slider">
-            <div class="owl-carousel owl-theme" id="category-slider">
+            <div class="owl-carousel owl-theme cat-owl" id="category-slider">
                 @foreach($categories as $category)
                 <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
                     <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
@@ -592,9 +620,8 @@
                 @foreach($brands as $brand)
                     <div class="text-center">
                         <a href="{{route('products',['id'=> $brand['id'],'data_from'=>'brand','page'=>1])}}">
-                            <div class="brand_div d-flex align-items-center justify-content-center"
-                                 style="height:98px">
-                                <img style="max-height: 98px; max-width: 98px"
+                            <div class="brand_div d-flex align-items-center justify-content-center">
+                                <img
                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                     src="{{asset("storage/app/public/brand/$brand->image")}}" alt="{{$brand->name}}">
                             </div>

@@ -32,15 +32,15 @@
         }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 130px;
-            min-height: 130px;
+            max-height: 190px;
+            min-height: 190px;
             margin-bottom: 5px;
         }
 
         .card-body {
             margin-top: -9px;
-            max-height: 2.5rem;
-            min-height: 2.5rem;
+            max-height: 4.5rem;
+            min-height: 4.5rem;
         }
 
         .center-div {

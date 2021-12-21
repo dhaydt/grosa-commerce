@@ -159,18 +159,20 @@
             .for-mobile-capacity {
                 margin- {{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 7%;
             }
+
+            .product_overview .nav-tabs {
+                border: none;
+            }
         }
-    </style>
-    <style>
+        thead {
+            color: white;
+            background: {{$web_config['primary_color']}}!important;
+        }
         th, td {
             border-bottom: 1px solid #ddd;
             padding: 5px;
         }
 
-        thead {
-            background: {{$web_config['primary_color']}}                         !important;
-            color: white;
-        }
     </style>
 @endpush
 
@@ -202,7 +204,7 @@
                             @endforeach
                         @endif
                     </div>
-                    <div class="cz">
+                    <div class="cz d-none">
                         <div class="container">
                             <div class="row">
                                 <div class="table-responsive" data-simplebar style="max-height: 515px; padding: 1px;">
@@ -227,380 +229,22 @@
                     </div>
                 </div>
             </div>
-            <!-- Product details-->
-            <div class="col-lg-6 col-md-6 mt-md-0 mt-sm-3" style="direction: {{ Session::get('direction') }}">
-                <div class="details">
-                    <h1 class="h3 mb-2">{{$product->name}}</h1>
-                    <div class="d-flex align-items-center mb-2 pro">
-                        <span
-                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-md-2 ml-sm-0 pl-2' : 'mr-md-2 mr-sm-0 pr-2'}}">{{$overallRating[0]}}</span>
-                       {{--  <div class="star-rating">
-                            @for($inc=0;$inc<5;$inc++)
-                                @if($inc<$overallRating[0])
-                                    <i class="sr-star czi-star-filled active"></i>
-                                @else
-                                    <i class="sr-star czi-star"></i>
-                                @endif
-                            @endfor
-                        </div>  --}}
-                        <span
-                            class="font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-1 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-1 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">{{$overallRating[1]}} {{\App\CPU\translate('Reviews')}}</span>
-                        <span style="width: 0px;height: 10px;border: 0.5px solid #707070; margin-top: 6px"></span>
-                        <span
-                            class="font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-1 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-1 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">{{$countOrder}} {{\App\CPU\translate('orders')}}   </span>
-                        <span style="width: 0px;height: 10px;border: 0.5px solid #707070; margin-top: 6px">    </span>
-                        <span
-                            class=" font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-0 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-0 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">  {{$countWishlist}} {{\App\CPU\translate('wish')}} </span>
 
-                    </div>
-                    <div class="mb-3">
-                        <span
-                            class="h3 font-weight-normal text-accent {{Session::get('direction') === "rtl" ? 'ml-1' : 'mr-1'}}">
-                            {{\App\CPU\Helpers::get_price_range($product) }}
-                        </span>
-                        @if($product->discount > 0)
-                            <strike style="color: {{$web_config['secondary_color']}};">
-                                {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
-                            </strike>
-                        @endif
-                    </div>
 
-                    @if($product->discount > 0)
-                        <div class="mb-3">
-                            <strong>{{\App\CPU\translate('discount')}} : </strong>
-                            <strong id="set-discount-amount"></strong>
-                        </div>
-                    @endif
-
-                    <div class="mb-3">
-                        <strong>{{\App\CPU\translate('tax')}} : </strong>
-                        <strong id="set-tax-amount"></strong>
-                    </div>
-                    <form id="add-to-cart-form" class="mb-2">
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $product->id }}">
-                        <div class="position-relative {{Session::get('direction') === "rtl" ? 'ml-n4' : 'mr-n4'}} mb-3">
-                            @if (count(json_decode($product->colors)) > 0)
-                                <div class="flex-start">
-                                    <div class="product-description-label mt-2">{{\App\CPU\translate('color')}}:
-                                    </div>
-                                    <div>
-                                        <ul class="list-inline checkbox-color mb-1 flex-start {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"
-                                            style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
-                                            @foreach (json_decode($product->colors) as $key => $color)
-                                                <div>
-                                                    <li>
-                                                        <input type="radio"
-                                                               id="{{ $product->id }}-color-{{ $key }}"
-                                                               name="color" value="{{ $color }}"
-                                                               @if($key == 0) checked @endif>
-                                                        <label style="background: {{ $color }};"
-                                                               for="{{ $product->id }}-color-{{ $key }}"
-                                                               data-toggle="tooltip"></label>
-                                                    </li>
-                                                </div>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            @endif
-                            @php
-                                $qty = 0;
-                                if(!empty($product->variation)){
-                                foreach (json_decode($product->variation) as $key => $variation) {
-                                        $qty += $variation->qty;
-                                    }
-                                }
-                            @endphp
-                        </div>
-                        @foreach (json_decode($product->choice_options) as $key => $choice)
-                            <div class="row flex-start mx-0">
-                                <div
-                                    class="product-description-label mt-2 {{Session::get('direction') === "rtl" ? 'pl-2' : 'pr-2'}}">{{ $choice->title }}
-                                    :
-                                </div>
-                                <div>
-                                    <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2 mx-1 flex-start"
-                                        style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
-                                        @foreach ($choice->options as $key => $option)
-                                            <div>
-                                                <li class="for-mobile-capacity">
-                                                    <input type="radio"
-                                                           id="{{ $choice->name }}-{{ $option }}"
-                                                           name="{{ $choice->name }}" value="{{ $option }}"
-                                                           @if($key == 0) checked @endif >
-                                                    <label style="font-size: .6em"
-                                                           for="{{ $choice->name }}-{{ $option }}">{{ $option }}</label>
-                                                </li>
-                                            </div>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                    @endforeach
-
-                    <!-- Quantity + Add to cart -->
-                        <div class="row no-gutters">
-                            <div class="col-2">
-                                <div class="product-description-label mt-2">{{\App\CPU\translate('Quantity')}}:</div>
-                            </div>
-                            <div class="col-10">
-                                <div class="product-quantity d-flex align-items-center">
-                                    <div
-                                        class="input-group input-group--style-2 {{Session::get('direction') === "rtl" ? 'pl-3' : 'pr-3'}}"
-                                        style="width: 160px;">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button"
-                                                    data-type="minus" data-field="quantity"
-                                                    disabled="disabled" style="padding: 10px">
-                                                -
-                                            </button>
-                                        </span>
-                                        <input type="text" name="quantity"
-                                               class="form-control input-number text-center cart-qty-field"
-                                               placeholder="1" value="1" min="1" max="100">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button" data-type="plus"
-                                                    data-field="quantity" style="padding: 10px">
-                                               +
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row flex-start no-gutters d-none mt-2" id="chosen_price_div">
-                            <div class="{{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">
-                                <div class="product-description-label">{{\App\CPU\translate('total_price')}}:</div>
-                            </div>
-                            <div>
-                                <div class="product-price for-total-price">
-                                    <strong id="chosen_price"></strong>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                @if($product['current_stock']<=0)
-                                    <h5 class="mt-3" style="color: red">{{\App\CPU\translate('out_of_stock')}}</h5>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-2">
-                            <button
-                                class="btn btn-secondary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
-                                onclick="buy_now()"
-                                type="button"
-                                style="width:37%; height: 45px">
-                                <span class="string-limit">{{\App\CPU\translate('buy_now')}}</span>
-                            </button>
-                            <button
-                                class="btn btn-primary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
-                                onclick="addToCart()"
-                                type="button"
-                                style="width:37%; height: 45px">
-                                <span class="string-limit">{{\App\CPU\translate('add_to_cart')}}</span>
-                            </button>
-                            <button type="button" onclick="addWishlist('{{$product['id']}}')"
-                                    class="btn btn-dark for-hover-bg"
-                                    style="">
-                                <i class="fa fa-heart-o {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}"
-                                   aria-hidden="true"></i>
-                                <span class="countWishlist-{{$product['id']}}">{{$countWishlist}}</span>
-                            </button>
-                        </div>
-                    </form>
-                    <hr style="padding-bottom: 10px">
-                    <div style="text-align:{{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
-                         class="sharethis-inline-share-buttons"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{--seller section--}}
-    @if($product->added_by=='seller')
-        <div class="container mt-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-            <div class="row seller_details d-flex align-items-center" id="sellerOption">
-                <div class="col-md-6">
-                    <div class="seller_shop">
-                        <div class="shop_image d-flex justify-content-center align-items-center">
-                            <a href="#" class="d-flex justify-content-center">
-                                <img style="height: 65px; width: 65px; border-radius: 50%"
-                                     src="{{asset('storage/app/public/shop')}}/{{$product->seller->shop->image}}"
-                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div
-                            class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
-                            <div>
-                                <a href="#" class="d-flex align-items-center">
-                                    <div
-                                        class="title">{{$product->seller->shop->name}}</div>
-                                </a>
-                                <div class="review d-flex align-items-center">
-                                    <div class="">
-                                        <span
-                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Seller')}} {{\App\CPU\translate('Info')}} </span>
-                                        <span
-                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
-                                    </div>
-                                </div>
-                                 <div class="review d-flex align-items-center">
-                            <div class="w-100 d-flex">
-                                <div class="flag">
-                                    <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
-                                        src="{{asset('public/assets/front-end')}}/img/flags/{{ strtolower($product->seller->shop->country)  }}.png"
-                                        alt="Eng" style="width: 20px">
-                                </div>
-                                @php($c_name = App\Country::where('country', $product->seller->shop->country)->get())
-                                <span
-                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                    rtl" ? 'ml-2' : 'mr-2' }}" style="line-height: 1.2;">{{$c_name[0]->country_name}}
-                                </span>
-                                <span
-                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                    rtl" ? 'mr-2' : 'ml-2' }}"></span>
-                            </div>
-                        </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 p-md-0 pt-sm-3">
-                    <div class="seller_contact">
-                        <div
-                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
-                            <a href="{{ route('shopView',[$product->seller->id]) }}">
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                    {{\App\CPU\translate('Visit')}}
-                                </button>
-                            </a>
-                        </div>
-
-                        @if (auth('customer')->id() == '')
-                            <div class="d-flex align-items-center">
-                                <a href="{{route('customer.auth.login')}}">
-                                    <button class="btn btn-primary">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
-                                    </button>
-                                </a>
-                            </div>
-                        @else
-                            <div class="d-flex align-items-center" id="contact-seller">
-                                <button class="btn btn-primary">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
-                                </button>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="row msg-option" id="msg-option">
-                <form action="">
-                    <input type="text" class="seller_id" hidden seller-id="{{$product->seller->id }}">
-                    <textarea shop-id="{{$product->seller->shop->id}}" class="chatInputBox"
-                              id="chatInputBox" rows="5"> </textarea>
-
-                    <button class="btn btn-secondary" style="color: white;"
-                            id="cancelBtn">{{\App\CPU\translate('cancel')}}
-                    </button>
-                    <button class="btn btn-primary" style="color: white;"
-                            id="sendBtn">{{\App\CPU\translate('send')}}</button>
-                </form>
-            </div>
-            <div class="go-to-chatbox" id="go_to_chatbox">
-                <a href="{{route('chat-with-seller')}}" class="btn btn-primary" id="go_to_chatbox_btn">
-                    {{\App\CPU\translate('go_to')}} {{\App\CPU\translate('chatbox')}} </a>
-            </div>
-        </div>
-    @else
-        <div class="container rtl mt-3" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-            <div class="row seller_details d-flex align-items-center" id="sellerOption">
-                <div class="col-md-6">
-                    <div class="seller_shop">
-                        <div class="shop_image d-flex justify-content-center align-items-center">
-                            <a href="{{ route('shopView',[0]) }}" class="d-flex justify-content-center">
-                                <img style="height: 65px;width: 65px; border-radius: 50%"
-                                     src="{{asset("storage/app/public/company")}}/{{$web_config['fav_icon']->value}}"
-                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div
-                            class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
-                            <div>
-                                <a href="#" class="d-flex align-items-center">
-                                    <div
-                                        class="title">{{$web_config['name']->value}}</div>
-                                </a>
-                                <div class="review d-flex align-items-center">
-                                    <div class="">
-                                        <span
-                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{ \App\CPU\translate('web_admin')}}</span>
-                                        <span
-                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
-                                    </div>
-                                </div>
-                                <div class="review d-flex align-items-center">
-                            <div class="w-100 d-flex">
-                                <div class="flag">
-                                    <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
-                                        src="{{asset('public/assets/front-end')}}/img/flags/id.png" alt="Eng"
-                                        style="width: 20px">
-                                </div>
-                                <span
-                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                    rtl" ? 'ml-2' : 'mr-2' }}" style="line-height: 1.2;">Indonesia </span>
-                                <span
-                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
-                                    rtl" ? 'mr-2' : 'ml-2' }}"></span>
-                            </div>
-                        </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 p-md-0 pt-sm-3">
-                    <div class="seller_contact">
-
-                        <div
-                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
-                            <a href="{{ route('shopView',[0]) }}">
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                                    {{\App\CPU\translate('Visit')}}
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    {{--overview--}}
-    <div class="container mt-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+     {{--overview--}}
+     <div class="container mt-2 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row" style="background: white">
             <div class="col-12">
                 <div class="product_overview mt-1">
                     <!-- Tabs-->
                     <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#overview" data-toggle="tab" role="tab"
+                            <a class="nav-link" href="#overview" data-toggle="tab" role="tab"
                                style="color: black !important;">
                                 {{\App\CPU\translate('OVERVIEW')}}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-none">
                             <a class="nav-link" href="#reviews" data-toggle="tab" role="tab"
                                style="color: black !important;">
                                 {{\App\CPU\translate('REVIEWS')}}
@@ -626,7 +270,7 @@
                                 </div>
                             </div>
                             <!-- Reviews tab-->
-                            <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="tab-pane fade d-none" id="reviews" role="tabpanel">
                                 <div class="row pt-2 pb-3">
                                     <div class="col-lg-4 col-md-5 ">
                                         <h2 class="overall_review mb-2">{{$overallRating[1]}}
@@ -844,8 +488,371 @@
         </div>
     </div>
 
+
+            <!-- Product details-->
+            <div class="col-lg-6 col-md-6 mt-md-0 mt-sm-2 mt-2" style="direction: {{ Session::get('direction') }}">
+                <div class="details">
+                    <h1 class="h3 mb-2">{{$product->name}}</h1>
+                    <div class="d-flex align-items-center mb-2 pro">
+                        <span
+                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-md-2 ml-sm-0 pl-2' : 'mr-md-2 mr-sm-0 pr-2'}}">{{$overallRating[0]}}</span>
+                       {{--  <div class="star-rating">
+                            @for($inc=0;$inc<5;$inc++)
+                                @if($inc<$overallRating[0])
+                                    <i class="sr-star czi-star-filled active"></i>
+                                @else
+                                    <i class="sr-star czi-star"></i>
+                                @endif
+                            @endfor
+                        </div>  --}}
+                        <span
+                            class="font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-1 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-1 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">{{$overallRating[1]}} {{\App\CPU\translate('Reviews')}}</span>
+                        <span style="width: 0px;height: 10px;border: 0.5px solid #707070; margin-top: 6px"></span>
+                        <span
+                            class="font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-1 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-1 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">{{$countOrder}} {{\App\CPU\translate('orders')}}   </span>
+                        <span style="width: 0px;height: 10px;border: 0.5px solid #707070; margin-top: 6px">    </span>
+                        <span
+                            class=" font-for-tab d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-1 ml-md-2 ml-0 pr-md-2 pr-sm-1 pl-md-2 pl-sm-1' : 'ml-1 mr-md-2 mr-0 pl-md-2 pl-sm-1 pr-md-2 pr-sm-1'}}">  {{$countWishlist}} {{\App\CPU\translate('wish')}} </span>
+
+                    </div>
+                    <div class="mb-3">
+                        <span
+                            class="h3 font-weight-normal text-accent {{Session::get('direction') === "rtl" ? 'ml-1' : 'mr-1'}}">
+                            {{\App\CPU\Helpers::get_price_range($product) }}
+                        </span>
+                        @if($product->discount > 0)
+                            <strike style="color: {{$web_config['secondary_color']}};">
+                                {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
+                            </strike>
+                        @endif
+                    </div>
+
+                    @if($product->discount > 0)
+                        <div class="mb-3">
+                            <strong>{{\App\CPU\translate('discount')}} : </strong>
+                            <strong id="set-discount-amount"></strong>
+                        </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <strong>{{\App\CPU\translate('tax')}} : </strong>
+                        <strong id="set-tax-amount"></strong>
+                    </div>
+                    <form id="add-to-cart-form" class="mb-2">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $product->id }}">
+                        <div class="position-relative {{Session::get('direction') === "rtl" ? 'ml-n4' : 'mr-n4'}} mb-3">
+                            @if (count(json_decode($product->colors)) > 0)
+                                <div class="flex-start">
+                                    <div class="product-description-label mt-2">{{\App\CPU\translate('color')}}:
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline checkbox-color mb-1 flex-start {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"
+                                            style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
+                                            @foreach (json_decode($product->colors) as $key => $color)
+                                                <div>
+                                                    <li>
+                                                        <input type="radio"
+                                                               id="{{ $product->id }}-color-{{ $key }}"
+                                                               name="color" value="{{ $color }}"
+                                                               @if($key == 0) checked @endif>
+                                                        <label style="background: {{ $color }};"
+                                                               for="{{ $product->id }}-color-{{ $key }}"
+                                                               data-toggle="tooltip"></label>
+                                                    </li>
+                                                </div>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+                            @php
+                                $qty = 0;
+                                if(!empty($product->variation)){
+                                foreach (json_decode($product->variation) as $key => $variation) {
+                                        $qty += $variation->qty;
+                                    }
+                                }
+                            @endphp
+                        </div>
+                        @foreach (json_decode($product->choice_options) as $key => $choice)
+                            <div class="row flex-start mx-0">
+                                <div
+                                    class="product-description-label mt-2 {{Session::get('direction') === "rtl" ? 'pl-2' : 'pr-2'}}">{{ $choice->title }}
+                                    :
+                                </div>
+                                <div>
+                                    <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2 mx-1 flex-start"
+                                        style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
+                                        @foreach ($choice->options as $key => $option)
+                                            <div>
+                                                <li class="for-mobile-capacity">
+                                                    <input type="radio"
+                                                           id="{{ $choice->name }}-{{ $option }}"
+                                                           name="{{ $choice->name }}" value="{{ $option }}"
+                                                           @if($key == 0) checked @endif >
+                                                    <label style="font-size: .6em"
+                                                           for="{{ $choice->name }}-{{ $option }}">{{ $option }}</label>
+                                                </li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                    @endforeach
+
+                    <!-- Quantity + Add to cart -->
+                        <div class="row no-gutters">
+                            <div class="col-2">
+                                <div class="product-description-label mt-2">{{\App\CPU\translate('Quantity')}}:</div>
+                            </div>
+                            <div class="col-10">
+                                <div class="product-quantity d-flex align-items-center">
+                                    <div
+                                        class="input-group input-group--style-2 {{Session::get('direction') === "rtl" ? 'pl-3' : 'pr-3'}}"
+                                        style="width: 160px;">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-number" type="button"
+                                                    data-type="minus" data-field="quantity"
+                                                    disabled="disabled" style="padding: 10px">
+                                                -
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quantity"
+                                               class="form-control input-number text-center cart-qty-field"
+                                               placeholder="1" value="1" min="1" max="100">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-number" type="button" data-type="plus"
+                                                    data-field="quantity" style="padding: 10px">
+                                               +
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row flex-start no-gutters d-none mt-2" id="chosen_price_div">
+                            <div class="{{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">
+                                <div class="product-description-label">{{\App\CPU\translate('total_price')}}:</div>
+                            </div>
+                            <div>
+                                <div class="product-price for-total-price">
+                                    <strong id="chosen_price"></strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                @if($product['current_stock']<=0)
+                                    <h5 class="mt-3" style="color: red">{{\App\CPU\translate('out_of_stock')}}</h5>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <button
+                                class="btn btn-secondary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
+                                onclick="buy_now()"
+                                type="button"
+                                style="width:37%; height: 45px">
+                                <span class="string-limit">{{\App\CPU\translate('buy_now')}}</span>
+                            </button>
+                            <button
+                                class="btn btn-primary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
+                                onclick="addToCart()"
+                                type="button"
+                                style="width:37%; height: 45px">
+                                <span class="string-limit">{{\App\CPU\translate('add_to_cart')}}</span>
+                            </button>
+                            <button type="button" onclick="addWishlist('{{$product['id']}}')"
+                                    class="btn btn-dark for-hover-bg"
+                                    style="">
+                                <i class="fa fa-heart-o {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}"
+                                   aria-hidden="true"></i>
+                                <span class="countWishlist-{{$product['id']}}">{{$countWishlist}}</span>
+                            </button>
+                        </div>
+                    </form>
+                    <hr style="padding-bottom: 10px">
+                    <div style="text-align:{{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                         class="sharethis-inline-share-buttons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--seller section--}}
+    @if($product->added_by=='seller')
+        <div class="container mt-4 rtl d-none" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+            <div class="row seller_details d-flex align-items-center" id="sellerOption">
+                <div class="col-md-6">
+                    <div class="seller_shop">
+                        <div class="shop_image d-flex justify-content-center align-items-center">
+                            <a href="#" class="d-flex justify-content-center">
+                                <img style="height: 65px; width: 65px; border-radius: 50%"
+                                     src="{{asset('storage/app/public/shop')}}/{{$product->seller->shop->image}}"
+                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                     alt="">
+                            </a>
+                        </div>
+                        <div
+                            class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
+                            <div>
+                                <a href="#" class="d-flex align-items-center">
+                                    <div
+                                        class="title">{{$product->seller->shop->name}}</div>
+                                </a>
+                                <div class="review d-flex align-items-center">
+                                    <div class="">
+                                        <span
+                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{\App\CPU\translate('Seller')}} {{\App\CPU\translate('Info')}} </span>
+                                        <span
+                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
+                                    </div>
+                                </div>
+                                 <div class="review d-flex align-items-center">
+                            <div class="w-100 d-flex">
+                                <div class="flag">
+                                    <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
+                                        src="{{asset('public/assets/front-end')}}/img/flags/{{ strtolower($product->seller->shop->country)  }}.png"
+                                        alt="Eng" style="width: 20px">
+                                </div>
+                                @php($c_name = App\Country::where('country', $product->seller->shop->country)->get())
+                                <span
+                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
+                                    rtl" ? 'ml-2' : 'mr-2' }}" style="line-height: 1.2;">{{$c_name[0]->country_name}}
+                                </span>
+                                <span
+                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
+                                    rtl" ? 'mr-2' : 'ml-2' }}"></span>
+                            </div>
+                        </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 p-md-0 pt-sm-3">
+                    <div class="seller_contact">
+                        <div
+                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
+                            <a href="{{ route('shopView',[$product->seller->id]) }}">
+                                <button class="btn btn-secondary">
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                    {{\App\CPU\translate('Visit')}}
+                                </button>
+                            </a>
+                        </div>
+
+                        @if (auth('customer')->id() == '')
+                            <div class="d-flex align-items-center">
+                                <a href="{{route('customer.auth.login')}}">
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
+                                    </button>
+                                </a>
+                            </div>
+                        @else
+                            <div class="d-flex align-items-center" id="contact-seller">
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    {{\App\CPU\translate('Contact')}} {{\App\CPU\translate('Seller')}}
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="row msg-option" id="msg-option">
+                <form action="">
+                    <input type="text" class="seller_id" hidden seller-id="{{$product->seller->id }}">
+                    <textarea shop-id="{{$product->seller->shop->id}}" class="chatInputBox"
+                              id="chatInputBox" rows="5"> </textarea>
+
+                    <button class="btn btn-secondary" style="color: white;"
+                            id="cancelBtn">{{\App\CPU\translate('cancel')}}
+                    </button>
+                    <button class="btn btn-primary" style="color: white;"
+                            id="sendBtn">{{\App\CPU\translate('send')}}</button>
+                </form>
+            </div>
+            <div class="go-to-chatbox" id="go_to_chatbox">
+                <a href="{{route('chat-with-seller')}}" class="btn btn-primary" id="go_to_chatbox_btn">
+                    {{\App\CPU\translate('go_to')}} {{\App\CPU\translate('chatbox')}} </a>
+            </div>
+        </div>
+    @else
+        <div class="container rtl mt-3 d-none" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+            <div class="row seller_details d-flex align-items-center" id="sellerOption">
+                <div class="col-md-6">
+                    <div class="seller_shop">
+                        <div class="shop_image d-flex justify-content-center align-items-center">
+                            <a href="{{ route('shopView',[0]) }}" class="d-flex justify-content-center">
+                                <img style="height: 65px;width: 65px; border-radius: 50%"
+                                     src="{{asset("storage/app/public/company")}}/{{$web_config['fav_icon']->value}}"
+                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                     alt="">
+                            </a>
+                        </div>
+                        <div
+                            class="shop-name-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} d-flex justify-content-center align-items-center">
+                            <div>
+                                <a href="#" class="d-flex align-items-center">
+                                    <div
+                                        class="title">{{$web_config['name']->value}}</div>
+                                </a>
+                                <div class="review d-flex align-items-center">
+                                    <div class="">
+                                        <span
+                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'ml-2' : 'mr-2'}}">{{ \App\CPU\translate('web_admin')}}</span>
+                                        <span
+                                            class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"></span>
+                                    </div>
+                                </div>
+                                <div class="review d-flex align-items-center">
+                            <div class="w-100 d-flex">
+                                <div class="flag">
+                                    <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
+                                        src="{{asset('public/assets/front-end')}}/img/flags/id.png" alt="Eng"
+                                        style="width: 20px">
+                                </div>
+                                <span
+                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
+                                    rtl" ? 'ml-2' : 'mr-2' }}" style="line-height: 1.2;">Indonesia </span>
+                                <span
+                                    class="d-inline-block font-size-sm text-body align-middle mt-1 {{Session::get('direction') === "
+                                    rtl" ? 'mr-2' : 'ml-2' }}"></span>
+                            </div>
+                        </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 p-md-0 pt-sm-3">
+                    <div class="seller_contact">
+
+                        <div
+                            class="d-flex align-items-center {{Session::get('direction') === "rtl" ? 'pl-4' : 'pr-4'}}">
+                            <a href="{{ route('shopView',[0]) }}">
+                                <button class="btn btn-secondary">
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                    {{\App\CPU\translate('Visit')}}
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+
     <!-- Product carousel (You may also like)-->
-    <div class="container  mb-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    {{-- <div class="container  mb-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="flex-between">
             <div class="feature_header">
                 <span>{{ \App\CPU\translate('similar_products')}}</span>
@@ -897,7 +904,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('script')

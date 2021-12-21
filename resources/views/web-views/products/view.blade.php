@@ -199,7 +199,7 @@
 
 @section('content')
     <!-- Page Title-->
-    <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container d-none d-md-block rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <div class="col-md-3">
                 <a class="openbtn-tab mt-5" onclick="openNav()">
@@ -263,7 +263,7 @@
         <div class="row">
             <!-- Sidebar-->
             <aside
-                class="col-lg-3 hidden-xs col-md-3 col-sm-4 SearchParameters {{Session::get('direction') === "rtl" ? 'pl-0' : 'pr-0'}}"
+                class="col-lg-3 hidden-xs col-md-3 col-sm-4 d-none d-md-block SearchParameters {{Session::get('direction') === "rtl" ? 'pl-0' : 'pr-0'}}"
                 id="SearchParameters">
                 <!--Price Sidebar-->
                 <div class="cz-sidebar rounded-lg box-shadow-lg" id="shop-sidebar" style="margin-bottom: -10px;">
@@ -474,7 +474,7 @@
                     </div>
                 </div>
             </aside>
-            <div id="mySidepanel" class="sidepanel">
+            <div id="mySidepanel" class="sidepanel d-none d-md-block">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
                 <aside class="" style="padding-right: 5%;padding-left: 5%;">
                     <div class="" id="shop-sidebar" style="margin-bottom: -10px;">
