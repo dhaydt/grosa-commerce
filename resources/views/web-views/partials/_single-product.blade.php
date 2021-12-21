@@ -1,10 +1,23 @@
 <style>
+    .product-card {
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .card-header {
         cursor: pointer;
         max-height: 193px;
         min-height: 193px;
         padding: 0px;
         margin-bottom: 25px;
+    }
+
+    .card-body {
+        cursor: pointer;
+        max-height:6.5rem;
+        min-height:6.5rem;
+        margin-bottom: 23px;
     }
     .center-div a img {
         min-width:200px;
@@ -14,17 +27,35 @@
         }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 180px;
-            min-height: 180px;
+            max-height: 150px;
+            min-height: 150px;
             margin-bottom: 5px;
         }
 
+        .card-body {
+            margin-top: -9px;
+            max-height: 2.5rem;
+            min-height: 2.5rem;
+        }
+
+        .center-div {
+            position: relative;
+        }
         .center-div a img {
-            min-width: 180px;
-            max-width: 180px;
-            max-height: 180px !important;
-            min-height: 180px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 150px;
+            max-height: 150px !important;
+            min-height: 150px;
             border-radius: 5px 5px 0 0;
+        }
+
+        .product-card.card {
+            margin-bottom: 0px !important;
+            display: block;
+            align-items: start;
+            justify-content: start;
         }
 
         .product-card.card {
@@ -48,14 +79,17 @@
             font-size: 12px;
         }
 
+        .product-price {
+            margin-top: -10px;
+        }
+
         .product-price .text-accent {
             font-size: 14px !important;
         }
     }
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
-<div class="product-card card {{$product['current_stock']==0?'stock-card':''}}"
-    style="margin-bottom: 40px;display: flex; align-items: center; justify-content: center;">
+<div class="product-card card {{$product['current_stock']==0?'stock-card':''}}">
     @if($product['current_stock']<=0) <label style="left: 29%!important; top: 29%!important;"
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
@@ -77,7 +111,7 @@
                 <span class="for-discoutn-value-null"></span>
             </div>
             @endif
-            <div class="d-flex d-block center-div element-center" style="cursor: pointer">
+            <div class="center-div element-center" style="cursor: pointer">
                 <a href="{{route('product',$product->slug)}}">
                     <img src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"
                         onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'">
@@ -85,7 +119,7 @@
             </div>
         </div>
 
-        <div class="card-body inline_product text-center p-1 clickable" style="cursor: pointer; max-height:6.5rem; min-height:6.5rem; margin-bottom: 23px;">
+        <div class="card-body inline_product text-center p-1 clickable">
             <div style="position: relative;" class="product-title1">
                 <a href="{{route('product',$product->slug)}}">
                     {{ Str::limit($product['name'], 25) }}
