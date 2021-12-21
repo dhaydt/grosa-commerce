@@ -208,6 +208,7 @@
     .product-wrapper {
         display: flex;
         flex-wrap: nowrap;
+        height: 312px;
         overflow-x: auto;
     }
     .product-wrapper::-webkit-scrollbar {
@@ -215,8 +216,9 @@
     }
     .product-item {
         flex: 0 0 auto;
-        max-width: 150px;
-        min-width: 150px;
+        max-width: 180px;
+        min-width: 180px;
+        margin-right: 0;
         max-height: 296px;
     }
 

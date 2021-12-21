@@ -25,6 +25,14 @@
             right: -7px;
         }
 
+        .carousel-indicators {
+            bottom: -22px
+        }
+
+        .indicators {
+            width: 20px !important;
+        }
+
 
         .carousel-inner .carousel-item a img{
             transition: .3s;
@@ -40,7 +48,7 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 @foreach($main_banner as $key=>$banner)
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}"
+                    <li data-target="#carouselExampleIndicators" class="indicators" data-slide-to="{{$key}}"
                         class="{{$key==0?'active':''}}">
                     </li>
                 @endforeach

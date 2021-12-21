@@ -14,15 +14,16 @@
         }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 150px;
-            min-height: 150px;
+            max-height: 180px;
+            min-height: 180px;
             margin-bottom: 5px;
         }
+
         .center-div a img {
-            min-width: 100%;
-            max-width: 100%;
-            max-height: 150px !important;
-            min-height: 150px;
+            min-width: 180px;
+            max-width: 180px;
+            max-height: 180px !important;
+            min-height: 180px;
             border-radius: 5px 5px 0 0;
         }
 
