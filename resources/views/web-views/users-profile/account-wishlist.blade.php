@@ -25,13 +25,17 @@
                 padding-bottom: 17px;
                 font-size: 19px;
             }
+
+            .wish-mobile {
+                margin-top: -40px !important;
+            }
         }
     </style>
 @endpush
 
 @section('content')
     <!-- Page Title-->
-    <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container rtl d-none d-md-block" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9 sidebar_heading">
@@ -40,7 +44,7 @@
         </div>
     </div>
     <!-- Page Content-->
-    <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl wish-mobile" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <!-- Sidebar-->
         @include('web-views.partials._profile-aside')

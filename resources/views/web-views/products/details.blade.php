@@ -164,6 +164,12 @@
                 border: none;
             }
         }
+
+        @media(max-width: 600px){
+            .detail-mobile {
+                margin-top: -22px !important;
+            }
+        }
         thead {
             color: white;
             background: {{$web_config['primary_color']}}!important;
@@ -182,7 +188,7 @@
     $rating = \App\CPU\ProductManager::get_rating($product->reviews);
     ?>
     <!-- Page Content-->
-    <div class="container mt-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container mt-4 rtl detail-mobile" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <!-- General info tab-->
         <div class="row" style="direction: ltr">
             <!-- Product gallery-->

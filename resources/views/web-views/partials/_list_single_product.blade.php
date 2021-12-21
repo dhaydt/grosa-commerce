@@ -98,7 +98,7 @@
 
         <div class="card-header inline_product clickable">
             @if($product->discount > 0)
-            <div class="d-flex" style="right: 0;top:0;position: absolute">
+            <div class="d-flex" style="right: 0;top:0;position: absolute; z-index: 1;">
                 <span class="for-discoutn-value pr-1 pl-1">
                     @if ($product->discount_type == 'percent')
                     {{round($product->discount,2)}}%

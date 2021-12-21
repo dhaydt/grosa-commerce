@@ -90,6 +90,9 @@
         }
 
         @media (max-width: 600px) {
+            .account-mobile {
+                margin-top: -24px;
+            }
             .sidebar_heading {
                 background: {{$web_config['primary_color']}};
             }
@@ -112,7 +115,7 @@
 
 @section('content')
     <!-- Page Title-->
-    <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container d-none d-md-block rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9 sidebar_heading">
@@ -127,7 +130,7 @@
             <!-- Sidebar-->
         @include('web-views.partials._profile-aside')
         <!-- Content  -->
-            <section class="col-lg-9 col-md-9">
+            <section class="col-lg-9 col-md-9 account-mobile">
                 <div class="card box-shadow-sm">
                     <div class="card-header">
                         <form class="mt-3" action="{{route('user-update')}}" method="post"

@@ -1,6 +1,6 @@
 <div class="mobile-footer d-block d-md-none" id="mobile-footer">
     <div class="unf-bottomnav css-15iqbvc">
-        <a class="active css-11rf802" href="/" data-cy="bottomnavHome" data-testid="icnFooterHome">
+        <a class="css-11rf802" href="{{route('home')}}">
             <div class="css-mw28ox"><img width="24" height="24"
                     src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/atreus/kratos/20f068ca.svg" alt="home"
                     class="css-mw28ox"></div>Home

@@ -34,7 +34,7 @@
 
 @section('content')
     <!-- Page Content-->
-    <div class="container p-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container p-3 rtl d-none d-md-block" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9">
@@ -62,6 +62,33 @@
                 </div>
                 <!-- Pagination-->
             </div>
+        </div>
+    </div>
+
+
+    <!-- Page mobile-->
+    <div class="container p-3 rtl d-block d-md-none" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <h4>{{\App\CPU\translate('category')}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Sidebar-->
+            @foreach(\App\CPU\CategoryManager::parents() as $category)
+                <div class="col-2 d-flex text-center">
+                    <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
+                        <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
+                            <img style=""
+                                 onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                 src="{{asset("storage/app/public/category/$category->icon")}}" onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
+                                 alt="{{$category['name']}}">
+                                 <p class="text-center" style="font-size: 12px">{{$category['name']}}</p>
+                        </a>
+                      </div>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
