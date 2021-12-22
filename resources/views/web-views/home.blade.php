@@ -55,6 +55,21 @@ a .footer_banner_img {
 .section-header .feature_header span {
     background-color: transparent !important;
     }
+    .view-all .btn-outline-accent {
+        border: none;
+        /* margin-top: 0; */
+        color: {{ $web_config['primary_color'] }} !important;
+    }
+
+    .view-all .btn-outline-accent:hover{
+        background-color: transparent !important;
+        color: #000 !important;
+    }
+
+    .view-all .btn-outline-accent .czi-arrow-right{
+        display: none;
+    }
+
   .media {
     background: white;
   }

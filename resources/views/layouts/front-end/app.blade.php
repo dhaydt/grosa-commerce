@@ -44,20 +44,17 @@
     <!--to make http ajax request to https-->
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <style>
-        .bod{
-            padding-bottom: 70px;
-        }
-        @media(max-width: 600px){
-            .bod {
-                margin-top: 102px;
-            }
-        }
+
         body {
             background-color: #f7f8fa94;
         }
 
-        .mobile-footer{
-    }
+        @media(max-width: 600px){
+            .bod {
+                margin-top: 102px;
+                padding-bottom: 70px;
+            }
+        }
     .unf-bottomnav {
         padding: 10px 20px 10px 20px;
         height: 50px;

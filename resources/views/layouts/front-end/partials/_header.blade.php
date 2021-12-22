@@ -37,6 +37,7 @@
     #nav-global-location-slot {
         border: 2px solid transparent;
         padding: 10px;
+        margin-right: 40px;
         transition: .3s;
         cursor: pointer;
         border-radius: 4px;
@@ -255,7 +256,7 @@
                             tabindex="0">
                             <img class="mt-1 mr-1" style="height: 20px; width: auto;" src="{{asset('public/assets/front-end/img/loc.png')}}" alt="">
                             <div class="mr-2 d-flex flex-column justify-content-center">
-                                <span class="nav-line-1 nav-progressive-content">Dikirim Ke</span>
+                                <span class="nav-line-1 nav-progressive-content">Area pengiriman</span>
                                 <span class="nav-line-2 nav-progressive-content d-flex" id="auto-loc">
                                     {{-- Indonesia --}}
                                 </span>
