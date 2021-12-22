@@ -1,5 +1,5 @@
     <style>
-         .cat-wrapper {
+    .cat-wrapper {
         display: flex;
         flex-wrap: nowrap;
         height: 135px;
@@ -20,6 +20,22 @@
     .cat-item a img{
         min-width: 98px;
         width: 98px;
+    }
+
+    @media(max-width: 500px){
+        .cat-item {
+        flex: 0 0 auto;
+        max-width: 60px;
+        min-width: 60px;
+        margin-right: 0;
+        max-height: 60px;
+        min-height: 60px;
+    }
+
+    .cat-item a img{
+        min-width: 60px;
+        width: 60px;
+    }
     }
     </style>
 <div class="row cat-wrapper">

@@ -1,7 +1,11 @@
 <style>
+    .product-item {
+        margin-right: 0;
+    }
     .product-card {
         margin-bottom: 40px;
         display: flex;
+        max-width: 200px;
         align-items: center;
         justify-content: center;
     }
@@ -31,6 +35,9 @@
         max-height: 200px!important;
         }
     @media (max-width: 600px) {
+        .product-item {
+            margin-right: 5px;
+        }
         .card-header {
             max-height: 130px;
             min-height: 130px;

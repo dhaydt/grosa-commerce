@@ -45,7 +45,7 @@
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <style>
         .bod{
-            padding-bottom: 50px;
+            padding-bottom: 70px;
         }
         @media(max-width: 600px){
             .bod {

@@ -44,6 +44,10 @@
   object-position: center;
 }
 
+a .footer_banner_img {
+    height: 200px !important;
+}
+
 .product-item {
         margin-right: 15px;
     }
@@ -773,7 +777,7 @@
 
     <div class="row product-wrapper  mt-2">
             @foreach(\App\CPU\CategoryManager::products($category['id']) as $key=>$product)
-            @if($key<12) <div class="product-item pl-0  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
+            @if($key<12) <div class="product-item px-0  col-xl-2 col-sm-3 col-4 h-100" style="margin-bottom: 10px">
                 @if (empty($country))
                 @include('web-views.partials._single-product',['product'=>$product])
                 @else
