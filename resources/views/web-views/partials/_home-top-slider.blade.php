@@ -10,6 +10,10 @@
     .carousel-inner {
         border-radius: 5px;
     }
+
+    .carousel-inner {
+        border-radius: 20px;
+    }
     @media(max-width: 600px){
         .row.rtl {
         }
@@ -31,6 +35,10 @@
 
         .indicators {
             width: 20px !important;
+        }
+
+        .carousel-inner {
+            border-radius: 5px;
         }
 
 

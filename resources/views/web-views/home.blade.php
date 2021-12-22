@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css" />
 
 <style>
+.bg-transparent {
+    margin-top: 15px;
+}
+
 .div-flash {
   position: relative;
   width: 100%; /* The size you want */
@@ -468,7 +472,8 @@
         </div>
 
         <div class="mt-2 brand-slider">
-            <div class="owl-carousel owl-theme cat-owl" id="category-slider">
+            @include('web-views.partials._category')
+            {{-- <div class="owl-carousel cat_wrapper owl-theme cat-owl" id="category-slider">
                 @foreach($categories as $category)
                 <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
                     <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
@@ -480,7 +485,7 @@
                     </a>
                 </div>
             @endforeach
-            </div>
+            </div> --}}
         </div>
     </section>
 
