@@ -63,7 +63,7 @@ class WebController extends Controller
         //end
 
         $latest_products = Product::with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
-        $categories = Category::where('position', 0)->take(12)->get();
+        $categories = Category::where('position', 0)->get();
         $brands = Brand::take(15)->get();
         //best sell product
         $bestSellProduct = OrderDetail::with('product.reviews')
