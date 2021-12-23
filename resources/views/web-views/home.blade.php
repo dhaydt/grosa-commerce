@@ -236,7 +236,7 @@ a .footer_banner_img {
     }
     .cat-link img {
         height: auto;
-        padding: 5% !important;
+        padding: 16% !important;
     }
     .cat-link p {
         font-size: 12px;
