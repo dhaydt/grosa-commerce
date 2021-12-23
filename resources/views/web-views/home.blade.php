@@ -204,6 +204,7 @@ a .footer_banner_img {
         border-bottom: none !important;
     }
 
+    /* category */
     .cat-owl .owl-stage-outer {
         overflow: auto !important;
         height: 115px;
@@ -216,16 +217,18 @@ a .footer_banner_img {
         max-height: 110px !important;
     }
     .cat-header span{
-            font-size: 20px !important
-        }
+        font-size: 20px !important
+    }
     .cat-link img {
         height: auto;
+        padding: 5% !important;
+    }
+    .cat-link p {
+        font-size: 12px;
+        margin-bottom: 0;
     }
 
-  .cat-link p {
-    font-size: 12px;
-    margin-bottom: 0;
-  }
+    /* brand */
   .brand-slider {
     margin-top: 0 !important;
   }
@@ -351,6 +354,16 @@ a .footer_banner_img {
       max-width: 100%;
       margin-top: 20px;
       margin-bottom: 20px;
+    }
+  }
+
+  @media(max-width: 500px) {
+    .owl-carousel .owl-dots .owl-dot span {
+        width: 5px !important;
+        height: 5px !important;
+    }
+    .owl-carousel .owl-dots {
+        margin-top: -25px !important;
     }
   }
 
@@ -985,7 +998,7 @@ a .footer_banner_img {
                     items: 3
                 },
                 375: {
-                    items: 4
+                    items: 5
                 },
                 540: {
                     items: 6
