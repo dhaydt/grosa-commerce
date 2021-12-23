@@ -491,8 +491,8 @@ a .footer_banner_img {
         </div>
 
         <div class="mt-2 brand-slider">
-            @include('web-views.partials._category')
-            {{-- <div class="owl-carousel cat_wrapper owl-theme cat-owl" id="category-slider">
+            {{-- @include('web-views.partials._category') --}}
+            <div class="owl-carousel cat_wrapper owl-theme cat-owl" id="category-slider">
                 @foreach($categories as $category)
                 <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
                     <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
@@ -504,7 +504,7 @@ a .footer_banner_img {
                     </a>
                 </div>
             @endforeach
-            </div> --}}
+            </div>
         </div>
     </section>
 
@@ -973,7 +973,7 @@ a .footer_banner_img {
             margin: 5,
             nav: false,
             // navText: ["<i class='czi-arrow-left'></i>","<i class='czi-arrow-right'></i>"],
-            dots: false,
+            dots: true,
             autoplayHoverPause: true,
             // center: true,
             responsive: {
@@ -985,7 +985,7 @@ a .footer_banner_img {
                     items: 3
                 },
                 375: {
-                    items: 5
+                    items: 4
                 },
                 540: {
                     items: 6
