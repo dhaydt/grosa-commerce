@@ -239,7 +239,7 @@ a .footer_banner_img {
         padding: 5% !important;
     }
     .cat-link p {
-        font-size: 10px;
+        font-size: 11px;
         text-transform: capitalize;
         margin-bottom: 0;
     }
