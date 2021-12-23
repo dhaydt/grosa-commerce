@@ -147,6 +147,14 @@ a .footer_banner_img {
     height: 98px;
   }
 
+  .category_div {
+        max-height: 132px !important;
+        height: 132px;
+        width: 100%;
+        background-color: transparent !important;
+        border: none !important;
+    }
+
   .category_div:hover {
     color: {{$web_config['secondary_color']}};
   }
@@ -161,6 +169,7 @@ a .footer_banner_img {
     margin-top: 0px;
     font-size: 15px;
     display: inline-block;
+    text-transform: capitalize;
     white-space: nowrap;
     width: 100%;
   }
@@ -207,14 +216,16 @@ a .footer_banner_img {
     /* category */
     .cat-owl .owl-stage-outer {
         overflow: auto !important;
-        height: 115px;
+        height: 107px;
     }
 
     .owl-stage-outer::-webkit-scrollbar {
         display: none !important;
     }
     .category_div {
-        max-height: 110px !important;
+        max-height: 95px !important;
+        height: 95px;
+        width: 100%
     }
     .cat-header span{
         font-size: 20px !important
@@ -224,7 +235,8 @@ a .footer_banner_img {
         padding: 5% !important;
     }
     .cat-link p {
-        font-size: 12px;
+        font-size: 10px;
+        text-transform: capitalize;
         margin-bottom: 0;
     }
 
@@ -363,7 +375,7 @@ a .footer_banner_img {
         height: 5px !important;
     }
     .owl-carousel .owl-dots {
-        margin-top: -25px !important;
+        margin-top: -10px !important;
     }
   }
 
@@ -507,7 +519,7 @@ a .footer_banner_img {
             {{-- @include('web-views.partials._category') --}}
             <div class="owl-carousel cat_wrapper owl-theme cat-owl" id="category-slider">
                 @foreach($categories as $category)
-                <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
+                <div class="category_div" style="">
                     <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
                         <img style=""
                              onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
