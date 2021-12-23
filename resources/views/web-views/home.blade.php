@@ -1011,7 +1011,7 @@ a .footer_banner_img {
                     items: 2
                 },
                 360: {
-                    items: 4
+                    items: 5
                 },
                 375: {
                     items: 5
