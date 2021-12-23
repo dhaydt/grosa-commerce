@@ -170,7 +170,7 @@ a .footer_banner_img {
     font-size: 15px;
     display: inline-block;
     text-transform: capitalize;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     width: 100%;
   }
 
@@ -239,7 +239,7 @@ a .footer_banner_img {
         padding: 5% !important;
     }
     .cat-link p {
-        font-size: 11px;
+        font-size: 12px;
         text-transform: capitalize;
         margin-bottom: 0;
     }
