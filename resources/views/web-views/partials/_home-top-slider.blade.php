@@ -68,7 +68,7 @@
     }
     @media(max-width: 380px){
         .carousel-banner-row {
-            height: 87px;
+            height: 125px;
         }
         .carousel-inner {
             height: 100%;
