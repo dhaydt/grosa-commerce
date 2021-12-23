@@ -18,7 +18,7 @@
     .carousel-item img{
         width: 100%;
         height: auto;
-        margin-top: -90px;
+        /* margin-top: -90px; */
     }
     @media(max-width: 600px){
         .row.rtl {
@@ -53,7 +53,7 @@
             transition: .3s;
             height: auto;
             width: 100%;
-            margin-top: -20px;
+            /* margin-top: -20px; */
         }
     }
     @media(max-width: 380px){
