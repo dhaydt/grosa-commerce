@@ -203,6 +203,10 @@ a .footer_banner_img {
     .for-feature-title {
       font-size: 20px !important;
     }
+
+    .category_div .cat-link img {
+        padding: 16% !important;
+    }
   }
 
   @media (max-width: 600px) {
@@ -1007,7 +1011,7 @@ a .footer_banner_img {
                     items: 2
                 },
                 360: {
-                    items: 3
+                    items: 4
                 },
                 375: {
                     items: 5

@@ -17,6 +17,10 @@
             margin-top: 5px;
         }
 
+        .deal_product {
+            margin-bottom: 10px
+        }
+
         .cz-countdown-days {
             color: white !important;
             background-color: {{$web_config['primary_color']}};
@@ -84,6 +88,10 @@
 
                 height: 100px;
             }
+
+            .deal_product {
+                margin-bottom: 30px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -149,8 +157,8 @@
                 <div class="row mt-4">
                     @if($discountPrice)
                         @foreach($deal->products as $dp)
-                            <div class="col-xl-2 col-sm-3 col-6" style="margin-bottom: 10px">
-                                @include('web-views.partials._single-product',['product'=>$dp->product])
+                            <div class="col-xl-2 col-sm-3 col-6 deal_product" style="">
+                                @include('web-views.partials._list_single_product',['product'=>$dp->product])
                             </div>
                         @endforeach
                     @endif

@@ -6,6 +6,10 @@
             z-index: 11;
         }
 
+        .bg-dark {
+            padding: 0 !important;
+        }
+
         .nav-title {
             font-size: 18px;
             text-transform: uppercase;
