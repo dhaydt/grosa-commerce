@@ -77,11 +77,15 @@
         @media (max-width: 600px) {
             .flash_deal_title {
                 font-weight: 600;
-                font-size: 26px;
+                font-size: 14px !important;
             }
 
             .cz-countdown {
                 font-size: 14px;
+            }
+
+            .counter .cz-countdown .cz-countdown-value {
+                font-size: 12px !important;
             }
 
             .for-image {
@@ -119,8 +123,8 @@
         <div class="row">
             <section class="col-lg-12 for-deal-tab">
                 @php($flash_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->first())
-                <div class="col-md-6  pt-3">
-                    <div class="row d-inline-flex">
+                <div class="col-md-6 col-12  pt-3">
+                    <div class="row d-inline-flex w-100 justify-content-between counter">
                         <span class="flash_deal_title {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}">
                             {{ \App\CPU\translate('flash_deal')}}
                         </span>
