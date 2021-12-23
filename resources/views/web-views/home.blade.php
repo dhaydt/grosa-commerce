@@ -22,6 +22,10 @@
     margin-top: 15px;
 }
 
+.cat-owl .owl-stage-outer .owl-item {
+        height: 145px;
+    }
+
 .div-flash {
   position: relative;
   width: 100%; /* The size you want */
