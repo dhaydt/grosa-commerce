@@ -7,9 +7,12 @@
         height: 100%;
         background-color: white;
     } */
+    .carousel-banner-row {
+            height: 313px;
+        }
     .carousel-inner{
         border-radius: 20px;
-        height: 350px;
+        height: 100%;
     }
     .carousel-item {
         width: 100%;
@@ -52,13 +55,20 @@
         .carousel-inner .carousel-item a img{
             transition: .3s;
             height: auto;
+            border-radius: 5px;
             width: 100%;
             /* margin-top: -20px; */
         }
     }
+
+    @media(max-width: 500px){
+        .carousel-banner-row {
+            height: 108px;
+        }
+    }
     @media(max-width: 380px){
         .carousel-banner-row {
-            height: 119px;
+            height: 87px;
         }
         .carousel-inner {
             height: 100%;
