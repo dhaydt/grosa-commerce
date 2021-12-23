@@ -963,7 +963,7 @@ a .footer_banner_img {
                     items: 2
                 },
                 360: {
-                    items: 3
+                    items: 6
                 },
                 375: {
                     items: 6
@@ -1003,7 +1003,7 @@ a .footer_banner_img {
             nav: false,
             // navText: ["<i class='czi-arrow-left'></i>","<i class='czi-arrow-right'></i>"],
             dots: true,
-            autoplayHoverPause: true,
+            autoplayHoverPause: false,
             // center: true,
             responsive: {
                 //X-Small
