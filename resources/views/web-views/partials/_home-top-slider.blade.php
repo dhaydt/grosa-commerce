@@ -8,7 +8,7 @@
         background-color: white;
     } */
     .carousel-banner-row {
-            height: 313px;
+            height: 369px;
         }
     .carousel-inner{
         border-radius: 20px;
@@ -71,7 +71,12 @@
             height: 125px;
         }
         .carousel-inner {
-            height: 100%;
+            height: 125px;
+            width: auto;
+        }
+
+        .carousel-inner .carousel-item a img{
+            height: 125px;
         }
 
     }
