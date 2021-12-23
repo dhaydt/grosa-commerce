@@ -27,7 +27,7 @@
         .row.rtl {
         }
         .carousel-banner-row {
-            height: 138px;
+            height: 154px;
             position: relative;
         }
         .carousel.slide {
@@ -63,7 +63,7 @@
 
     @media(max-width: 500px){
         .carousel-banner-row {
-            height: 108px;
+            height: 135px;
         }
     }
     @media(max-width: 380px){
