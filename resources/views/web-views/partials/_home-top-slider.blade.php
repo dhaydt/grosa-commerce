@@ -7,12 +7,18 @@
         height: 100%;
         background-color: white;
     } */
-    .carousel-inner {
-        border-radius: 5px;
+    .carousel-inner{
+        border-radius: 20px;
+        height: 350px;
+    }
+    .carousel-item {
+        width: 100%;
     }
 
-    .carousel-inner {
-        border-radius: 20px;
+    .carousel-item img{
+        width: 100%;
+        height: auto;
+        margin-top: -90px;
     }
     @media(max-width: 600px){
         .row.rtl {
@@ -39,14 +45,25 @@
 
         .carousel-inner {
             border-radius: 5px;
+            height: 100%;
         }
 
 
         .carousel-inner .carousel-item a img{
             transition: .3s;
-            max-height: 138px !important;
-            min-height: 138px !important;
+            height: auto;
+            width: 100%;
+            margin-top: -20px;
         }
+    }
+    @media(max-width: 380px){
+        .carousel-banner-row {
+            height: 119px;
+        }
+        .carousel-inner {
+            height: 100%;
+        }
+
     }
 </style>
 
@@ -63,9 +80,9 @@
             </ol>
             <div class="carousel-inner">
                 @foreach($main_banner as $key=>$banner)
-                    <div class="carousel-item {{$key==0?'active':''}}">
+                    <div class="carousel-item h-100 {{$key==0?'active':''}}">
                         <a href="{{$banner['url']}}">
-                            <img class="d-block w-100" style="max-height: 350px;"
+                            <img class="d-block"
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}"
                                  alt="">
