@@ -220,7 +220,7 @@ a .footer_banner_img {
     /* category */
     .cat-owl .owl-stage-outer {
         overflow: auto !important;
-        height: 107px;
+        height: 114px;
     }
 
     .owl-stage-outer::-webkit-scrollbar {

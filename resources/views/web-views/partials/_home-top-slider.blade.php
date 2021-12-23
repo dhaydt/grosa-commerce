@@ -63,7 +63,15 @@
 
     @media(max-width: 500px){
         .carousel-banner-row {
-            height: 135px;
+            height: 145px;
+        }
+
+        .carousel-indicators {
+            bottom: -13px
+        }
+
+        .carousel-inner .carousel-item a img{
+            height: 145px;
         }
     }
     @media(max-width: 380px){
