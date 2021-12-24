@@ -829,6 +829,9 @@
                 id: product_id
             },
             beforeSend: function () {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                 $('#loading').show();
             },
             success: function (data) {
@@ -842,6 +845,9 @@
                 $('.tooltip').html('');
             },
             complete: function () {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                 $('#loading').hide();
             },
         });
@@ -855,6 +861,9 @@
                 product_id: product_id
             },
             beforeSend: function () {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                 $('#loading').show();
             },
             success: function (data) {
@@ -863,6 +872,9 @@
                 $('#quick-view-modal').empty().html(data.view);
             },
             complete: function () {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                 $('#loading').hide();
             },
         });
@@ -879,6 +891,9 @@
                 url: '{{ route('cart.add') }}',
                 data: $('#' + form_id).serializeArray(),
                 beforeSend: function () {
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                     $('#loading').show();
                 },
                 success: function (response) {
@@ -902,6 +917,9 @@
                     }
                 },
                 complete: function () {
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                     $('#loading').hide();
                 }
             });

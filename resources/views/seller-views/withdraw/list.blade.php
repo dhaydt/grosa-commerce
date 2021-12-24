@@ -104,6 +104,9 @@
                   withdraw_status_filter: type
               },
               beforeSend: function () {
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                   $('#loading').show()
               },
               success: function (data) {
@@ -111,6 +114,9 @@
               },
               complete: function () {
                   $('#loading').hide()
+                  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
               }
           });
       }

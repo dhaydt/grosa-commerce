@@ -23,7 +23,7 @@
         body {
             font-family: 'Titillium Web', sans-serif
         }
-        
+
          #navbarCollapse>ul.navbar-nav.w-100>li:nth-child(6) {
         display: none;
     }
@@ -356,6 +356,9 @@
         })
 
         $('select[name="state"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -396,6 +399,9 @@
 
                         $('select[name="city"]').removeAttr('disabled');
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                         });
                     }
                 });
@@ -403,6 +409,9 @@
         });
 
         $('select[name="city"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -440,6 +449,9 @@
 
                         $('select[name="district"]').removeAttr('disabled');
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                         });
                     }
                 });

@@ -34,7 +34,7 @@
                                     <input type="number" name="contact" value="{{$shop->contact}}" class="form-control" id="name"
                                             required>
                                 </div>
-                                
+
                                 @if ($shop->seller->country == 'ID')
                                 <input type="hidden" name="country" value="{{ $shop->seller->country }}">
                                 @php($province = App\CPU\Helpers::province())
@@ -92,7 +92,7 @@
                                     <input type="text" class="form-control" name="city" id="address-city">
                                 </div>
                                 @endif
-                                
+
                                 <div class="form-group">
                                     <label for="address">{{\App\CPU\translate('Address')}} <span class="text-danger">*</span></label>
                                     <textarea type="text" rows="4" name="address" value="" class="form-control" id="address"
@@ -148,6 +148,9 @@
 
    <script>
         $('select[name="state"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                     $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -187,12 +190,18 @@
                         </option>`);
                         $('select[name="city"]').removeAttr('disabled');
                                                 $('#loading').hide();
+                                                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                         });
                     }
                 });
             }
         });
         $('select[name="city"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -229,12 +238,15 @@
                         </option>`);
                         $('select[name="district"]').removeAttr('disabled');
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                            $('#loading').removeClass('loading-mobile');
+                        }
                         });
                     }
                 });
             }
         });
-        
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

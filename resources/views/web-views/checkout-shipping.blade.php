@@ -232,6 +232,9 @@
         //name select nama nya "provinve_id" kalian bisa sesuaikan dengan form select kalian
 
         $('select[name="state"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -272,6 +275,9 @@
 
                         $('select[name="city"]').removeAttr('disabled');
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                         });
                     }
                 });
@@ -279,6 +285,9 @@
         });
 
         $('select[name="city"]').on('change', function(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // kita buat variable provincedid untk menampung data id select province
             console.log($(this).val())
@@ -316,6 +325,9 @@
 
                         $('select[name="district"]').removeAttr('disabled');
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                         });
                     }
                 });
@@ -361,6 +373,9 @@
                     dataType: 'json',
                     data: $('#address-form').serialize(),
                     beforeSend: function () {
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                         $('#loading').show();
                     },
                     success: function (data) {
@@ -377,6 +392,9 @@
                     },
                     complete: function () {
                         $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                     },
                     error: function () {
                         toastr.error('{{\App\CPU\translate('Something went wrong!')}}', {

@@ -513,6 +513,9 @@
                 url: '{{url('/')}}/shopView/' + seller_id + '?category_id=' + category_id,
 
                 beforeSend: function () {
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                     $('#loading').show();
                 },
                 success: function (response) {
@@ -520,6 +523,9 @@
                 },
                 complete: function () {
                     $('#loading').hide();
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                 },
             });
         }

@@ -482,6 +482,9 @@
                 cart_group_id: cart_group_id
             },
             beforeSend: function () {
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
                 $('#loading').show();
             },
             success: function (data) {
@@ -489,6 +492,9 @@
             },
             complete: function () {
                 $('#loading').hide();
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
             },
         });
     }
@@ -497,6 +503,9 @@
 
     <script type="text/javascript">
         function BkashPayment() {
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
             $('#loading').show();
             // get token
             $.ajax({
@@ -505,6 +514,9 @@
                 contentType: 'application/json',
                 success: function (data) {
                     $('#loading').hide();
+                    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
                     $('pay-with-bkash-button').trigger('click');
                     if (data.hasOwnProperty('msg')) {
                         showErrorMessage(data) // unknown error
