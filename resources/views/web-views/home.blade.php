@@ -244,7 +244,7 @@ a .footer_banner_img {
 
   @media (max-width: 600px) {
     .cat-owl .owl-stage-outer .owl-item {
-        height: 100px;
+        height: 85px;
     }
 
     .category_div .cat-link img {
@@ -262,7 +262,7 @@ a .footer_banner_img {
     /* category */
     .cat-owl .owl-stage-outer {
         overflow: auto !important;
-        height: 114px;
+        height: 100px;
     }
 
     .banner-wrapper .banner-item {

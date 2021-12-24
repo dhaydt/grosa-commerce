@@ -218,7 +218,11 @@ class WebController extends Controller
         }
 
         if (count($cart_group_ids) > 0) {
-            // session(['address_changed' => 0]);
+            $data = [
+                'name' => 'Alamat Pengiriman',
+            ];
+            session()->put('category', $data);
+
             return view('web-views.checkout-shipping');
         }
 
@@ -237,6 +241,11 @@ class WebController extends Controller
         }
 
         if (session()->has('address_id') && count($cart_group_ids) > 0) {
+            $data = [
+                'name' => 'Pembayaran',
+            ];
+            session()->put('category', $data);
+
             return view('web-views.checkout-payment');
         }
 
@@ -264,6 +273,11 @@ class WebController extends Controller
 
         CartManager::cart_clean();
 
+        $data = [
+            'name' => 'Transaksi berhasil',
+        ];
+        session()->put('category', $data);
+
         return view('web-views.checkout-complete');
     }
 
@@ -287,7 +301,10 @@ class WebController extends Controller
 
             $address = ShippingAddress::where('customer_id', $user)->first();
 
-            // dd($address);
+            $data = [
+                'name' => 'Keranjang belanja',
+            ];
+            session()->put('category', $data);
             session()->put('address_id', $address->id);
 
             return view('web-views.shop-cart');

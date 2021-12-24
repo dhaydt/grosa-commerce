@@ -1394,4 +1394,5 @@
   '+ Keranjang' => '+ Keranjang',
   'Flash_Sale_Banner' => 'Flash Sale Banner',
   'Penawaran Kami' => 'Penawaran Kami',
+  'New order ID for you' => 'New order ID for you',
 );

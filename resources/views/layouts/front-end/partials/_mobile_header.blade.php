@@ -46,9 +46,9 @@
         }
 
         .arrow {
-            line-height: 1.8;
+            line-height: 2.1;
             color: #fff !important;
-            font-size: 20px;
+            font-size: 17px;
         }
     }
 </style>
