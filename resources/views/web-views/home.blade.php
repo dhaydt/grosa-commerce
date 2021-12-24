@@ -244,6 +244,7 @@ a .footer_banner_img {
 
     .category_div .cat-link img {
         padding: 5px;
+        margin-bottom: -10px;
     }
 
     .flash_deal_title {

@@ -54,6 +54,12 @@
                 margin-top: 102px;
                 padding-bottom: 70px;
             }
+
+            .loading-mobile{
+                width: 80px;
+                top: 45vw;
+                position: absolute;
+            }
         }
     .unf-bottomnav {
         padding: 10px 20px 10px 20px;
@@ -1209,6 +1215,7 @@
                     name: name
                 },
                 beforeSend: function () {
+                    $('#loading').addClass('loading-mobile');
                     $('#loading').show();
                 },
                 success: function (data) {
@@ -1216,6 +1223,7 @@
                 },
                 complete: function () {
                     $('#loading').hide();
+                    $('#loading').removeClass('loading-mobile');
                 },
             });
         } else {
