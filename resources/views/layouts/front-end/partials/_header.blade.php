@@ -39,8 +39,8 @@
     }
     #nav-global-location-slot {
         border: 2px solid transparent;
-        padding: 10px;
-        margin-right: 40px;
+        /* padding: 10px;
+        margin-right: 40px; */
         transition: .3s;
         cursor: pointer;
         border-radius: 4px;
@@ -267,7 +267,7 @@
                         </a>
                     </span>
                 </div>
-        <div class="input-group-overlay d-none d-md-block mx-4" style="text-align: {{Session::get('direction') === "
+        <div class="input-group-overlay d-none d-md-block" style="text-align: {{Session::get('direction') === "
           rtl" ? 'right' : 'left' }}">
           <form action="{{route('products')}}" type="submit" class="search_form">
             <input class="form-control appended-form-control search-bar-input" type="text" autocomplete="off"
