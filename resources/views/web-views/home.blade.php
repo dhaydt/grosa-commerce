@@ -235,6 +235,10 @@ a .footer_banner_img {
     .featured_deal {
         opacity: 1 !important;
     }
+
+    .banner-wrapper .banner-item {
+        max-width: 65vw;
+    }
   }
 
   @media (max-width: 600px) {
