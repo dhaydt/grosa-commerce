@@ -236,7 +236,7 @@ a .footer_banner_img {
         opacity: 1 !important;
     }
 
-    .banner-item {
+    .row.banner-wrapper .banner-item {
         max-width: 75vw;
     }
 
