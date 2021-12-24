@@ -1,5 +1,8 @@
 {{-- navabr / _header --}}
 <style>
+    .loc-div {
+        min-width: 135px !important;
+    }
     .span-cat::after{
         display: none;
     }
@@ -255,7 +258,7 @@
                             class="d-flex align-items-center nav-a nav-a-2 a-popover-trigger a-declarative nav-progressive-attribute"
                             tabindex="0">
                             <img class="mt-1 mr-1" style="height: 20px; width: auto;" src="{{asset('public/assets/front-end/img/loc.png')}}" alt="">
-                            <div class="mr-2 d-flex flex-column justify-content-center">
+                            <div class="mr-2 d-flex loc-div flex-column justify-content-center">
                                 <span class="nav-line-1 nav-progressive-content">Area pengiriman</span>
                                 <span class="nav-line-2 nav-progressive-content d-flex" id="auto-loc">
                                     {{-- Indonesia --}}
