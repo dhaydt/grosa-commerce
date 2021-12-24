@@ -1,5 +1,29 @@
 <style>
     @media(max-width:600px) {
+        .search-card-mobile {
+            position: absolute;
+            background: white;
+            z-index: 999;
+            width: 100%;
+            display: none
+        }
+
+        .search-card-mobile .card-body{
+            overflow:scroll;
+            height:400px;
+            overflow-x: hidden;
+            max-height: 17.5rem;
+            min-height: 17.5rem;
+            padding: 15px;
+        }
+
+        .search-card-mobile .card-body .list-group-item {
+            padding: 5px;
+        }
+
+        .search-card-mobile .card-body .list-group-item a {
+            font-size: 14px;
+        }
         .mobile-head {
             position: fixed;
             width: 100vw;
@@ -78,7 +102,7 @@
                         <div class="input-group-overlay" style="text-align: {{Session::get('direction') === " rtl"
                             ? 'right' : 'left' }}">
                             <form action="{{route('products')}}" type="submit" class="search_form">
-                                <input class="form-control appended-form-control search-bar-input" type="text"
+                                <input class="form-control search-mobile-input appended-form-control search-bar-input" type="text"
                                     autocomplete="off" placeholder="{{\App\CPU\translate('search')}}" name="name"
                                     style="border: 2px solid white; border-radius: 50px; border-top-right-radius: 50px !important; border-bottom-right-radius: 50px !important;">
                                 <button class="input-group-append-overlay search_button" type="submit"
@@ -91,10 +115,8 @@
                                 </button>
                                 <input name="data_from" value="search" hidden>
                                 <input name="page" value="1" hidden>
-                                <diV class="card search-card"
-                                    style="position: absolute;background: white;z-index: 999;width: 100%;display: none">
-                                    <div class="card-body search-result-box"
-                                        style="overflow:scroll; height:400px;overflow-x: hidden"></div>
+                                <diV class="card search-card-mobile">
+                                    <div class="card-body search-result-box-mobile"></div>
                                 </diV>
                             </form>
                         </div>

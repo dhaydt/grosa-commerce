@@ -193,6 +193,20 @@ a .footer_banner_img {
     max-width: none;
   }
 
+
+  @media (max-width: 360px) {
+
+.featured_for_mobile {
+  max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.featured_deal {
+  opacity: 1 !important;
+}
+}
+
   @media (max-width: 375px) {
     .cz-countdown {
       display: flex !important;
@@ -209,11 +223,29 @@ a .footer_banner_img {
     }
 
     .category_div .cat-link img {
-        padding: 16% !important;
+        padding: 8px !important;
+    }
+
+    .featured_for_mobile {
+        max-width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .featured_deal {
+        opacity: 1 !important;
     }
   }
 
   @media (max-width: 600px) {
+    .cat-owl .owl-stage-outer .owl-item {
+        height: 100px;
+    }
+
+    .category_div .cat-link img {
+        padding: 5px;
+    }
+
     .flash_deal_title {
         font-size: 20px
     }
@@ -387,31 +419,35 @@ a .footer_banner_img {
     }
   }
 
-  @media (max-width: 360px) {
-    .featured_for_mobile {
-      max-width: 100%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-
-    .featured_deal {
-      opacity: 1 !important;
+  @media (min-width: 768px) {
+    .displayTab {
+      display: block !important;
     }
   }
 
-  @media (max-width: 375px) {
-    .featured_for_mobile {
-      max-width: 100%;
-      margin-top: 10px;
-      margin-bottom: 10px;
+  @media (max-width: 800px) {
+    .for-tab-view-img {
+      width: 40%;
     }
 
-    .featured_deal {
-      opacity: 1 !important;
+    .for-tab-view-img {
+      width: 105px;
+    }
+
+    .widget-title {
+      font-size: 19px !important;
     }
   }
 
+  .featured_deal_carosel .carousel-inner {
+    width: 100% !important;
+  }
 
+  .badge-style2 {
+    color: black !important;
+    background: transparent !important;
+    font-size: 11px;
+  }
   @media (max-width: 992px) {
     .navbar-collapse {
       position: fixed;
@@ -454,36 +490,6 @@ a .footer_banner_img {
         margin-left: 0 !important;
       }
     }
-  }
-
-  @media (min-width: 768px) {
-    .displayTab {
-      display: block !important;
-    }
-  }
-
-  @media (max-width: 800px) {
-    .for-tab-view-img {
-      width: 40%;
-    }
-
-    .for-tab-view-img {
-      width: 105px;
-    }
-
-    .widget-title {
-      font-size: 19px !important;
-    }
-  }
-
-  .featured_deal_carosel .carousel-inner {
-    width: 100% !important;
-  }
-
-  .badge-style2 {
-    color: black !important;
-    background: transparent !important;
-    font-size: 11px;
   }
 </style>
 

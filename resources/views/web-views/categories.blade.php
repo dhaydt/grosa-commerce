@@ -29,6 +29,43 @@
             background: white;
         }
 
+        .col-cat .category_div {
+            height: 132px;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+        }
+
+        .category_div p.text-center {
+                text-transform: capitalize;
+            }
+
+        @media(max-width: 500px) {
+            .cat-link .img-cat {
+                margin-bottom: 8px;
+            }
+            .col-cat .category_div {
+                height: 88px;
+            }
+
+            .category_div p.text-center {
+                line-height:1;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .category_div .img-cat {
+                margin-bottom: 8px;
+            }
+            .col-cat .category_div {
+                height: 115px;
+            }
+
+            .category_div p.text-center {
+                line-height:1.3;
+            }
+        }
+
     </style>
 @endpush
 
@@ -77,10 +114,10 @@
         <div class="row">
             <!-- Sidebar-->
             @foreach(\App\CPU\CategoryManager::parents() as $category)
-                <div class="col-2 d-flex text-center">
-                    <div class="category_div" style="height: 132px; width: 100%; background-color: transparent; border: none;">
+                <div class="col-2 d-flex text-center col-cat">
+                    <div class="category_div">
                         <a href="{{route('products',['id'=> $category['id'],'data_from'=>'category','page'=>1])}}" class="cat-link">
-                            <img style=""
+                            <img class="img-cat"
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset("storage/app/public/category/$category->icon")}}" onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  alt="{{$category['name']}}">

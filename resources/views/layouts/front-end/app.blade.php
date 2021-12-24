@@ -689,6 +689,10 @@
 @include('layouts.front-end.partials._quick-view-modal')
 <!-- Navbar Electronics Store-->
 @include('layouts.front-end.partials._header')
+{{-- Mobile navbar --}}
+<header class="box-shadow-sm rtl d-block d-md-none">
+    @include('layouts.front-end.partials._mobile_header')
+</header>
 <!-- Page title-->
 
 {{--loader--}}
@@ -1194,9 +1198,9 @@
         }
     });
 
-    jQuery(".search-bar-input-mobile").keyup(function () {
-        $(".search-card").css("display", "block");
-        let name = $(".search-bar-input-mobile").val();
+    jQuery(".search-mobile-input").keyup(function () {
+        $(".search-card-mobile").css("display", "block");
+        let name = $(".search-mobile-input").val();
         if (name.length > 0) {
             $.get({
                 url: '{{url('/')}}/searched-products',
@@ -1208,19 +1212,26 @@
                     $('#loading').show();
                 },
                 success: function (data) {
-                    $('.search-result-box').empty().html(data.result)
+                    $('.search-result-box-mobile').empty().html(data.result)
                 },
                 complete: function () {
                     $('#loading').hide();
                 },
             });
         } else {
-            $('.search-result-box').empty();
+            $('.search-result-box-mobile').empty();
         }
     });
 
     jQuery(document).mouseup(function (e) {
         var container = $(".search-card");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.hide();
+        }
+    });
+
+    jQuery(document).mouseup(function (e) {
+        var container = $(".search-card-mobile");
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             container.hide();
         }

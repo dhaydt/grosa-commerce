@@ -724,11 +724,6 @@
   </div>
 </header>
 
-{{-- Mobile navbar --}}
-<header class="box-shadow-sm rtl d-block d-md-none">
-    @include('layouts.front-end.partials._mobile_header')
-</header>
-
 @push('script')
 <script>
     $(document).ready(function(){
