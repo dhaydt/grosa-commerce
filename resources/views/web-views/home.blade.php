@@ -236,9 +236,10 @@ a .footer_banner_img {
         opacity: 1 !important;
     }
 
-    .banner-wrapper .banner-item {
-        max-width: 65vw;
+    .banner-item {
+        max-width: 75vw;
     }
+
   }
 
   @media (max-width: 600px) {
@@ -262,6 +263,10 @@ a .footer_banner_img {
     .cat-owl .owl-stage-outer {
         overflow: auto !important;
         height: 114px;
+    }
+
+    .banner-wrapper .banner-item {
+        max-width: 65vw;
     }
 
     .owl-stage-outer::-webkit-scrollbar {
