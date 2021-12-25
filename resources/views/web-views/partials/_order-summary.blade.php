@@ -4,19 +4,19 @@
         font-size: 16px;
     }
 
+    .cart_total_value {
+        color: {{$web_config['primary_color']}}     !important;
+        font-weight: 700 !important;
+        font-size: 25px !important;
+    }
+
     .cart_value {
         font-weight: 600 !important;
         font-size: 16px;
     }
-
-    .cart_total_value {
-        font-weight: 700 !important;
-        font-size: 25px !important;
-        /* color: {{$web_config['primary_color']}}     !important; */
-    }
 </style>
 
-<aside class="col-lg-4 pt-4 pt-lg-0">
+<aside class="col-lg-12 pt-4 pt-lg-0">
     <div class="cart_total">
         @php($sub_total=0)
         @php($total_tax=0)
@@ -60,43 +60,48 @@
                 - {{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}
             </span>
         </div>
-        @if(session()->has('coupon_discount'))
-            <div class="d-flex justify-content-between">
-                <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
-                <span class="cart_value" id="coupon-discount-amount">
-                    - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
-                </span>
-            </div>
+        @if(str_contains(url()->current(), '/checkout-details'))
+            @if(session()->has('coupon_discount'))
+                <div class="d-flex justify-content-between">
+                    <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
+                    <span class="cart_value" id="coupon-discount-amount">
+                        - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
+                    </span>
+                </div>
             @php($coupon_dis=session('coupon_discount'))
-        @else
-            <div class="mt-2">
-                <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
-                    <div class="form-group">
-                        <input class="form-control input_code" type="text" name="code" placeholder="{{\App\CPU\translate('Coupon code')}}"
-                               required>
-                        <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
-                    </div>
-                    <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
-                    </button>
-                </form>
-            </div>
-            @php($coupon_dis=0)
+            @else
+                <div class="mt-2">
+                    <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
+                        <div class="form-group">
+                            <input class="form-control input_code" type="text" name="code" placeholder="{{\App\CPU\translate('Coupon code')}}"
+                                required>
+                            <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
+                        </button>
+                    </form>
+                </div>
+            @endif
         @endif
+        @php($coupon_dis=0)
+
         <hr class="mt-2 mb-2">
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('total')}}</span>
             <span class="cart_value">
-               {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
-            </span>
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <span class="cart_total_value mt-2">
                 {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
             </span>
         </div>
+
+        @if(str_contains(url()->current(), '/shop-cart') || str_contains(url()->current(), '/checkout-payment'))
+            <div class="d-flex justify-content-center">
+                <span class="cart_total_value mt-2">
+                    {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
+                </span>
+            </div>
+        @endif
     </div>
-    <div class="container mt-2">
+    <div class="container mt-2 d-none">
         <div class="row p-0">
             <div class="col-md-3 p-0 text-center mobile-padding">
                 <img style="height: 29px;" src="{{asset("public/assets/front-end/png/delivery.png")}}" alt="">

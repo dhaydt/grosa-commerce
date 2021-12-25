@@ -277,78 +277,78 @@ class Helpers
             // $jne = json_encode($data_ongkir);
             // dd($data_ongkir);
 
-            // return with([$data_ongkir, $ShippingMethod]);
+            return with([$data_ongkir, $ShippingMethod]);
         }
 
-        $curl = curl_init();
-        // SICEPAT
-        curl_setopt_array($curl, [
-            CURLOPT_URL => config('rajaongkir.url').'/cost',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            // CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType='.$from_type.'&destination='.$to_city.'&destinationType='.$to_type.'&weight='.$weight.'&courier=jne',
-            CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType=city&destination='.$to_district.'&destinationType=subdistrict&weight='.$weight.'&courier=sicepat',
-            CURLOPT_HTTPHEADER => [
-                'content-type: application/x-www-form-urlencoded',
-                'key:'.config('rajaongkir.api_key'),
-            ],
-        ]);
+        // $curl = curl_init();
+        // // SICEPAT
+        // curl_setopt_array($curl, [
+        //     CURLOPT_URL => config('rajaongkir.url').'/cost',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     // CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType='.$from_type.'&destination='.$to_city.'&destinationType='.$to_type.'&weight='.$weight.'&courier=jne',
+        //     CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType=city&destination='.$to_district.'&destinationType=subdistrict&weight='.$weight.'&courier=sicepat',
+        //     CURLOPT_HTTPHEADER => [
+        //         'content-type: application/x-www-form-urlencoded',
+        //         'key:'.config('rajaongkir.api_key'),
+        //     ],
+        // ]);
 
-        $responseSicepat = curl_exec($curl);
-        $errSicepat = curl_error($curl);
+        // $responseSicepat = curl_exec($curl);
+        // $errSicepat = curl_error($curl);
 
-        curl_close($curl);
+        // curl_close($curl);
 
-        if ($errSicepat) {
-            echo 'cURL Error #:'.$errSicepat;
-        } else {
-            $response = json_decode($responseSicepat, true);
-            $sicepat = $response['rajaongkir']['results'];
-            // $data_ongkir = $response;
+        // if ($errSicepat) {
+        //     echo 'cURL Error #:'.$errSicepat;
+        // } else {
+        //     $response = json_decode($responseSicepat, true);
+        //     $sicepat = $response['rajaongkir']['results'];
+        //     // $data_ongkir = $response;
 
-            // $jne = json_encode($data_ongkir);
-            // dd($sicepat);
+        //     // $jne = json_encode($data_ongkir);
+        //     // dd($sicepat);
 
-            // return with([$data_ongkir, $ShippingMethod]);
-        }
+        //     // return with([$data_ongkir, $ShippingMethod]);
+        // }
 
-        // TIKI
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => config('rajaongkir.url').'/cost',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType=city&destination='.$to_district.'&destinationType=subdistrict&weight='.$weight.'&courier=tiki',
-            CURLOPT_HTTPHEADER => [
-                'content-type: application/x-www-form-urlencoded',
-                'key:'.config('rajaongkir.api_key'),
-            ],
-        ]);
+        // // TIKI
+        // $curl = curl_init();
+        // curl_setopt_array($curl, [
+        //     CURLOPT_URL => config('rajaongkir.url').'/cost',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     CURLOPT_POSTFIELDS => 'origin='.$from_city.'&originType=city&destination='.$to_district.'&destinationType=subdistrict&weight='.$weight.'&courier=tiki',
+        //     CURLOPT_HTTPHEADER => [
+        //         'content-type: application/x-www-form-urlencoded',
+        //         'key:'.config('rajaongkir.api_key'),
+        //     ],
+        // ]);
 
-        $responseTiki = curl_exec($curl);
-        $errTiki = curl_error($curl);
+        // $responseTiki = curl_exec($curl);
+        // $errTiki = curl_error($curl);
 
-        curl_close($curl);
+        // curl_close($curl);
 
-        if ($errTiki) {
-            echo 'cURL Error #:'.$errTiki;
-        } else {
-            $response = json_decode($responseTiki, true);
-            $tiki = $response['rajaongkir']['results'];
+        // if ($errTiki) {
+        //     echo 'cURL Error #:'.$errTiki;
+        // } else {
+        //     $response = json_decode($responseTiki, true);
+        //     $tiki = $response['rajaongkir']['results'];
 
-            // $jne = json_encode($data_ongkir);
-            // dd($data_ongkir);
+        //     // $jne = json_encode($data_ongkir);
+        //     // dd($data_ongkir);
 
-            return with([[$data_ongkir, $tiki, $sicepat], $ShippingMethod]);
-        }
+        //     return with([[$data_ongkir, $tiki, $sicepat], $ShippingMethod]);
+        // }
     }
 
     public static function get_shipping_methods_api($seller_id, $type, $product_id, $user_id)

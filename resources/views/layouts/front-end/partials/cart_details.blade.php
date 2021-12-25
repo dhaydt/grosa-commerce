@@ -1,13 +1,23 @@
-<div class="feature_header">
+<style>
+    .mobile-cart {
+            margin-top: 0;
+        }
+    @media (max-width: 600px){
+        .mobile-cart {
+            margin-top:-25px;
+        }
+    }
+</style>
+{{-- <div class="feature_header">
     <span>{{ \App\CPU\translate('shopping_cart')}}</span>
-</div>
+</div> --}}
 
 <!-- Grid-->
-<hr class="view_border">
+{{-- <hr class="view_border"> --}}
 @php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))
 @php($cart=\App\Model\Cart::where(['customer_id' => auth('customer')->id()])->get()->groupBy('cart_group_id'))
 
-<div class="row">
+<div class="row mobile-cart">
     <!-- List of items-->
     <section class="col-lg-8">
         <div class="cart_information">
@@ -15,9 +25,9 @@
                 @foreach($group as $cart_key=>$cartItem)
                     @if($cart_key==0)
                         @if($cartItem->seller_is=='admin')
-                            {{\App\CPU\Helpers::get_business_settings('company_name')}}
+                            {{-- {{\App\CPU\Helpers::get_business_settings('company_name')}} --}}
                         @else
-                            {{\App\Model\Shop::where(['seller_id'=>$cartItem['seller_id']])->first()->name}}
+                            {{-- {{\App\Model\Shop::where(['seller_id'=>$cartItem['seller_id']])->first()->name}} --}}
                         @endif
                     @endif
                     <div class="cart_item mb-2">
@@ -84,6 +94,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="d-block d-md-none">
+                        @include('web-views.partials._order-summary')
+                    </div>
                     @if($cart_key==$group->count()-1)
                     <!-- choosen shipping method-->
             @php($choosen_shipping=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
@@ -92,16 +105,24 @@
             @endif
 
             @if($shippingMethod=='sellerwise_shipping')
+            @php($choosen_ship=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
             @php($shippings=\App\CPU\Helpers::get_shipping_methods($cartItem['seller_id'],$cartItem['seller_is'],$cartItem['product_id']))
-            <div class="row">
-                {{-- {{ dd($shippings) }} --}}
+            {{-- {{ dd($choosen_ship) }} --}}
+            @if ($choosen_ship == null)
+                <input type="hidden" id="shipping" value="{{ 'JNE-'.$shippings[0][0]['costs'][1]['service'].','.$shippings[0][0]['costs'][1]['cost'][0]['value'] }}">
+                <input type="hidden" id="cart_group" value="{{ $cartItem['cart_group_id'] }}">
+            @else
+                <input type="hidden" id="shipping" value="">
+                <input type="hidden" id="cart_group" value="">
+            @endif
+            {{-- {{ dd($shippings) }} --}}
+            {{-- <div class="row">
                 <div class="col-12">
                     <select class="form-control"
                         onchange="set_shipping_id(this.value,'{{$cartItem['cart_group_id']}}')">
                         <option>{{\App\CPU\translate('choose_shipping_method')}}</option>
                         @if ($shippings[0][0][0]['costs'])
                         @foreach($shippings[0][0][0]['costs'] as $ship)
-                        {{-- {{ dd($ship) }} --}}
                         <option value="{{'JNE-'.$ship['service'].','.$ship['cost'][0]['value']}}"
                             {{$choosen_shipping['shipping_method_id']==$ship['service']?'selected':''}}>
                             {{"JNE - ".''.$ship['service'].' ( '.$ship['cost'][0]['etd'].' Days)
@@ -112,7 +133,6 @@
 
                         @if ($shippings[0][1][0]['costs'])
                         @foreach($shippings[0][1][0]['costs'] as $ship)
-                        {{-- {{ dd($ship) }} --}}
                        <option value="{{'TIKI- '.$ship['service'].','.$ship['cost'][0]['value']}}"
                             {{$choosen_shipping['shipping_method_id']==$ship['service']?'selected':''}}>
                             {{"TIKI - ".''.$ship['service'].' ( '.$ship['cost'][0]['etd'].' Days)
@@ -123,7 +143,6 @@
 
                         @if ($shippings[0][2][0]['costs'])
                         @foreach($shippings[0][2][0]['costs'] as $ship)
-                        {{-- {{ dd($ship) }} --}}
                         <option value="{{'SiCepat- '.$ship['service'].','.$ship['cost'][0]['value']}}"
                             {{$choosen_shipping['shipping_method_id']==$ship['service']?'selected':''}}>
                             {{"SiCepat - ".''.$ship['service'].' ( '.$ship['cost'][0]['etd'].' Days)
@@ -140,13 +159,13 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
+            </div> --}}
             @endif
             @endif
             @endforeach
             <div class="mt-3"></div>
             @endforeach
-
+{{--
             @if($shippingMethod=='inhouse_shipping')
                 @php($shippings=\App\CPU\Helpers::get_shipping_methods(1,'admin', $cartItem['product_id']))
             <div class="row">
@@ -163,7 +182,7 @@
                     </select>
                     </div>
                 </div>
-            @endif
+            @endif --}}
 
             @if( $cart->count() == 0)
                 <div class="d-flex justify-content-center align-items-center">
@@ -187,13 +206,14 @@
         </div>
     </section>
     <!-- Sidebar-->
-    @include('web-views.partials._order-summary')
+    <div class="d-none d-md-block col-lg-4">
+        @include('web-views.partials._order-summary')
+    </div>
 </div>
 
-
+@push('script')
 <script>
     cartQuantityInitialize();
-
     function set_shipping_id(id, cart_group_id) {
         $.get({
             url: '{{url('/')}}/customer/set-shipping-method',
@@ -219,4 +239,18 @@
             },
         });
     }
+
+    $(function() {
+        let id = $('#shipping').val()
+        let cart_group_id = $('#cart_group').val()
+        console.log( "ready!", cart_group_id );
+        if(id && cart_group_id){
+            set_shipping_id(id, cart_group_id);
+        }
+    });
+
+
+
+
 </script>
+@endpush

@@ -33,6 +33,7 @@ class SystemController extends Controller
 
     public function set_shipping_method(Request $request)
     {
+        // dd($request);
         if ($request['cart_group_id'] == 'all_cart_group') {
             foreach (CartManager::get_cart_group_ids() as $group_id) {
                 $request['cart_group_id'] = $group_id;

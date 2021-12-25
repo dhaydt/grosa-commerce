@@ -11,6 +11,26 @@
         .razorpay-payment-button {
             display: none !important;
         }
+
+        .mobile-payment {
+            margin-top: 20px;
+        }
+
+        @media(max-width: 600px){
+            .card-body {
+                display: flex;
+                align-items: center;
+                height: 80px !important;
+            }
+
+            .card-body .btn-block {
+                padding: 0;
+                margin-top: 5px;
+            }
+            .mobile-payment {
+                margin-top: -40px;
+            }
+        }
     </style>
 
     {{--stripe--}}
@@ -23,27 +43,26 @@
     <!-- Page Content-->
     <div class="container pb-5 mb-2 mb-md-4 rtl"
          style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
-        <div class="row">
-            <div class="col-md-12 mb-5 pt-5">
-                <div class="feature_header" style="background: #dcdcdc;line-height: 1px">
+        <div class="row mobile-payment">
+            {{-- <div class="col-md-12 mb-5 pt-5">
+                <div class="feature_header">
                     <span>{{ \App\CPU\translate('payment_method')}}</span>
                 </div>
-            </div>
+            </div> --}}
 
             <section class="col-lg-8">
-                <hr>
                 <div class="checkout_details mt-3">
                 @include('web-views.partials._checkout-steps',['step'=>3])
 
                 <!-- Payment methods accordion-->
                 @php($ship = App\Model\CartShipping::where('cart_group_id', session()->get('cart_group_id'))->first())
                 @if ($ship->shipping_cost !== "0.00")
-                <h2 class="h6 pb-3 mb-2 mt-5">{{\App\CPU\translate('choose_payment')}}</h2>
+                <h2 class="h6 pb-3 mb-2 mt-2">{{\App\CPU\translate('choose_payment')}}</h2>
 
                 <div class="row">
                     @php($config=\App\CPU\Helpers::get_business_settings('cash_on_delivery'))
                     @if($config['status'])
-                        <div class="col-md-6 mb-4" style="cursor: pointer">
+                        <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
                             <div class="card">
                                 <div class="card-body" style="height: 100px">
                                     <a class="btn btn-block"
@@ -73,7 +92,7 @@
                         </div>
                     @endif
 
-                    @php($config=\App\CPU\Helpers::get_business_settings('paypal'))
+                    {{-- @php($config=\App\CPU\Helpers::get_business_settings('paypal'))
                     @if($config['status'])
                         <div class="col-md-6 mb-4" style="cursor: pointer">
                             <div class="card">
@@ -89,10 +108,10 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
 
                     @php($user = auth('customer')->user())
-                <div class="col-md-6 mb-4" style="cursor: pointer">
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
                     <div class="card">
                         <div class="card-body" style="height: 100px">
                             <form class="needs-validation" method="POST" id="payment-form"
@@ -110,7 +129,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4" style="cursor: pointer">
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
                     <div class="card">
                         <div class="card-body" style="height: 100px">
                             <form class="needs-validation" method="POST" id="payment-form"
@@ -128,7 +147,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4" style="cursor: pointer">
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
                     <div class="card">
                         <div class="card-body" style="height: 100px">
                             <form class="needs-validation" method="POST" id="payment-form"
@@ -435,19 +454,21 @@
 
                     <!-- Navigation (desktop)-->
                     <div class="row">
-                        <div class="col-4"></div>
-                        <div class="col-4">
+                        <div class="col-4 d-none d-md-block"></div>
+                        <div class="col-12 col-md-4">
                             <a class="btn btn-secondary btn-block" href="{{route('checkout-details')}}">
                                 <span class="d-none d-sm-inline">{{\App\CPU\translate('Back to Shipping')}}</span>
                                 <span class="d-inline d-sm-none">{{\App\CPU\translate('Back')}}</span>
                             </a>
                         </div>
-                        <div class="col-4"></div>
+                        <div class="col-4 d-none d-md-block"></div>
                     </div>
                 </div>
             </section>
             <!-- Sidebar-->
-            @include('web-views.partials._order-summary')
+            <div class="d-none d-md-block col-lg-4">
+                @include('web-views.partials._order-summary')
+            </div>
         </div>
     </div>
 @endsection

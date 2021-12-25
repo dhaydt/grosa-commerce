@@ -22,24 +22,34 @@
         .btn-outline:focus {
             /* border-color: {{$web_config['primary_color']}}   !important; */
         }
+
+        .mobile-shipping {
+            margin-top: 20px;
+        }
+
+        @media(max-width: 600px){
+            .mobile-shipping {
+                margin-top: -40px
+            }
+        }
     </style>
 @endpush
 
 @section('content')
-    <div class="container pb-5 mb-2 mb-md-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container pb-5 mb-2 mb-md-4 rtl mobile-shipping" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
-            <div class="col-md-12 mb-5 pt-5">
+            {{-- <div class="col-md-12 mb-5 pt-5">
                 <div class="feature_header" style="background: #dcdcdc;line-height: 1px">
                     <span>{{ \App\CPU\translate('shipping_address')}}</span>
                 </div>
-            </div>
+            </div> --}}
             <section class="col-lg-8">
                 <hr>
                 <div class="checkout_details mt-3">
                     <!-- Steps-->
                 @include('web-views.partials._checkout-steps',['step'=>2])
                 <!-- Shipping methods table-->
-                    <h2 class="h4 pb-3 mb-2 mt-5">{{ \App\CPU\translate('shipping_address')}} {{ \App\CPU\translate('choose_shipping_address')}}</h2>
+                    {{-- <h2 class="h4 pb-3 mb-2 mt-5">{{ \App\CPU\translate('shipping_address')}} {{ \App\CPU\translate('choose_shipping_address')}}</h2> --}}
                     @php($shipping_addresses=\App\Model\ShippingAddress::where('customer_id',auth('customer')->id())->get())
                     <form method="post" action="" id="address-form">
                         @csrf
@@ -200,6 +210,9 @@
                             </ul>
                         </div>
                     </form>
+                    <div class="d-block d-md-none">
+                        @include('web-views.partials._order-summary')
+                    </div>
                     <!-- Navigation (desktop)-->
                     <div class="row">
                         <div class="col-6">
@@ -220,7 +233,9 @@
                     <!-- Sidebar-->
                 </div>
             </section>
-            @include('web-views.partials._order-summary')
+            <div class="d-none d-md-block col-lg-4">
+                @include('web-views.partials._order-summary')
+            </div>
         </div>
     </div>
 @endsection
