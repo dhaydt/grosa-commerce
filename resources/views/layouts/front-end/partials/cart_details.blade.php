@@ -94,9 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-block d-md-none">
-                        @include('web-views.partials._order-summary')
-                    </div>
+
                     @if($cart_key==$group->count()-1)
                     <!-- choosen shipping method-->
             @php($choosen_shipping=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
@@ -189,6 +187,9 @@
                     <h4 class="text-danger text-capitalize">{{\App\CPU\translate('cart_empty')}}</h4>
                 </div>
             @endif
+            <div class="d-block d-md-none">
+                @include('web-views.partials._order-summary')
+            </div>
         </div>
         <div class="row pt-2">
             <div class="col-6">
@@ -215,6 +216,10 @@
 <script>
     cartQuantityInitialize();
     function set_shipping_id(id, cart_group_id) {
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
+        $('#loading').show();
         $.get({
             url: '{{url('/')}}/customer/set-shipping-method',
             dataType: 'json',
@@ -223,10 +228,10 @@
                 cart_group_id: cart_group_id
             },
             beforeSend: function () {
-                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-                        $('#loading').addClass('loading-mobile');
-                    }
-                $('#loading').show();
+                // if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                //         $('#loading').addClass('loading-mobile');
+                //     }
+                // $('#loading').show();
             },
             success: function (data) {
                 location.reload();
