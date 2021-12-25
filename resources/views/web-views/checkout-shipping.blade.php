@@ -117,15 +117,15 @@
                                                 {{-- {{ dd() }} --}}
                                                 @if (auth('customer')->user()->country == 'ID')
 
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label>{{ \App\CPU\translate('Country')}} <span
                                                             style="color: red">*</span></label>
                                                             <input type="hidden" name="country" value="ID">
                                                     <input type="text" class="form-control"
                                                            name="country" {{$shipping_addresses->count()==0?'required':''}} value="Indonesia" disabled>
-                                                </div>
+                                                </div> --}}
 
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     @php($province = App\CPU\Helpers::province())
                                                     <label for="province">{{ \App\CPU\translate('Province')}} <span
                                                             style="color: red">*</span></label>
@@ -138,26 +138,30 @@
                                                                 </option>
                                                                 @endforeach
                                                             </select>
-                                                </div>
+                                                </div> --}}
+                                                <input type="hidden" value="jawa barat" name="province">
 
                                                 <div class="form-group">
                                                     <label for="city">{{ \App\CPU\translate('City')}} <span
                                                             style="color: red">*</span></label>
-                                                            <select disabled class="form-control" name="city" id="city" placeholder="Select your city address" {{$shipping_addresses->count()==0?'required':''}}
+                                                            {{-- <select disabled class="form-control" name="city" id="city" placeholder="Select your city address" {{$shipping_addresses->count()==0?'required':''}}
                                                             style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left'
                                                             }};">
                                                             <option value="">Select your city address</option>
-                                                        </select>
+                                                        </select> --}}
+                                                        <input class="form-control" type="text" name="city" placeholder="Masukan kota anda">
+                                                        <input class="form-control" type="hidden" name="country" value="ID">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="district">{{ \App\CPU\translate('District')}} <span
                                                             style="color: red">*</span></label>
-                                                            <select disabled class="form-control" name="district" id="address-district" placeholder="Select your District address" {{$shipping_addresses->count()==0?'required':''}}
+                                                            {{-- <select disabled class="form-control" name="district" id="address-district" placeholder="Select your District address" {{$shipping_addresses->count()==0?'required':''}}
                                                             style="text-align: {{Session::get('direction') === " rtl" ? 'right' : 'left'
                                                             }};">
                                                                 <option value="">Select your district address</option>
-                                                        </select>
+                                                        </select> --}}
+                                                        <input type="text" name="district" class="form-control" placeholder="Masukan kecamatan">
                                                 </div>
                                                 @else
                                                 @php($country = App\Country::all())

@@ -108,7 +108,7 @@
                                     </div> --}}
                                 </div>
 
-                                <div class="col-sm-6">
+                                {{-- <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="reg-password-confirm">{{\App\CPU\translate('country')}}</label>
                                         <select id="country" name="country" class="form-control  js-select2-custom">
@@ -118,7 +118,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="form-group d-flex flex-wrap justify-content-between">
 

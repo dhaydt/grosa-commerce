@@ -88,33 +88,33 @@ class SystemController extends Controller
     public function choose_shipping_address(Request $request)
     {
         if ($request['country'] == 'ID') {
-            $provinces = $request['state'];
-            $province = explode(',', $provinces);
-            if (count($province) > 1) {
-                $prov = $province[1];
-            } else {
-                $prov = $province[0];
-            }
+            // $provinces = $request['state'];
+            // $province = explode(',', $provinces);
+            // if (count($province) > 1) {
+            //     $prov = $province[1];
+            // } else {
+            //     $prov = $province[0];
+            // }
             // dd($prov);
 
-            $cities = $request['city'];
-            $cit = explode(',', $cities);
-            if (count($cit) > 1) {
-                $city = $cit[1];
-                $city_id = $cit[0];
-            } else {
-                $city = $province[0];
-                $city_id = '';
-            }
-            $districts = $request->district;
-            $dis = explode(',', $districts);
-            if (count($dis) > 1) {
-                $district = $dis[1];
-                $district_id = $dis[0];
-            } else {
-                $district_id = '';
-                $district = $dis[0];
-            }
+            // $cities = $request['city'];
+            // $cit = explode(',', $cities);
+            // if (count($cit) > 1) {
+            //     $city = $cit[1];
+            //     $city_id = $cit[0];
+            // } else {
+            //     $city = $province[0];
+            //     $city_id = '';
+            // }
+            // $districts = $request->district;
+            // $dis = explode(',', $districts);
+            // if (count($dis) > 1) {
+            //     $district = $dis[1];
+            //     $district_id = $dis[0];
+            // } else {
+            //     $district_id = '';
+            //     $district = $dis[0];
+            // }
 
             if ($request->save_address == 'on') {
                 $address_id = DB::table('shipping_addresses')->insertGetId([
@@ -122,13 +122,13 @@ class SystemController extends Controller
                     'contact_person_name' => $request['contact_person_name'],
                     'address_type' => $request['address_type'],
                     'address' => $request['address'],
-                    'city' => $city,
-                    'state' => $prov,
-                    'province' => $prov,
-                    'city_id' => $city_id,
-                    'district' => $district,
-                    'district_id' => $district_id,
-                    'country' => $request['country'],
+                    'city' => $request['city'],
+                    'state' => $request['province'],
+                    'province' => 'jawa barat',
+                    // 'city_id' => $city_id,
+                    'district' => $request['district'],
+                    // 'district_id' => $district_id,
+                    'country' => 'ID',
                     'zip' => $request['zip'],
                     'phone' => $request['phone'],
                     'created_at' => now(),
@@ -140,8 +140,8 @@ class SystemController extends Controller
                     'address_type' => 'required',
                     'address' => 'required',
                     'city' => 'required',
-                    'country' => 'required',
-                    'state' => 'required',
+                    // 'country' => 'required',
+                    // 'state' => 'required',
                     'district' => 'required',
                     'zip' => 'required',
                     'phone' => 'required',
@@ -156,12 +156,12 @@ class SystemController extends Controller
                     'contact_person_name' => $request['contact_person_name'],
                     'address_type' => $request['address_type'],
                     'address' => $request['address'],
-                    'city' => $city,
-                    'province' => $prov,
-                    'city_id' => $city_id,
-                    'district' => $district,
-                    'district_id' => $district_id,
-                    'country' => $request['country'],
+                    'city' => $request['city'],
+                    'province' => 'jawa barat',
+                    // 'city_id' => $city_id,
+                    'district' => $request['district'],
+                    // 'district_id' => $district_id,
+                    'country' => 'ID',
                     'zip' => $request['zip'],
                     'phone' => $request['phone'],
                     'created_at' => now(),
@@ -178,7 +178,8 @@ class SystemController extends Controller
                     'address_type' => $request['address_type'],
                     'address' => $request['address'],
                     'city' => $request['city'],
-                    'country' => $request['country'],
+                    'province' => 'jawa barat',
+                    'country' => 'ID',
                     'zip' => $request['zip'],
                     'phone' => $request['phone'],
                     'created_at' => now(),

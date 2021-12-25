@@ -40,11 +40,12 @@ class RegisterController extends Controller
             return redirect(route('customer.auth.check', [$user->id]));
         }
 
+        // dd($request);
+
         $request->validate([
             'f_name' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'unique:users',
-            'country' => 'required',
             'password' => 'required|min:8|same:con_password',
         ],
             [
@@ -55,7 +56,6 @@ class RegisterController extends Controller
             'f_name' => $request['f_name'],
             'l_name' => $request['l_name'],
             'email' => $request['email'],
-            'country' => $request['country'],
             'phone' => $request['phone'],
             'is_active' => 1,
             'password' => bcrypt($request['password']),
