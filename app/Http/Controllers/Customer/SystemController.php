@@ -232,7 +232,7 @@ class SystemController extends Controller
                 session(['address_changed' => 1]);
                 CartShipping::where('cart_group_id', session()->get('cart_group_id'))
                         ->update([
-                            'shipping_cost' => 0.00,
+                            'shipping_cost' => 0.01,
                         ]);
             }
         }
