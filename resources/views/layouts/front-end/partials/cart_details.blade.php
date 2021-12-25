@@ -106,7 +106,7 @@
             {{-- @php($shippings=\App\CPU\Helpers::get_shipping_methods($cartItem['seller_id'],$cartItem['seller_is'],$cartItem['product_id'])) --}}
 
             @if ($choosen_ship == null)
-                <input type="hidden" id="shipping" value="JNE-REG, 1">
+                <input type="hidden" id="shipping" value="JNE-REG, 0">
                 <input type="hidden" id="cart_group" value="{{ $cartItem['cart_group_id'] }}">
             @else
                 <input type="hidden" id="shipping" value="">
@@ -186,7 +186,7 @@
         let cart_group_id = $('#cart_group').val()
         console.log( "ready!", cart_group_id );
         if(id && cart_group_id){
-            set_shipping_id(id, cart_group_id);
+            // set_shipping_id(id, cart_group_id);
         }
     });
 
