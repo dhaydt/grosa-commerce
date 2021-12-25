@@ -218,7 +218,7 @@ class WebController extends Controller
             $shipping['cart_group_id'] = $cart_group_ids[0];
             $shipping['shipping_method_id'] = 0;
             $shipping['shipping_service'] = 'JNE-REG';
-            $shipping['shipping_cost'] = 0.00;
+            $shipping['shipping_cost'] = 0.01;
             $shipping->save();
             // Toastr::info(translate('select_shipping_method_first'));
 
