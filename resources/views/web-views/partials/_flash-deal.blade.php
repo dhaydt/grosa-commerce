@@ -15,6 +15,18 @@
         min-height: 335px;
         border-radius: 10px;
         overflow:hidden;
+        text-align: center;
+    }
+
+    .flash-product-price {
+            color: {{$web_config['primary_color']}} !important;
+            margin-top: -2px;
+        }
+
+    .flash-product-title {
+        text-transform: capitalize;
+        text-align: center;
+        margin-bottom: 5px;
     }
     .deal-product-col {
         margin-left: -105px
@@ -142,6 +154,7 @@
 
         .flash-product-title {
             font-size: 12px;
+            text-transform: capitalize;
         }
         .css-974ipl .flash-product-price {
             font-weight: 700;
@@ -225,7 +238,7 @@
                       </strike>
                       @endif
                     </div>
-                    <h6 class="flash-product-review">
+                    {{-- <h6 class="flash-product-review">
                       @for($inc=0;$inc<5;$inc++) @if($inc<$overallRating[0]) <i class="sr-star czi-star-filled active">
                         </i>
                         @else
@@ -235,7 +248,7 @@
                         <label class="badge-style2">
                           ( {{$deal->product->reviews()->count()}} )
                         </label>
-                    </h6>
+                    </h6> --}}
                   </div>
                 </div>
               </div>
