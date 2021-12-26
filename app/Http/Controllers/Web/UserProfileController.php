@@ -38,10 +38,14 @@ class UserProfileController extends Controller
 
     public function user_update(Request $request)
     {
+        // $image = $request->file('image');
         $image = $request->file('image');
+        // foreach ($img as $image) {
+        // }
+        // dd($image);
 
         if ($image != null) {
-            $imageName = ImageManager::update('profile/', auth('customer')->user()->image, 'png', $request->file('image'));
+            $imageName = ImageManager::update('profile/', auth('customer')->user()->image, 'png', $request->image);
         } else {
             $imageName = auth('customer')->user()->image;
         }

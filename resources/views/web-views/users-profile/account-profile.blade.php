@@ -97,6 +97,12 @@
                 background: {{$web_config['primary_color']}};
             }
 
+            .photoHeader {
+                margin- {{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 2px !important;
+                margin- {{Session::get('direction') === "rtl" ? 'left' : 'right'}}: 1px !important;
+                padding: 13px;
+            }
+
             .sidebar_heading h1 {
                 text-align: center;
                 color: aliceblue;
@@ -104,11 +110,6 @@
                 font-size: 19px;
             }
 
-            .photoHeader {
-                margin- {{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 2px !important;
-                margin- {{Session::get('direction') === "rtl" ? 'left' : 'right'}}: 1px !important;
-                padding: 13px;
-            }
         }
     </style>
 @endpush
