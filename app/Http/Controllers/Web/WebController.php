@@ -211,18 +211,18 @@ class WebController extends Controller
         // }
         $cart_group_ids = CartManager::get_cart_group_ids();
         if (CartShipping::whereIn('cart_group_id', $cart_group_ids)->count() != count($cart_group_ids)) {
-            $shipping = CartShipping::where(['cart_group_id' => $cart_group_ids[0]])->first();
-            if (isset($shipping) == false) {
-                $shipping = new CartShipping();
-            }
-            $shipping['cart_group_id'] = $cart_group_ids[0];
-            $shipping['shipping_method_id'] = 0;
-            $shipping['shipping_service'] = 'JNE-REG';
-            $shipping['shipping_cost'] = 0.01;
-            $shipping->save();
-            // Toastr::info(translate('select_shipping_method_first'));
+            // $shipping = CartShipping::where(['cart_group_id' => $cart_group_ids[0]])->first();
+            // if (isset($shipping) == false) {
+            //     $shipping = new CartShipping();
+            // }
+            // $shipping['cart_group_id'] = $cart_group_ids[0];
+            // $shipping['shipping_method_id'] = 0;
+            // $shipping['shipping_service'] = 'JNE-REG';
+            // $shipping['shipping_cost'] = 0.01;
+            // $shipping->save();
+            Toastr::info(translate('select_shipping_method_first'));
 
-            // return redirect('shop-cart');
+            return redirect('shop-cart');
         }
 
         if (count($cart_group_ids) > 0) {

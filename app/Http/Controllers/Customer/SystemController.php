@@ -33,7 +33,6 @@ class SystemController extends Controller
 
     public function set_shipping_method(Request $request)
     {
-        // dd($request);
         if ($request['cart_group_id'] == 'all_cart_group') {
             foreach (CartManager::get_cart_group_ids() as $group_id) {
                 $request['cart_group_id'] = $group_id;
@@ -54,36 +53,65 @@ class SystemController extends Controller
         if (isset($shipping) == false) {
             $shipping = new CartShipping();
         }
-
-        $seller = Cart::where('cart_group_id', $request['cart_group_id'])->first();
-        $selCountry = $seller->product->country;
-
-        $customer = User::find($seller->customer_id);
-        $cusCountry = $customer->country;
-
-        if ($selCountry && $cusCountry == 'ID') {
-            $shipp = $request['id'];
-            $ship = explode(',', $shipp);
-            $service = $ship[0];
-            $cost = $ship[1];
-            $price = Convert::idrTousd($cost);
-            $ship_method = 'NULL';
-        } else {
-            $service = 'NULL';
-            $cost = ShippingMethod::find($request['id'])->cost;
-            $ship_method = $request['id'];
-        }
-        // $customer =
-        // dd($customer);
-
-        // dd($cost);
-        // dd($request);
         $shipping['cart_group_id'] = $request['cart_group_id'];
-        $shipping['shipping_method_id'] = $ship_method;
-        $shipping['shipping_service'] = $service;
-        $shipping['shipping_cost'] = round($price, 2);
+        $shipping['shipping_method_id'] = $request['id'];
+        $shipping['shipping_cost'] = ShippingMethod::find($request['id'])->cost;
         $shipping->save();
     }
+
+    // public function set_shipping_method(Request $request)
+    // {
+    //     // dd($request);
+    //     if ($request['cart_group_id'] == 'all_cart_group') {
+    //         foreach (CartManager::get_cart_group_ids() as $group_id) {
+    //             $request['cart_group_id'] = $group_id;
+    //             self::insert_into_cart_shipping($request);
+    //         }
+    //     } else {
+    //         self::insert_into_cart_shipping($request);
+    //     }
+
+    //     return response()->json([
+    //         'status' => 1,
+    //     ]);
+    // }
+
+    // public static function insert_into_cart_shipping($request)
+    // {
+    //     $shipping = CartShipping::where(['cart_group_id' => $request['cart_group_id']])->first();
+    //     if (isset($shipping) == false) {
+    //         $shipping = new CartShipping();
+    //     }
+
+    //     $seller = Cart::where('cart_group_id', $request['cart_group_id'])->first();
+    //     $selCountry = $seller->product->country;
+
+    //     $customer = User::find($seller->customer_id);
+    //     $cusCountry = $customer->country;
+
+    //     if ($selCountry && $cusCountry == 'ID') {
+    //         $shipp = $request['id'];
+    //         $ship = explode(',', $shipp);
+    //         $service = $ship[0];
+    //         $cost = $ship[1];
+    //         $price = Convert::idrTousd($cost);
+    //         $ship_method = 'NULL';
+    //     } else {
+    //         $service = 'NULL';
+    //         $cost = ShippingMethod::find($request['id'])->cost;
+    //         $ship_method = $request['id'];
+    //     }
+    //     // $customer =
+    //     // dd($customer);
+
+    //     // dd($cost);
+    //     // dd($request);
+    //     $shipping['cart_group_id'] = $request['cart_group_id'];
+    //     $shipping['shipping_method_id'] = $ship_method;
+    //     $shipping['shipping_service'] = $service;
+    //     $shipping['shipping_cost'] = round($price, 2);
+    //     $shipping->save();
+    // }
 
     public function choose_shipping_address(Request $request)
     {
@@ -226,16 +254,16 @@ class SystemController extends Controller
         $old = session()->get('old_address');
         $new = session()->get('address_id');
 
-        if (auth('customer')->user()->country == 'ID') {
-            if ($new == $old) {
-            } else {
-                session(['address_changed' => 1]);
-                CartShipping::where('cart_group_id', session()->get('cart_group_id'))
-                        ->update([
-                            'shipping_cost' => 0.01,
-                        ]);
-            }
-        }
+        // if (auth('customer')->user()->country == 'ID') {
+        //     if ($new == $old) {
+        //     } else {
+        //         session(['address_changed' => 1]);
+        //         CartShipping::where('cart_group_id', session()->get('cart_group_id'))
+        //                 ->update([
+        //                     'shipping_cost' => 0.00,
+        //                 ]);
+        //     }
+        // }
 
         return response()->json([], 200);
     }

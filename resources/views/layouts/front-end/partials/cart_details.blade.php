@@ -6,6 +6,9 @@
         .mobile-cart {
             margin-top:-25px;
         }
+        .ship-mobile {
+            padding: 0 20px;
+        }
     }
 </style>
 {{-- <div class="feature_header">
@@ -96,27 +99,50 @@
                     </div>
 
                     @if($cart_key==$group->count()-1)
-            @php($choosen_shipping=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
-            @if(isset($choosen_shipping)==false)
-            @php($choosen_shipping['shipping_method_id']=0)
-            @endif
+           <!-- choosen shipping method-->
+           @php($choosen_shipping=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
+           @if(isset($choosen_shipping)==false)
+               @php($choosen_shipping['shipping_method_id']=0)
+           @endif
 
-            @if($shippingMethod=='sellerwise_shipping')
-            @php($choosen_ship=\App\Model\CartShipping::where(['cart_group_id'=>$cartItem['cart_group_id']])->first())
-            {{-- @php($shippings=\App\CPU\Helpers::get_shipping_methods($cartItem['seller_id'],$cartItem['seller_is'],$cartItem['product_id'])) --}}
+           @if($shippingMethod=='sellerwise_shipping')
+               @php($shippings=\App\CPU\Helpers::get_shipping_methods($cartItem['seller_id'],$cartItem['seller_is']))
+               <div class="row ship-mobile">
+                   <div class="col-12">
+                       <select class="form-control"
+                               onchange="set_shipping_id(this.value,'{{$cartItem['cart_group_id']}}')">
+                           <option>{{\App\CPU\translate('choose_shipping_method')}}</option>
+                           @foreach($shippings as $shipping)
+                               <option
+                                   value="{{$shipping['id']}}" {{$choosen_shipping['shipping_method_id']==$shipping['id']?'selected':''}}>
+                                   {{$shipping['title'].' ( '.$shipping['duration'].' ) '.\App\CPU\Helpers::currency_converter($shipping['cost'])}}
+                               </option>
+                           @endforeach
+                       </select>
+                   </div>
+               </div>
+           @endif
+       @endif
+   @endforeach
+   <div class="mt-3"></div>
+@endforeach
 
-            @if ($choosen_ship == null)
-                <input type="hidden" id="shipping" value="JNE-REG, 0">
-                <input type="hidden" id="cart_group" value="{{ $cartItem['cart_group_id'] }}">
-            @else
-                <input type="hidden" id="shipping" value="">
-                <input type="hidden" id="cart_group" value="">
-            @endif
-            @endif
-            @endif
-            @endforeach
-            <div class="mt-3"></div>
-            @endforeach
+@if($shippingMethod=='inhouse_shipping')
+   @php($shippings=\App\CPU\Helpers::get_shipping_methods(1,'admin'))
+   <div class="row ship-mobile">
+       <div class="col-12">
+           <select class="form-control" onchange="set_shipping_id(this.value,'all_cart_group')">
+               <option>{{\App\CPU\translate('choose_shipping_method')}}</option>
+               @foreach($shippings as $shipping)
+                   <option
+                       value="{{$shipping['id']}}" {{$choosen_shipping['shipping_method_id']==$shipping['id']?'selected':''}}>
+                       {{$shipping['title'].' ( '.$shipping['duration'].' ) '.\App\CPU\Helpers::currency_converter($shipping['cost'])}}
+                   </option>
+               @endforeach
+           </select>
+       </div>
+   </div>
+@endif
 
             @if( $cart->count() == 0)
                 <div class="d-flex justify-content-center align-items-center">
