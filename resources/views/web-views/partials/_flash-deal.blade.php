@@ -16,6 +16,9 @@
         border-radius: 10px;
         overflow:hidden;
         text-align: center;
+    }
+
+    .flash_deal_product_details{
         justify-content: center;
         display: flex;
     }
