@@ -16,11 +16,15 @@
         border-radius: 10px;
         overflow:hidden;
         text-align: center;
+        justify-content: center;
+        display: flex;
     }
 
     .flash-product-price {
             color: {{$web_config['primary_color']}} !important;
             margin-top: -2px;
+            display: flex;
+            flex-direction: column;
         }
 
     .flash-product-title {
