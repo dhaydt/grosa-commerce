@@ -49,12 +49,6 @@
             background-color: #f7f8fa94;
         }
 
-        @media(min-width: 1315px) {
-            .bod{
-                height: 47vh;
-            }
-        }
-
         @media(max-width: 600px){
             .bod {
                 margin-top: 102px;
