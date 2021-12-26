@@ -20,6 +20,13 @@
         margin-left: -105px
     }
 
+    .discount-top-f {
+        z-index: 2;
+        right: 0;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
     @media (max-width: 600px) {
         .css-1xpribl {
             position: relative;
@@ -185,7 +192,7 @@
             <div class="flash_deal_product rtl"
               onclick="location.href='{{route('product',$deal->product->slug)}}'">
               @if($deal->product->discount > 0)
-              <div class=" discount-top-f">
+              <div class="discount-top-f">
                 <span class="for-discoutn-value">
                   @if ($deal->product->discount_type == 'percent')
                   {{round($deal->product->discount)}}%
@@ -256,6 +263,17 @@
             @php($overallRating =
             \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
         <div class="css-vzo4av" onclick="location.href='{{route('product',$deal->product->slug)}}'">
+            @if($deal->product->discount > 0)
+              <div class="discount-top-f">
+                <span class="for-discoutn-value">
+                  @if ($deal->product->discount_type == 'percent')
+                  {{round($deal->product->discount)}}%
+                  @elseif($deal->product->discount_type =='flat')
+                  {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
+                  @endif OFF
+                </span>
+              </div>
+              @endif
             <div class="css-13ekl7h" data-testid="master-product-card">
                 <div class="css-2lm59p" data-testid="">
                     <div class="pcv3__container css-gfx8z3">
