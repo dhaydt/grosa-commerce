@@ -14,7 +14,15 @@
     <meta property="twitter:description" content="{!! substr($web_config['about']->value,0,100) !!}">
     <style>
         .for-banner {
-            margin-top: 5px;
+            margin-top: 15px;
+        }
+
+        .for-banner img {
+            border-radius: 10px;
+        }
+
+        .counter{
+            justify-content:start;
         }
 
         .deal_product {
@@ -75,6 +83,9 @@
         }
 
         @media (max-width: 600px) {
+            .counter {
+                justify-content: space-between
+            }
             .flash_deal_title {
                 font-weight: 600;
                 font-size: 14px !important;
@@ -123,8 +134,8 @@
         <div class="row">
             <section class="col-lg-12 for-deal-tab">
                 @php($flash_deals=\App\Model\FlashDeal::with(['products.product.reviews'])->where(['status'=>1])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->first())
-                <div class="col-md-6 col-12  pt-3">
-                    <div class="row d-inline-flex w-100 justify-content-between counter">
+                <div class="col-md-6 col-12  pt-2">
+                    <div class="row d-inline-flex w-100 counter">
                         <span class="flash_deal_title {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}">
                             {{ \App\CPU\translate('flash_deal')}}
                         </span>
@@ -158,7 +169,7 @@
          style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <section class="col-lg-12">
-                <div class="row mt-4">
+                <div class="row">
                     @if($discountPrice)
                         @foreach($deal->products as $dp)
                             <div class="col-xl-2 col-sm-3 col-6 deal_product" style="">

@@ -5,12 +5,13 @@
         align-items: center;
         justify-content: center;
     }
+
     .card-header {
         cursor: pointer;
         max-height: 193px;
         min-height: 193px;
         padding: 0px;
-        margin-bottom: 25px;
+        margin-bottom: -5px;
     }
 
 
@@ -29,11 +30,25 @@
         width: 100%;
         min-height: 200px;
         max-height: 200px!important;
-        }
+    }
+    @media(min-width: 600px){
+        .flash-card .card-header{
+        position: relative;
+    }
+
+    .flash-card .card-header .center-div {
+        position: absolute;
+        top: -17px;
+    }
+
+    .flash-card .card-header .center-div img{
+        border-radius: 5px 5px 0 0;
+    }
+    }
     @media (max-width: 600px) {
         .card-header {
-            max-height: 190px;
-            min-height: 190px;
+            max-height: 168px;
+            min-height: 168px;
             margin-bottom: 5px;
         }
 
@@ -91,7 +106,7 @@
     }
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
-<div class="product-card card {{$product['current_stock']==0?'stock-card':''}}">
+<div class="product-card card flash-card {{$product['current_stock']==0?'stock-card':''}}">
     @if($product['current_stock']<=0) <label style="left: 29%!important; top: 29%!important;"
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif

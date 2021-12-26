@@ -144,10 +144,6 @@
                 display: flex;
             }
 
-            .order_table_info_div_1 {
-                width: 50%;
-            }
-
             .order_table_info_div_2 {
                 width: 49%;
                 text-align: {{Session::get('direction') === "rtl" ? 'left' : 'right'}}        !important;
@@ -165,9 +161,12 @@
             }
 
             .amount {
-                font-size: 13px;
                 margin- {{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0px;
+                font-size: 13px;
+            }
 
+            .order_table_info_div_1 {
+                width: 50%;
             }
 
         }
@@ -265,8 +264,9 @@
                                         <div class="order_table_info_div_2">
                                             <span class="spanTr">
                                                 {{-- {{ dd($order) }} --}}
-                                                @php($shop=App\Model\Shop::where('seller_id', $order->seller_id)->first())
-                                                {{$shop->name}}
+                                                {{-- @php($shop=App\Model\Shop::where('seller_id', $order->seller_id)->first())
+                                                {{$shop->name}} --}}
+                                                {{ env('APP_NAME') }}
                                             </span>
                                         </div>
                                     </div>
@@ -297,7 +297,8 @@
                                                 {{$detail->variant}}<br>
                                                 <span>{{\App\CPU\translate('Seller')}} : </span>
                                                 @php($shop=App\Model\Shop::where('seller_id', $detail->seller_id)->first())
-                                                {{$shop->name}}
+                                                {{-- {{$shop->name}} --}}
+                                                {{ env('APP_NAME') }}
                                             </td>
                                         </div>
                                         <div class="col-md-6">
