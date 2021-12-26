@@ -166,6 +166,7 @@
         .css-974ipl .flash-product-price {
             font-weight: 700;
             font-size: 15px !important;
+            text-align: center;
             color: {{$web_config['primary_color']}};
         }
 
