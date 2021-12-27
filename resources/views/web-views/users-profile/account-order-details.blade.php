@@ -169,6 +169,10 @@
                 width: 50%;
             }
 
+            .mobile-order {
+                margin-top: -26px !important;
+            }
+
         }
     </style>
 @endpush
@@ -176,7 +180,7 @@
 @section('content')
 
     <!-- Page Content-->
-    <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl"
+    <div class="container mobile-order pb-5 mb-2 mb-md-4 mt-3 rtl"
          style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <!-- Sidebar-->
@@ -184,7 +188,7 @@
 
             {{-- Content --}}
             <section class="col-lg-9 col-md-9">
-                <div class="row">
+                <div class="row d-none d-md-block">
                     <div class="col-md-6 mb-4">
                         <a class="page-link" href="{{ route('account-oder') }}">
                             <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'right ml-2' : 'left mr-2'}}"></i>{{\App\CPU\translate('back')}}

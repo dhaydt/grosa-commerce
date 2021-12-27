@@ -59,6 +59,10 @@
             padding: 3px 13px !important;
         }
 
+        .action {
+            width: 162px
+        }
+
         @media (max-width: 600px) {
             .sidebar_heading {
                 background: {{$web_config['primary_color']}};
@@ -77,6 +81,28 @@
 
             .order-mobile {
                 margin-top: -32px !important;
+            }
+
+            .bodytr {
+                font-size: 13px;
+                min-width: 72px;
+            }
+            .btn-sm {
+                margin-top: 5px !important;
+            }
+
+            .fa.fa-eye {
+                margin-top: 2px;
+            }
+
+            .card-tb::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
+        @media(max-width: 400px){
+            .action {
+                min-width:162px;
             }
         }
     </style>
@@ -102,7 +128,7 @@
         <!-- Content  -->
             <section class="col-lg-9 mt-2 col-md-9">
                 <div class="card box-shadow-sm">
-                    <div style="overflow: auto">
+                    <div class="card-tb" style="overflow: auto">
                         <table class="table">
                             <thead>
                             <tr style="background-color: #6b6b6b;">
@@ -156,19 +182,19 @@
                                     <td class="bodytr">
                                         {{\App\CPU\Helpers::currency_converter($order['order_amount'])}}
                                     </td>
-                                    <td class="bodytr" style="width: 162px">
+                                    <td class="bodytr action">
                                         <a href="{{ route('account-order-details', ['id'=>$order->id]) }}"
-                                           class="btn btn-secondary p-2">
+                                           class="btn btn-secondary p-1 btn-sm">
                                             <i class="fa fa-eye"></i> {{\App\CPU\translate('view')}}
                                         </a>
                                         @if($order['payment_method']=='cash_on_delivery' && $order['order_status']=='pending')
                                             <a href="javascript:"
                                                onclick="route_alert('{{ route('order-cancel',[$order->id]) }}','{{\App\CPU\translate('want_to_cancel_this_order?')}}')"
-                                               class="btn btn-danger p-2 top-margin">
+                                               class="btn btn-danger p-1 btn-sm top-margin">
                                                 <i class="fa fa-trash"></i> {{\App\CPU\translate('cancel')}}
                                             </a>
                                         @else
-                                            <button class="btn btn-danger p-2 top-margin" onclick="cancel_message()">
+                                            <button class="btn btn-danger p-1 btn-sm top-margin" onclick="cancel_message()">
                                                 <i class="fa fa-trash"></i> {{\App\CPU\translate('cancel')}}
                                             </button>
                                         @endif
