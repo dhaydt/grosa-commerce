@@ -211,8 +211,14 @@ class WebController extends Controller
         // }
         $cart_group_ids = CartManager::get_cart_group_ids();
         if (CartShipping::whereIn('cart_group_id', $cart_group_ids)->count() != count($cart_group_ids)) {
-            $ship = \App\CPU\Helpers::get_shipping_methods(1, 'admin')->first();
+            $ship = \App\CPU\Helpers::get_shipping_methods('admin')->first();
             // dd($ship);
+            if (isset($ship) == false) {
+                Toastr::info(translate('no_shipping_method_activated_by_admin'));
+                Toastr::info(translate('Please_contact_Grosa_provider!!'));
+
+                return redirect('shop-cart');
+            }
             $shipping = CartShipping::where(['cart_group_id' => $cart_group_ids[0]])->first();
             if (isset($shipping) == false) {
                 $shipping = new CartShipping();

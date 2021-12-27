@@ -225,9 +225,9 @@ class Helpers
         return $config;
     }
 
-    public static function get_shipping_methods($seller_id, $type)
+    public static function get_shipping_methods($type)
     {
-        return ShippingMethod::where(['status' => 1])->where(['creator_id' => $seller_id, 'creator_type' => $type])->get();
+        return ShippingMethod::where(['status' => 1])->where(['creator_type' => $type])->get();
     }
 
     // public static function get_shipping_methods($seller_id, $type, $product_id)
