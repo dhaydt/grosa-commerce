@@ -960,6 +960,7 @@
         $.post('{{ route('cart.remove') }}', {_token: '{{ csrf_token() }}', key: key}, function (response) {
             console.log(response)
             updateNavCart();
+            location.reload();
             $('#cart-summary').empty().html(response.data);
             toastr.info('{{\App\CPU\translate('Item has been removed from cart')}}', {
                 CloseButton: true,

@@ -99,7 +99,7 @@ class CartController extends Controller
         session()->forget('coupon_discount');
         session()->forget('shipping_method_id');
 
-        return response()->json(['data' => view('layouts.front-end.partials.cart_details')->render()]);
+        return response()->json(['data' => view('layouts.front-end.partials.cart_details')]);
     }
 
     //updated the quantity for a cart item
