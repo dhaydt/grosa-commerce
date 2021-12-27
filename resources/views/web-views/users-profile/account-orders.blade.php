@@ -59,6 +59,30 @@
             padding: 3px 13px !important;
         }
 
+        .bodytr.action .btn {
+                text-transform: uppercase;
+                font-size: 12px;
+                border-radius: 7px;
+                font-weight: 700;
+            }
+
+            .btn-cancel {
+                background-color: red;
+                color: white !important;
+            }
+
+            .btn-view {
+                background-color: green;
+                color: white !important;
+                margin-right: 5px
+            }
+
+            .orderStat span {
+                text-transform: uppercase;
+                /* font-size: 12px; */
+                font-weight: 700
+            }
+
         .action {
             width: 162px
         }
