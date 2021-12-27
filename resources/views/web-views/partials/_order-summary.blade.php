@@ -48,12 +48,14 @@
                 {{\App\CPU\Helpers::currency_converter($total_tax)}}
             </span>
         </div>
+        @if (!Request::is('shop-cart'))
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('shipping')}}</span>
             <span class="cart_value">
                 {{\App\CPU\Helpers::currency_converter($total_shipping_cost)}}
             </span>
         </div>
+        @endif
         <div class="d-flex justify-content-between">
             <span class="cart_title">{{\App\CPU\translate('discount_on_product')}}</span>
             <span class="cart_value">

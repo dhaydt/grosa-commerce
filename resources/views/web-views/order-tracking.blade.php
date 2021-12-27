@@ -15,14 +15,25 @@
 
     <link rel="stylesheet" media="screen"
           href="{{asset('public/assets/front-end')}}/vendor/nouislider/distribute/nouislider.min.css"/>
+    <style>
+        @media(max-width: 600px){
+            .mobile-order {
+                margin-top: -54px;
+            }
+
+            .card.border-0 {
+                margin-top: 20px !important;
+            }
+        }
+    </style>
 @endpush
 
 @section('content')
     <!-- Page Title (Dark)-->
-    <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container rtl mobile-order" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
 
         <div class="pt-3 pb-3">
-            <h2>{{\App\CPU\translate('my_order')}}</h2>
+            <h2 class="d-none d-md-block">{{\App\CPU\translate('my_order')}}</h2>
         </div>
         <div class="btn-primary">
             <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
@@ -161,7 +172,7 @@
         </div>
         <!-- Footer-->
         <div class="d-sm-flex flex-wrap justify-content-between align-items-center text-center pt-3">
-            <div class="custom-control custom-checkbox mt-1 {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}">
+            <div class="custom-control custom-checkbox mt-1 d-none d-md-block {{Session::get('direction') === "rtl" ? 'ml-3' : 'mr-3'}}">
             </div>
             <a class="btn btn-primary btn-sm mt-2 mb-2"
                href="{{ route('account-order-details', ['id'=>$orderDetails->id]) }}">{{\App\CPU\translate('View')}} {{\App\CPU\translate('Order')}} {{\App\CPU\translate('Details')}}</a>

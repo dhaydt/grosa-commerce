@@ -1397,4 +1397,5 @@
   'New order ID for you' => 'New order ID for you',
   'no_shipping_method_activated_by_admin' => 'No shipping method activated by admin',
   'Please_contact_Grosa_provider!!' => 'Please contact Grosa provider!!',
+  'delete' => 'Delete',
 );

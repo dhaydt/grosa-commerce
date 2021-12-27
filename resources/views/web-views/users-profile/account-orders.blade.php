@@ -98,6 +98,30 @@
             .card-tb::-webkit-scrollbar{
                 display: none;
             }
+
+            .bodytr.action .btn {
+                text-transform: uppercase;
+                font-size: 12px;
+                border-radius: 7px;
+                font-weight: 700;
+            }
+
+            .btn-cancel {
+                background-color: red;
+                color: white !important;
+            }
+
+            .btn-view {
+                background-color: green;
+                color: white !important;
+                margin-right: 5px
+            }
+
+            .orderStat span {
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 700
+            }
         }
 
         @media(max-width: 400px){
@@ -164,17 +188,17 @@
                                         {{\App\CPU\translate('ID')}}: {{$order['id']}}
                                     </td>
                                     <td class="bodytr orderDate"><span class="">{{$order['created_at']}}</span></td>
-                                    <td class="bodytr">
+                                    <td class="bodytr orderStat">
                                         @if($order['order_status']=='failed' || $order['order_status']=='canceled')
-                                            <span class="badge badge-danger text-capitalize">
+                                            <span class="text-danger">
                                                 {{\App\CPU\translate($order['order_status'])}}
                                             </span>
                                         @elseif($order['order_status']=='confirmed' || $order['order_status']=='processing' || $order['order_status']=='delivered')
-                                            <span class="badge badge-success text-capitalize">
+                                            <span class="text-success">
                                                 {{\App\CPU\translate($order['order_status'])}}
                                             </span>
                                         @else
-                                            <span class="badge badge-info text-capitalize">
+                                            <span class="text-info">
                                                 {{\App\CPU\translate($order['order_status'])}}
                                             </span>
                                         @endif
@@ -184,18 +208,18 @@
                                     </td>
                                     <td class="bodytr action">
                                         <a href="{{ route('account-order-details', ['id'=>$order->id]) }}"
-                                           class="btn btn-secondary p-1 btn-sm">
-                                            <i class="fa fa-eye"></i> {{\App\CPU\translate('view')}}
+                                           class="btn btn-view py-0 px-2 btn-sm">
+                                            {{\App\CPU\translate('view')}}
                                         </a>
                                         @if($order['payment_method']=='cash_on_delivery' && $order['order_status']=='pending')
                                             <a href="javascript:"
                                                onclick="route_alert('{{ route('order-cancel',[$order->id]) }}','{{\App\CPU\translate('want_to_cancel_this_order?')}}')"
-                                               class="btn btn-danger p-1 btn-sm top-margin">
-                                                <i class="fa fa-trash"></i> {{\App\CPU\translate('cancel')}}
+                                               class="btn btn-cancel py-0 px-2 btn-sm top-margin">
+                                                {{\App\CPU\translate('delete')}}
                                             </a>
                                         @else
-                                            <button class="btn btn-danger p-1 btn-sm top-margin" onclick="cancel_message()">
-                                                <i class="fa fa-trash"></i> {{\App\CPU\translate('cancel')}}
+                                            <button class="btn py-0 btn-cancel px-2 btn-sm top-margin" onclick="cancel_message()">
+                                                {{\App\CPU\translate('delete')}}
                                             </button>
                                         @endif
                                     </td>
