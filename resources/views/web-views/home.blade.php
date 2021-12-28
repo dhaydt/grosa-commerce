@@ -324,7 +324,7 @@ a .footer_banner_img {
     .product-wrapper {
         display: flex;
         flex-wrap: nowrap;
-        height: 256px;
+        height: 268px;
         overflow-x: auto;
     }
     .product-wrapper::-webkit-scrollbar {

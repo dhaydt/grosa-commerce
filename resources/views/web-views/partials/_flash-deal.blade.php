@@ -1,4 +1,14 @@
 <style>
+    .discount-hed{
+        margin-top: 0;
+    }
+    span.for-discoutn-value{
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 0px 0px 0 15px;
+    }
     .bandiv{
             min-height: 400px;
             max-height: 400px;
@@ -47,6 +57,13 @@
     }
 
     @media (max-width: 600px) {
+        span.for-discoutn-value{
+            padding: 2px 9px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 0px 0px 0 15px;
+            z-index: 1;
+        }
         .css-1xpribl {
             position: relative;
             display: block;
@@ -227,6 +244,17 @@
                 <span class="for-discoutn-value-null"></span>
               </div> --}}
               {{-- @endif --}}
+              @if($deal->product->label)
+                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute: z-index: 1;">
+                    <span class="for-discoutn-value">
+                        {{ $deal->product->label }}
+                    </span>
+                </div>
+            @else
+            <div class="d-flex justify-content-end for-dicount-div-null">
+                <span class="for-discoutn-value-null"></span>
+            </div>
+            @endif
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center justify-content-center div-flash">
                   <img class="w-100"
@@ -304,6 +332,17 @@
                 <div class="css-2lm59p" data-testid="">
                     <div class="pcv3__container css-gfx8z3">
                         <div class="css-zimbi">
+                            @if($deal->product->label)
+                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute: z-index: 1;">
+                    <span class="for-discoutn-value">
+                        {{ $deal->product->label }}
+                    </span>
+                </div>
+            @else
+            <div class="d-flex justify-content-end for-dicount-div-null">
+                <span class="for-discoutn-value-null"></span>
+            </div>
+            @endif
                                 <div class="css-1sfomcl" data-testid="imgProduct"><img crossorigin="anonymous"
                                     src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"

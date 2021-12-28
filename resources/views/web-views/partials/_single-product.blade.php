@@ -1,4 +1,14 @@
 <style>
+    .discount-hed{
+        margin-top: 0;
+    }
+    span.for-discoutn-value{
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 0px 0px 0 15px;
+    }
     .new-discoutn-value{
         background-color: {{ $web_config['secondary_color'] }};
         border-radius: 10px;
@@ -44,6 +54,7 @@
     }
     .card-body.inline_product {
         margin-bottom: 40px;
+        position: relative;
     }
     .card-body-hidden {
         padding-bottom: 5px!important;
@@ -56,6 +67,13 @@
         max-height: 200px!important;
         }
     @media (max-width: 600px) {
+        span.for-discoutn-value{
+            padding: 2px 9px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 0px 0px 0 15px;
+            z-index: 1;
+        }
         .new-discoutn-value {
             font-size: 10px;
         }
@@ -133,6 +151,17 @@
         @endif
 
         <div class="card-header inline_product clickable">
+            @if(isset($product->label))
+            <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute">
+                <span class="for-discoutn-value">
+                    {{ $product->label }}
+                </span>
+            </div>
+            @else
+            <div class="d-flex justify-content-end for-dicount-div-null">
+                <span class="for-discoutn-value-null"></span>
+            </div>
+            @endif
             <div class="center-div element-center" style="cursor: pointer">
                 <a href="{{route('product',$product->slug)}}">
                     <img src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"

@@ -131,7 +131,7 @@
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="name">{{\App\CPU\translate('Brand')}}</label>
                                         <select
                                             class="js-example-basic-multiple js-states js-example-responsive form-control"
@@ -143,8 +143,11 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <label for="name">{{\App\CPU\translate('Label')}}</label>
+                                        <input type="text" name="label" class="form-control" value="{{ $product['label'] }}">
+                                    </div>
+                                    <div class="col-md-4">
                                         <label for="name">{{\App\CPU\translate('Unit')}}</label>
                                         <select
                                             class="js-example-basic-multiple js-states js-example-responsive form-control"

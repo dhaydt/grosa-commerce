@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\CPU\BackEndHelper;
 use App\CPU\Helpers;
 use App\CPU\ImageManager;
+use function App\CPU\translate;
 use App\Http\Controllers\BaseController;
 use App\Model\Brand;
 use App\Model\Category;
@@ -20,7 +21,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Rap2hpoutre\FastExcel\FastExcel;
-use function App\CPU\translate;
 
 class ProductController extends BaseController
 {
@@ -28,6 +28,7 @@ class ProductController extends BaseController
     {
         $cat = Category::where(['parent_id' => 0])->get();
         $br = Brand::orderBY('name', 'ASC')->get();
+
         return view('admin-views.product.add-new', compact('cat', 'br'));
     }
 
@@ -37,6 +38,7 @@ class ProductController extends BaseController
         $product->featured = ($product['featured'] == 0 || $product['featured'] == null) ? 1 : 0;
         $product->save();
         $data = $request->status;
+
         return response()->json($data);
     }
 
@@ -63,6 +65,7 @@ class ProductController extends BaseController
     {
         $product = Product::with(['reviews'])->where(['id' => $id])->first();
         $reviews = Review::where(['product_id' => $id])->paginate(Helpers::pagination_limit());
+
         return view('admin-views.product.view', compact('product', 'reviews'));
     }
 
@@ -85,6 +88,8 @@ class ProductController extends BaseController
             'unit.required' => 'Unit  is required!',
         ]);
 
+        // dd($request);
+
         if ($request['discount_type'] == 'percent') {
             $dis = ($request['unit_price'] / 100) * $request['discount'];
         } else {
@@ -99,12 +104,11 @@ class ProductController extends BaseController
             });
         }
 
-
         $p = new Product();
         $p->user_id = auth('admin')->id();
-        $p->added_by = "admin";
+        $p->added_by = 'admin';
         $p->name = $request->name[array_search('en', $request->lang)];
-        $p->slug = Str::slug($request->name[array_search('en', $request->lang)], '-') . '-' . Str::random(6);
+        $p->slug = Str::slug($request->name[array_search('en', $request->lang)], '-').'-'.Str::random(6);
 
         $category = [];
 
@@ -141,8 +145,8 @@ class ProductController extends BaseController
         $choice_options = [];
         if ($request->has('choice')) {
             foreach ($request->choice_no as $key => $no) {
-                $str = 'choice_options_' . $no;
-                $item['name'] = 'choice_' . $no;
+                $str = 'choice_options_'.$no;
+                $item['name'] = 'choice_'.$no;
                 $item['title'] = $request->choice[$key];
                 $item['options'] = explode(',', implode('|', $request[$str]));
                 array_push($choice_options, $item);
@@ -157,7 +161,7 @@ class ProductController extends BaseController
         }
         if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_' . $no;
+                $name = 'choice_options_'.$no;
                 $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
@@ -173,7 +177,7 @@ class ProductController extends BaseController
                 $str = '';
                 foreach ($combination as $k => $item) {
                     if ($k > 0) {
-                        $str .= '-' . str_replace(' ', '', $item);
+                        $str .= '-'.str_replace(' ', '', $item);
                     } else {
                         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
                             $color_name = Color::where('code', $item)->first()->name;
@@ -185,14 +189,14 @@ class ProductController extends BaseController
                 }
                 $item = [];
                 $item['type'] = $str;
-                $item['price'] = BackEndHelper::currency_to_usd(abs($request['price_' . str_replace('.', '_', $str)]));
-                $item['sku'] = $request['sku_' . str_replace('.', '_', $str)];
-                $item['qty'] = abs($request['qty_' . str_replace('.', '_', $str)]);
+                $item['price'] = BackEndHelper::currency_to_usd(abs($request['price_'.str_replace('.', '_', $str)]));
+                $item['sku'] = $request['sku_'.str_replace('.', '_', $str)];
+                $item['qty'] = abs($request['qty_'.str_replace('.', '_', $str)]);
                 array_push($variations, $item);
                 $stock_count += $item['qty'];
             }
         } else {
-            $stock_count = (integer)$request['current_stock'];
+            $stock_count = (int) $request['current_stock'];
         }
 
         if ($validator->errors()->count() > 0) {
@@ -207,13 +211,13 @@ class ProductController extends BaseController
         }
         $p->thumbnail = ImageManager::upload('product/thumbnail/', 'png', $request->image);
 
-
         //combinations end
         $p->variation = json_encode($variations);
         $p->unit_price = BackEndHelper::currency_to_usd($request->unit_price);
         $p->purchase_price = BackEndHelper::currency_to_usd($request->purchase_price);
         $p->tax = $request->tax_type == 'flat' ? BackEndHelper::currency_to_usd($request->tax) : $request->tax;
         $p->tax_type = $request->tax_type;
+        $p->label = $request->label;
         $p->discount = $request->discount_type == 'flat' ? BackEndHelper::currency_to_usd($request->discount) : $request->discount;
         $p->discount_type = $request->discount_type;
         $p->attributes = json_encode($request->choice_attributes);
@@ -235,32 +239,33 @@ class ProductController extends BaseController
             $data = [];
             foreach ($request->lang as $index => $key) {
                 if ($request->name[$index] && $key != 'en') {
-                    array_push($data, array(
+                    array_push($data, [
                         'translationable_type' => 'App\Model\Product',
                         'translationable_id' => $p->id,
                         'locale' => $key,
                         'key' => 'name',
                         'value' => $request->name[$index],
-                    ));
+                    ]);
                 }
                 if ($request->description[$index] && $key != 'en') {
-                    array_push($data, array(
+                    array_push($data, [
                         'translationable_type' => 'App\Model\Product',
                         'translationable_id' => $p->id,
                         'locale' => $key,
                         'key' => 'description',
                         'value' => $request->description[$index],
-                    ));
+                    ]);
                 }
             }
             Translation::insert($data);
 
             Toastr::success(translate('Product added successfully!'));
+
             return redirect()->route('admin.product.list', ['in_house']);
         }
     }
 
-    function list(Request $request, $type)
+    public function list(Request $request, $type)
     {
         $query_param = [];
         $search = $request['search'];
@@ -282,6 +287,7 @@ class ProductController extends BaseController
 
         $request_status = $request['status'];
         $pro = $pro->orderBy('id', 'DESC')->paginate(Helpers::pagination_limit())->appends(['status' => $request['status']])->appends($query_param);
+
         return view('admin-views.product.list', compact('pro', 'search', 'request_status'));
     }
 
@@ -299,6 +305,7 @@ class ProductController extends BaseController
             $product->status = $request['status'];
         }
         $product->save();
+
         return response()->json([
             'success' => $success,
         ], 200);
@@ -307,14 +314,15 @@ class ProductController extends BaseController
     public function get_categories(Request $request)
     {
         $cat = Category::where(['parent_id' => $request->parent_id])->get();
-        $res = '<option value="' . 0 . '" disabled selected>---Select---</option>';
+        $res = '<option value="'. 0 .'" disabled selected>---Select---</option>';
         foreach ($cat as $row) {
             if ($row->id == $request->sub_category) {
-                $res .= '<option value="' . $row->id . '" selected >' . $row->name . '</option>';
+                $res .= '<option value="'.$row->id.'" selected >'.$row->name.'</option>';
             } else {
-                $res .= '<option value="' . $row->id . '">' . $row->name . '</option>';
+                $res .= '<option value="'.$row->id.'">'.$row->name.'</option>';
             }
         }
+
         return response()->json([
             'select_tag' => $res,
         ]);
@@ -335,13 +343,14 @@ class ProductController extends BaseController
 
         if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_' . $no;
+                $name = 'choice_options_'.$no;
                 $my_str = implode('', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
         }
 
         $combinations = Helpers::combinations($options);
+
         return response()->json([
             'view' => view('admin-views.product.partials._sku_combinations', compact('combinations', 'unit_price', 'colors_active', 'product_name'))->render(),
         ]);
@@ -424,8 +433,8 @@ class ProductController extends BaseController
         $choice_options = [];
         if ($request->has('choice')) {
             foreach ($request->choice_no as $key => $no) {
-                $str = 'choice_options_' . $no;
-                $item['name'] = 'choice_' . $no;
+                $str = 'choice_options_'.$no;
+                $item['name'] = 'choice_'.$no;
                 $item['title'] = $request->choice[$key];
                 $item['options'] = explode(',', implode('|', $request[$str]));
                 array_push($choice_options, $item);
@@ -441,7 +450,7 @@ class ProductController extends BaseController
         }
         if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_' . $no;
+                $name = 'choice_options_'.$no;
                 $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
@@ -455,7 +464,7 @@ class ProductController extends BaseController
                 $str = '';
                 foreach ($combination as $k => $item) {
                     if ($k > 0) {
-                        $str .= '-' . str_replace(' ', '', $item);
+                        $str .= '-'.str_replace(' ', '', $item);
                     } else {
                         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
                             $color_name = Color::where('code', $item)->first()->name;
@@ -467,15 +476,15 @@ class ProductController extends BaseController
                 }
                 $item = [];
                 $item['type'] = $str;
-                $item['price'] = BackEndHelper::currency_to_usd(abs($request['price_' . str_replace('.', '_', $str)]));
-                $item['sku'] = $request['sku_' . str_replace('.', '_', $str)];
-                $item['qty'] = abs($request['qty_' . str_replace('.', '_', $str)]);
+                $item['price'] = BackEndHelper::currency_to_usd(abs($request['price_'.str_replace('.', '_', $str)]));
+                $item['sku'] = $request['sku_'.str_replace('.', '_', $str)];
+                $item['qty'] = abs($request['qty_'.str_replace('.', '_', $str)]);
                 array_push($variations, $item);
 
                 $stock_count += $item['qty'];
             }
-        }else {
-            $stock_count = (integer)$request['current_stock'];
+        } else {
+            $stock_count = (int) $request['current_stock'];
         }
 
         if ($validator->errors()->count() > 0) {
@@ -506,6 +515,7 @@ class ProductController extends BaseController
         $product->discount = $request->discount_type == 'flat' ? BackEndHelper::currency_to_usd($request->discount) : $request->discount;
         $product->attributes = json_encode($request->choice_attributes);
         $product->discount_type = $request->discount_type;
+        $product->label = $request->label;
         $product->current_stock = abs($stock_count);
 
         $product->meta_title = $request->meta_title;
@@ -529,7 +539,7 @@ class ProductController extends BaseController
                         ['translationable_type' => 'App\Model\Product',
                             'translationable_id' => $product->id,
                             'locale' => $key,
-                            'key' => 'name'],
+                            'key' => 'name', ],
                         ['value' => $request->name[$index]]
                     );
                 }
@@ -538,23 +548,25 @@ class ProductController extends BaseController
                         ['translationable_type' => 'App\Model\Product',
                             'translationable_id' => $product->id,
                             'locale' => $key,
-                            'key' => 'description'],
+                            'key' => 'description', ],
                         ['value' => $request->description[$index]]
                     );
                 }
             }
             Toastr::success('Product updated successfully.');
+
             return back();
         }
     }
 
     public function remove_image(Request $request)
     {
-        ImageManager::delete('/product/' . $request['image']);
+        ImageManager::delete('/product/'.$request['image']);
         $product = Product::find($request['id']);
         $array = [];
         if (count(json_decode($product['images'])) < 2) {
             Toastr::warning('You cannot delete all images!');
+
             return back();
         }
         foreach (json_decode($product['images']) as $image) {
@@ -566,6 +578,7 @@ class ProductController extends BaseController
             'images' => json_encode($array),
         ]);
         Toastr::success('Product image removed successfully!');
+
         return back();
     }
 
@@ -576,13 +589,14 @@ class ProductController extends BaseController
         $translation->delete();
         $product = Product::find($id);
         foreach (json_decode($product['images'], true) as $image) {
-            ImageManager::delete('/product/' . $image);
+            ImageManager::delete('/product/'.$image);
         }
-        ImageManager::delete('/product/thumbnail/' . $product['thumbnail']);
+        ImageManager::delete('/product/thumbnail/'.$product['thumbnail']);
         $product->delete();
         FlashDealProduct::where(['product_id' => $id])->delete();
         DealOfTheDay::where(['product_id' => $id])->delete();
         Toastr::success('Product removed successfully!');
+
         return back();
     }
 
@@ -594,9 +608,10 @@ class ProductController extends BaseController
     public function bulk_import_data(Request $request)
     {
         try {
-            $collections = (new FastExcel)->import($request->file('products_file'));
+            $collections = (new FastExcel())->import($request->file('products_file'));
         } catch (\Exception $exception) {
             Toastr::error('You have uploaded a wrong format file, please upload the right file.');
+
             return back();
         }
 
@@ -604,16 +619,16 @@ class ProductController extends BaseController
         $skip = ['youtube_video_url', 'details'];
         foreach ($collections as $collection) {
             foreach ($collection as $key => $value) {
-                if ($value === "" && !in_array($key, $skip)) {
-                    Toastr::error('Please fill ' . $key . ' fields');
+                if ($value === '' && !in_array($key, $skip)) {
+                    Toastr::error('Please fill '.$key.' fields');
+
                     return back();
                 }
             }
 
-
             array_push($data, [
                 'name' => $collection['name'],
-                'slug' => Str::slug($collection['name'], '-') . '-' . Str::random(6),
+                'slug' => Str::slug($collection['name'], '-').'-'.Str::random(6),
                 'category_ids' => json_encode([['id' => $collection['category_id'], 'position' => 0], ['id' => $collection['sub_category_id'], 'position' => 1], ['id' => $collection['sub_sub_category_id'], 'position' => 2]]),
                 'brand_id' => $collection['brand_id'],
                 'unit' => $collection['unit'],
@@ -642,7 +657,8 @@ class ProductController extends BaseController
             ]);
         }
         DB::table('products')->insert($data);
-        Toastr::success(count($data) . ' - Products imported successfully!');
+        Toastr::success(count($data).' - Products imported successfully!');
+
         return back();
     }
 
@@ -658,9 +674,9 @@ class ProductController extends BaseController
             foreach (json_decode($item->category_ids, true) as $category) {
                 if ($category['position'] == 1) {
                     $category_id = $category['id'];
-                } else if ($category['position'] == 2) {
+                } elseif ($category['position'] == 2) {
                     $sub_category_id = $category['id'];
-                } else if ($category['position'] == 3) {
+                } elseif ($category['position'] == 3) {
                     $sub_sub_category_id = $category['id'];
                 }
             }
@@ -681,9 +697,9 @@ class ProductController extends BaseController
                 'discount_type' => $item->discount_type,
                 'current_stock' => $item->current_stock,
                 'details' => $item->details,
-
             ];
         }
+
         return (new FastExcel($storage))->download('inhouse_products.xlsx');
     }
 }
