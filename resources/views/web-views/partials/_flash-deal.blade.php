@@ -245,7 +245,7 @@
               </div> --}}
               {{-- @endif --}}
               @if($deal->product->label)
-                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute: z-index: 1;">
+                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute; z-index: 1;">
                     <span class="for-discoutn-value">
                         {{ $deal->product->label }}
                     </span>
@@ -333,7 +333,7 @@
                     <div class="pcv3__container css-gfx8z3">
                         <div class="css-zimbi">
                             @if($deal->product->label)
-                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute: z-index: 1;">
+                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute; z-index: 1;">
                     <span class="for-discoutn-value">
                         {{ $deal->product->label }}
                     </span>
