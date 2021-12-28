@@ -14,6 +14,7 @@ class CouponController extends Controller
 {
     public function apply(Request $request)
     {
+        // dd($request);
         $couponLimit = Order::where('customer_id', auth('customer')->id())
             ->where('coupon_code', $request['code'])->count();
 
@@ -22,7 +23,6 @@ class CouponController extends Controller
             ->where('status', '=', 1)
             ->whereDate('start_date', '<=', Carbon::parse()->toDateString())
             ->whereDate('expire_date', '>=', Carbon::parse()->toDateString())->first();
-
         if ($coupon) {
             $total = 0;
             foreach (CartManager::get_cart() as $cart) {
@@ -43,14 +43,14 @@ class CouponController extends Controller
                     'status' => 1,
                     'discount' => Helpers::currency_converter($discount),
                     'total' => Helpers::currency_converter($total - $discount),
-                    'messages' => ['0' => 'Coupon Applied Successfully!']
+                    'messages' => ['0' => 'Coupon Applied Successfully!'],
                 ]);
             }
         }
 
         return response()->json([
             'status' => 0,
-            'messages' => ['0' => 'Invalid Coupon']
+            'messages' => ['0' => 'Invalid Coupon'],
         ]);
     }
 }

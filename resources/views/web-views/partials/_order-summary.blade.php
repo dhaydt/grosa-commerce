@@ -75,8 +75,9 @@
                 <div class="mt-2">
                     <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
                         <div class="form-group">
-                            <input class="form-control input_code" type="text" name="code" placeholder="{{\App\CPU\translate('Coupon code')}}"
+                            <input class="form-control input_code" type="text" id="cod" name="cod" placeholder="{{\App\CPU\translate('Coupon code')}}"
                                 required>
+                                <input type="hidden" class="hiddenCoupon" name="code">
                             <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
                         </div>
                         <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
@@ -125,3 +126,11 @@
         </div>
     </div>
 </aside>
+@push('script')
+    <script>
+        $(".input_code").on("input", function() {
+            // console.log($(this).val())
+            $(".hiddenCoupon").val($(this).val())
+        });
+    </script>
+@endpush

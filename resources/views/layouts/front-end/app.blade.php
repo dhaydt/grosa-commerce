@@ -1173,6 +1173,7 @@
 
 <script>
     function couponCode() {
+        /* console.log('form', $('#coupon-code-ajax').serializeArray()) */
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
