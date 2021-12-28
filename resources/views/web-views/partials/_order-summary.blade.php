@@ -63,16 +63,15 @@
             </span>
         </div>
         @if(session()->has('coupon_discount'))
-        @if (!Request::is('shop-cart'))
           <div class="d-flex justify-content-between">
               <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
               <span class="cart_value" id="coupon-discount-amount">
                   - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
               </span>
           </div>
-          @endif
           @php($coupon_dis=session('coupon_discount'))
       @else
+      @if (!Request::is('shop-cart'))
           <div class="mt-2">
               <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
                   <div class="form-group">
@@ -85,6 +84,7 @@
                   </button>
               </form>
           </div>
+          @endif
           @php($coupon_dis=0)
       @endif
       <hr class="mt-2 mb-2">
