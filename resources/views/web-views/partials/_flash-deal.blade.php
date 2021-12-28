@@ -1,6 +1,9 @@
 <style>
     .discount-hed{
         margin-top: 0;
+        right: 0;
+        position: absolute;
+        z-index: 1;
     }
     span.for-discoutn-value{
         padding: 5px 10px;
@@ -54,6 +57,12 @@
         right: 0;
         font-size: 10px;
         font-weight: 700;
+    }
+
+    @media(max-width: 373px){
+        .discount-hed{
+            right: 7px !important;
+        }
     }
 
     @media (max-width: 600px) {
@@ -245,7 +254,7 @@
               </div> --}}
               {{-- @endif --}}
               @if($deal->product->label)
-                <div class="d-flex justify-content-end for-dicount-div discount-hed" style="right: 0;position: absolute; z-index: 1;">
+                <div class="d-flex justify-content-end for-dicount-div discount-hed">
                     <span class="for-discoutn-value">
                         {{ $deal->product->label }}
                     </span>

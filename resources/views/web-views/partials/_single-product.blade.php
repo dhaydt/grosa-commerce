@@ -66,6 +66,12 @@
         min-height: 200px;
         max-height: 200px!important;
         }
+
+        @media(max-width: 373px){
+        .discount-hed{
+            right: 7px !important;
+        }
+    }
     @media (max-width: 600px) {
         span.for-discoutn-value{
             padding: 2px 9px;
