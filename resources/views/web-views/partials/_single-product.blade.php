@@ -1,4 +1,12 @@
 <style>
+    .new-discoutn-value{
+        background-color: {{ $web_config['secondary_color'] }};
+        border-radius: 10px;
+        font-size: 13px;
+        color: #fff;
+        font-weight: 700;
+        padding: 2px;
+    }
     .product-item {
         margin-right: 0;
     }
@@ -35,6 +43,9 @@
         max-height: 200px!important;
         }
     @media (max-width: 600px) {
+        .new-discoutn-value {
+            font-size: 10px;
+        }
         .product-item {
             margin-right: 5px;
         }
@@ -104,22 +115,6 @@
         @endif
 
         <div class="card-header inline_product clickable">
-            @if($product->discount > 0)
-            <div class="d-flex" style="right: 0;top:0;position: absolute; z-index: 1;">
-                <span class="for-discoutn-value pr-1 pl-1">
-                    @if ($product->discount_type == 'percent')
-                    {{round($product->discount,2)}}%
-                    @elseif($product->discount_type =='flat')
-                    {{\App\CPU\Helpers::currency_converter($product->discount)}}
-                    @endif
-                    {{\App\CPU\translate('off')}}
-                </span>
-            </div>
-            @else
-            <div class="d-flex justify-content-end for-dicount-div-null">
-                <span class="for-discoutn-value-null"></span>
-            </div>
-            @endif
             <div class="center-div element-center" style="cursor: pointer">
                 <a href="{{route('product',$product->slug)}}">
                     <img src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$product['thumbnail']}}"
@@ -140,6 +135,22 @@
                     <strike style="font-size: 12px!important;color: grey!important;">
                         {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
                     </strike><br>
+                    @endif
+                    @if($product->discount > 0)
+                    <div class="text-center" style="">
+                        <span class="new-discoutn-value pr-1 pl-1">
+                            @if ($product->discount_type == 'percent')
+                            {{round($product->discount,2)}}%
+                            @elseif($product->discount_type =='flat')
+                            {{\App\CPU\Helpers::currency_converter($product->discount)}}
+                            @endif
+                            {{\App\CPU\translate('off')}}
+                        </span>
+                    </div>
+                    @else
+                    <div class="d-flex justify-content-end for-dicount-div-null">
+                        <span class="for-discoutn-value-null"></span>
+                    </div>
                     @endif
                     <span class="text-accent">
                         {{\App\CPU\Helpers::currency_converter(

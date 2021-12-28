@@ -212,7 +212,7 @@
             @php($overallRating = \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
             <div class="flash_deal_product rtl"
               onclick="location.href='{{route('product',$deal->product->slug)}}'">
-              @if($deal->product->discount > 0)
+              {{-- @if($deal->product->discount > 0)
               <div class="discount-top-f">
                 <span class="for-discoutn-value">
                   @if ($deal->product->discount_type == 'percent')
@@ -222,11 +222,11 @@
                   @endif OFF
                 </span>
               </div>
-              @else
+              @else --}}
               {{-- <div class="">
                 <span class="for-discoutn-value-null"></span>
               </div> --}}
-              @endif
+              {{-- @endif --}}
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center justify-content-center div-flash">
                   <img class="w-100"
@@ -240,6 +240,22 @@
                     </h6>
                     <div class="flash-product-price">
                       {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
+                      @if($deal->product->discount > 0)
+                    <div class="text-center mb-2" style="">
+                        <span class="new-discoutn-value pr-1 pl-1">
+                            @if ($deal->product->discount_type == 'percent')
+                            {{round($deal->product->discount)}}%
+                            @elseif($deal->product->discount_type =='flat')
+                            {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
+                            @endif
+                            OFF
+                        </span>
+                    </div>
+                    @else
+                    <div class="d-flex justify-content-end for-dicount-div-null">
+                        <span class="for-discoutn-value-null"></span>
+                    </div>
+                    @endif
                       @if($deal->product->discount > 0)
                       <strike style="font-size: 12px!important;color: grey!important;">
                         {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}
@@ -284,17 +300,6 @@
             @php($overallRating =
             \App\CPU\ProductManager::get_overall_rating(isset($deal)?$deal->product->reviews:null))
         <div class="css-vzo4av" onclick="location.href='{{route('product',$deal->product->slug)}}'">
-            @if($deal->product->discount > 0)
-              <div class="discount-top-f">
-                <span class="for-discoutn-value">
-                  @if ($deal->product->discount_type == 'percent')
-                  {{round($deal->product->discount)}}%
-                  @elseif($deal->product->discount_type =='flat')
-                  {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
-                  @endif OFF
-                </span>
-              </div>
-              @endif
             <div class="css-13ekl7h" data-testid="master-product-card">
                 <div class="css-2lm59p" data-testid="">
                     <div class="pcv3__container css-gfx8z3">
@@ -309,6 +314,22 @@
                               </h6>
                               <div class="flash-product-price">
                                 {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
+                                @if($deal->product->discount > 0)
+                                <div class="text-center" style="">
+                                    <span class="new-discoutn-value mobile-discount pr-1 pl-1">
+                                        @if ($deal->product->discount_type == 'percent')
+                                        {{round($deal->product->discount)}}%
+                                        @elseif($deal->product->discount_type =='flat')
+                                        {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
+                                        @endif
+                                        OFF
+                                    </span>
+                                </div>
+                                @else
+                                <div class="d-flex justify-content-end for-dicount-div-null">
+                                    <span class="for-discoutn-value-null"></span>
+                                </div>
+                                @endif
                                 @if($deal->product->discount > 0)
                                 <strike style="font-size: 12px!important;color: grey!important;">
                                   {{\App\CPU\Helpers::currency_converter($deal->product->unit_price)}}

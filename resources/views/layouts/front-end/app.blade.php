@@ -61,6 +61,19 @@
                 position: absolute;
             }
         }
+
+    .new-discoutn-value{
+        background-color: {{ $web_config['secondary_color'] }};
+        border-radius: 10px;
+        font-size: 13px;
+        color: #fff;
+        font-weight: 700;
+        padding: 2px;
+    }
+
+    .new-discoutn-value.mobile-discount {
+        font-size: 10px !important;
+    }
     .unf-bottomnav {
         padding: 10px 20px 10px 20px;
         height: 50px;
