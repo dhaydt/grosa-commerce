@@ -242,7 +242,7 @@
                       {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
                       @if($deal->product->discount > 0)
                     <div class="text-center mb-2" style="">
-                        <span class="new-discoutn-value pr-1 pl-1">
+                        <span class="new-discoutn-value">
                             @if ($deal->product->discount_type == 'percent')
                             {{round($deal->product->discount)}}%
                             @elseif($deal->product->discount_type =='flat')
@@ -316,13 +316,13 @@
                                 {{\App\CPU\Helpers::currency_converter($deal->product->unit_price-\App\CPU\Helpers::get_product_discount($deal->product,$deal->product->unit_price))}}
                                 @if($deal->product->discount > 0)
                                 <div class="text-center" style="">
-                                    <span class="new-discoutn-value mobile-discount pr-1 pl-1">
+                                    <span class="new-discoutn-value mobile-discount">
+                                        {{\App\CPU\translate('OFF')}}
                                         @if ($deal->product->discount_type == 'percent')
                                         {{round($deal->product->discount)}}%
                                         @elseif($deal->product->discount_type =='flat')
                                         {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
                                         @endif
-                                        OFF
                                     </span>
                                 </div>
                                 @else

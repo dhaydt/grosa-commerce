@@ -67,8 +67,8 @@
         border-radius: 10px;
         font-size: 13px;
         color: #fff;
-        font-weight: 700;
-        padding: 2px;
+        font-weight: 600;
+        padding: 2px 10px;
     }
 
     .new-discoutn-value.mobile-discount {

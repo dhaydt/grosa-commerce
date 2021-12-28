@@ -1402,4 +1402,5 @@
   'conditions' => 'Conditions',
   'terms' => 'Terms',
   'incomplete_info' => 'Incomplete info',
+  'OFF' => 'OFF',
 );

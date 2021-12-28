@@ -4,8 +4,11 @@
         border-radius: 10px;
         font-size: 13px;
         color: #fff;
-        font-weight: 700;
-        padding: 2px;
+        font-weight: 600;
+        padding: 2px 10px;
+    }
+    .discount-div {
+        margin: 5px 0;
     }
     .product-item {
         margin-right: 0;
@@ -22,15 +25,25 @@
         max-height: 193px;
         min-height: 193px;
         padding: 0px;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
     }
 
+    .product-title1{
+        text-transform: capitalize;
+    }
+
+    .product-price {
+        margin-top: -6px;
+    }
 
     .card-body {
         cursor: pointer;
         max-height: 5.5rem;
         min-height: 5.5rem;
         margin-bottom: 23px;
+    }
+    .card-body.inline_product {
+        margin-bottom: 40px;
     }
     .card-body-hidden {
         padding-bottom: 5px!important;
@@ -45,6 +58,11 @@
     @media (max-width: 600px) {
         .new-discoutn-value {
             font-size: 10px;
+        }
+
+        .discount-div {
+            margin: 0;
+            margin-top: -5px;
         }
         .product-item {
             margin-right: 5px;
@@ -85,7 +103,7 @@
         .product-card.card .card-body-hidden {
             visibility: visible !important;
             opacity: 1 !important;
-            margin-top: -28px;
+            margin-top: -14px;
             padding: 0 5px;
             padding-top: 0;
             z-index: 2;
@@ -137,14 +155,15 @@
                     </strike><br>
                     @endif
                     @if($product->discount > 0)
-                    <div class="text-center" style="">
-                        <span class="new-discoutn-value pr-1 pl-1">
+                    <div class="text-center discount-div" style="">
+                        <span class="new-discoutn-value">
+                            {{\App\CPU\translate('off')}}
                             @if ($product->discount_type == 'percent')
                             {{round($product->discount,2)}}%
                             @elseif($product->discount_type =='flat')
                             {{\App\CPU\Helpers::currency_converter($product->discount)}}
                             @endif
-                            {{\App\CPU\translate('off')}}
+
                         </span>
                     </div>
                     @else
