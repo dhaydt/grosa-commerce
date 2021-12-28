@@ -62,48 +62,44 @@
                 - {{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}
             </span>
         </div>
-        @if(str_contains(url()->current(), '/checkout-details'))
-            @if(session()->has('coupon_discount'))
-                <div class="d-flex justify-content-between">
-                    <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
-                    <span class="cart_value" id="coupon-discount-amount">
-                        - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
-                    </span>
-                </div>
-            @php($coupon_dis=session('coupon_discount'))
-            @else
-                <div class="mt-2">
-                    <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
-                        <div class="form-group">
-                            <input class="form-control input_code" type="text" id="cod" name="cod" placeholder="{{\App\CPU\translate('Coupon code')}}"
-                                required>
-                                <input type="hidden" class="hiddenCoupon" name="code">
-                            <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
-                        </div>
-                        <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
-                        </button>
-                    </form>
-                </div>
-            @endif
-        @endif
-        @php($coupon_dis=0)
-
-        <hr class="mt-2 mb-2">
-        <div class="d-flex justify-content-between">
-            <span class="cart_title">{{\App\CPU\translate('total')}}</span>
-            <span class="cart_value">
-                {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
-            </span>
-        </div>
-
-        @if(str_contains(url()->current(), '/shop-cart') || str_contains(url()->current(), '/checkout-payment'))
-            <div class="d-flex justify-content-center">
-                <span class="cart_total_value mt-2">
-                    {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
-                </span>
-            </div>
-        @endif
-    </div>
+        @if(session()->has('coupon_discount'))
+          <div class="d-flex justify-content-between">
+              <span class="cart_title">{{\App\CPU\translate('coupon_code')}}</span>
+              <span class="cart_value" id="coupon-discount-amount">
+                  - {{session()->has('coupon_discount')?\App\CPU\Helpers::currency_converter(session('coupon_discount')):0}}
+              </span>
+          </div>
+          @php($coupon_dis=session('coupon_discount'))
+      @else
+          <div class="mt-2">
+              <form class="needs-validation" method="post" novalidate id="coupon-code-ajax">
+                  <div class="form-group">
+                      <input class="form-control input_code" type="text" name="cod" placeholder="{{\App\CPU\translate('Coupon code')}}"
+                             required>
+                             <input type="hidden" class="hiddenCoupon" name="code">
+                      <div class="invalid-feedback">{{\App\CPU\translate('please_provide_coupon_code')}}</div>
+                  </div>
+                  <button class="btn btn-primary btn-block" type="button" onclick="couponCode()">{{\App\CPU\translate('apply_code')}}
+                  </button>
+              </form>
+          </div>
+          @php($coupon_dis=0)
+      @endif
+      <hr class="mt-2 mb-2">
+      <div class="d-flex justify-content-between">
+          <span class="cart_title">{{\App\CPU\translate('total')}}</span>
+          <span class="cart_value">
+             {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
+          </span>
+      </div>
+      @if (!Request::is('checkout-details'))
+      <div class="d-flex justify-content-center">
+          <span class="cart_total_value mt-2">
+              {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product)}}
+          </span>
+      </div>
+      @endif
+  </div>
     <div class="container mt-2 d-none">
         <div class="row p-0">
             <div class="col-md-3 p-0 text-center mobile-padding">
