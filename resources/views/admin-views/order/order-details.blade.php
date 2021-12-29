@@ -180,6 +180,12 @@
                                         {{\App\CPU\translate('shipping')}} {{\App\CPU\translate('method')}}
                                         : {{$order->shipping ? $order->shipping->title :'No shipping method selected'}}
                                     </h6>
+                                    @if (isset($order->delivery_date))
+                                    <h6 class="" style="color: #8a8a8a;">
+                                        {{\App\CPU\translate('delivery')}} {{\App\CPU\translate('date')}}
+                                        : <span style="color: #000; font-weight: 600;">{{date('j F, Y',strtotime($order->delivery_date ? $order->delivery_date : 'Tidak ada Tanggal'))}}</span>
+                                    </h6>
+                                    @endif
                                 </div>
                             </div>
                         </div>

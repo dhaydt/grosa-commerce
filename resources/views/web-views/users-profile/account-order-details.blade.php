@@ -230,9 +230,24 @@
                                             <span
                                                 class="spanTr"> {{date('d M, Y',strtotime($order->created_at))}} </span>
                                         </div>
-
                                     </div>
                                 </td>
+
+                                @if (isset($order->delivery_date))
+                                <td class="order_table_td">
+                                    <div class="order_table_info_div">
+                                        <div class="order_table_info_div_1 py-2">
+                                            <span
+                                            class="d-block spandHeadO">{{\App\CPU\translate('delivery_date')}}: </span>
+                                        </div>
+                                        <div class="order_table_info_div_2">
+                                            <span
+                                            class="spanTr"> {{date('d M, Y',strtotime($order->delivery_date))}} </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                @endif
+
                                 <td class="order_table_td">
                                     <div class="order_table_info_div">
                                         <div class="order_table_info_div_1 py-2">

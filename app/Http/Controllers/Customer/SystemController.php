@@ -116,6 +116,13 @@ class SystemController extends Controller
 
     public function choose_shipping_address(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'date' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)]);
+        }
+        // dd(session()->get('cart_group_id'));
         if ($request['country'] == 'ID') {
             // $provinces = $request['state'];
             // $province = explode(',', $provinces);
@@ -169,7 +176,7 @@ class SystemController extends Controller
                     'address_type' => 'required',
                     'address' => 'required',
                     'city' => 'required',
-                    // 'country' => 'required',
+                    'date' => 'required',
                     // 'state' => 'required',
                     'district' => 'required',
                     'zip' => 'required',
@@ -252,8 +259,16 @@ class SystemController extends Controller
 
         session()->put('address_id', $address_id);
 
+        // dd($request['date']);
+
         $old = session()->get('old_address');
         $new = session()->get('address_id');
+
+        // CartShipping::where('cart_group_id', session()->get('cart_group_id'))
+        //                 ->update([
+        //                     'shipping_date' => $request['date'],
+        //                 ]);
+        session()->put('delivery_date', $request['date']);
 
         // if (auth('customer')->user()->country == 'ID') {
         //     if ($new == $old) {

@@ -26,7 +26,7 @@ class OrderManager
 
     public static function gen_unique_id()
     {
-        return rand(1000, 9999) . '-' . Str::random(5) . '-' . time();
+        return rand(1000, 9999).'-'.Str::random(5).'-'.time();
     }
 
     public static function order_summary($order)
@@ -40,6 +40,7 @@ class OrderManager
             $total_discount_on_product += $detail->discount;
         }
         $total_shipping_cost = $order['shipping_cost'];
+
         return [
             'subtotal' => $sub_total,
             'total_tax' => $total_tax,
@@ -67,7 +68,7 @@ class OrderManager
                         'current_stock' => $product['current_stock'] + $detail['qty'],
                     ]);
                     OrderDetail::where(['id' => $detail['id']])->update([
-                        'is_stock_decreased' => 0
+                        'is_stock_decreased' => 0,
                     ]);
                 }
             }
@@ -101,7 +102,7 @@ class OrderManager
                         'current_stock' => $product['current_stock'] - $detail['qty'],
                     ]);
                     OrderDetail::where(['id' => $detail['id']])->update([
-                        'is_stock_decreased' => 1
+                        'is_stock_decreased' => 1,
                     ]);
                 }
             }
@@ -238,6 +239,7 @@ class OrderManager
         $address_id = session('address_id') ? session('address_id') : null;
         $coupon_code = session()->has('coupon_code') ? session('coupon_code') : 0;
         $discount = session()->has('coupon_discount') ? session('coupon_discount') : 0;
+        $delivery_date = session()->has('delivery_date') ? session('delivery_date') : null;
 
         $req = array_key_exists('request', $data) ? $data['request'] : null;
         if ($req != null) {
@@ -260,6 +262,7 @@ class OrderManager
 
         $or = [
             'id' => $order_id,
+            'delivery_date' => $delivery_date,
             'verification_code' => rand(100000, 999999),
             'customer_id' => $user->id,
             'seller_id' => $seller_data->seller_id,
@@ -279,7 +282,7 @@ class OrderManager
             'shipping_cost' => CartManager::get_shipping_cost($data['cart_group_id']),
             'shipping_method_id' => CartShipping::where(['cart_group_id' => $cart_group_id])->first()->shipping_method_id,
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
 
         $order_id = DB::table('orders')->insertGetId($or);
@@ -302,7 +305,7 @@ class OrderManager
                 'shipping_method_id' => null,
                 'payment_status' => 'unpaid',
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ];
 
             if ($c['variant'] != null) {
@@ -320,7 +323,7 @@ class OrderManager
             }
 
             Product::where(['id' => $product['id']])->update([
-                'current_stock' => $product['current_stock'] - $c['quantity']
+                'current_stock' => $product['current_stock'] - $c['quantity'],
             ]);
 
             DB::table('order_details')->insert($or_d);
@@ -391,7 +394,6 @@ class OrderManager
                 $seller = Admin::where(['admin_role_id' => 1])->first();
             }
             Mail::to($seller->email)->send(new \App\Mail\OrderReceivedNotifySeller($order_id));
-
         } catch (\Exception $exception) {
         }
 

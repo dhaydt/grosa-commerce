@@ -1404,4 +1404,7 @@
   'incomplete_info' => 'Incomplete info',
   'OFF' => 'OFF',
   'Label' => 'Label',
+  'shipping_date' => 'Shipping date',
+  'delivery_date' => 'Delivery date',
+  'delivery' => 'Delivery',
 );

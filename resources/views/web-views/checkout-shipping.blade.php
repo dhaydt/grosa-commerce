@@ -4,6 +4,9 @@
 
 @push('css_or_js')
     <style>
+        #basic-addon1, #basic-addon2 {
+            background-color: #f2f3f7;
+        }
         .btn-outline {
             border-color: {{$web_config['primary_color']}} ;
         }
@@ -55,6 +58,15 @@
                         @csrf
                         <div class="card-body" style="padding: 0!important;">
                             <ul class="list-group">
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1">Tanggal Pengiriman</span>
+                                    </div>
+                                    <input type="text" class="form-control" autocomplete="off" name="date" aria-describedby="basic-addon1" id="datepicker">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
+                                      </div>
+                                  </div>
                                 @foreach($shipping_addresses as $key=>$address)
                                     <li class="list-group-item mb-2 mt-2"
                                         style="cursor: pointer;background: rgba(245,245,245,0.51)"
@@ -73,8 +85,7 @@
                                         <span>{{ \App\CPU\translate('address')}} : {{$address['address']}}, {{$address['city']}}, {{$address['zip']}}, {{$address['country']}}.</span>
                                     </li>
                                 @endforeach
-                                {{-- {{ dd(session()) }} --}}
-                                <li class="list-group-item mb-2 mt-2" onclick="anotherAddress()">
+                                <li class="list-group-item mb-2" onclick="anotherAddress()">
                                     <input type="radio" name="shipping_method_id"
                                            id="sh-0" value="0" data-toggle="collapse"
                                            data-target="#collapseThree" {{$shipping_addresses->count()==0?'checked':''}}>
@@ -246,6 +257,9 @@
 
 @push('script')
 <script>
+$( function() {
+    $( "#datepicker" ).datepicker({ minDate: +1, dateFormat: 'yy-m-d' });
+  } );
     $(document).ready(function(){
         //ini ketika provinsi tujuan di klik maka akan eksekusi perintah yg kita mau
         //name select nama nya "provinve_id" kalian bisa sesuaikan dengan form select kalian
