@@ -7,11 +7,11 @@
         font-size: 14px;
         font-weight: 600;
         text-transform: capitalize;
-        border-radius: 0px 0px 0 25px;
+        border-radius: 0px 0px 0 15px;
     }
     .new-discoutn-value{
         background-color: {{ $web_config['secondary_color'] }};
-        border-radius: 10px;
+        border-radius: 15px;
         font-size: 13px;
         color: #fff;
         font-weight: 600;
