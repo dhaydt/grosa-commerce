@@ -105,7 +105,7 @@ class ProductController extends BaseController
         }
 
         $p = new Product();
-        $p->user_id = auth('admin')->id();
+        $p->user_id = 1;
         $p->added_by = 'admin';
         $p->name = $request->name[array_search('en', $request->lang)];
         $p->slug = Str::slug($request->name[array_search('en', $request->lang)], '-').'-'.Str::random(6);
@@ -653,7 +653,7 @@ class ProductController extends BaseController
                 'variation' => json_encode([]),
                 'featured_status' => 1,
                 'added_by' => 'admin',
-                'user_id' => auth('admin')->id(),
+                'user_id' => 1,
             ]);
         }
         DB::table('products')->insert($data);
