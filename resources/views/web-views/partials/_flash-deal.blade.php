@@ -280,12 +280,12 @@
                       @if($deal->product->discount > 0)
                     <div class="text-center mb-2" style="">
                         <span class="new-discoutn-value">
+                            {{\App\CPU\translate('OFF')}}
                             @if ($deal->product->discount_type == 'percent')
                             {{round($deal->product->discount)}}%
                             @elseif($deal->product->discount_type =='flat')
                             {{\App\CPU\Helpers::currency_converter($deal->product->discount)}}
                             @endif
-                            OFF
                         </span>
                     </div>
                     @else
