@@ -5,7 +5,7 @@
 @push('css_or_js')
 <style>
     .form-control.dated {
-        max-width: 110px;
+        max-width: 200px;
     }
 </style>
 @endpush
@@ -20,8 +20,8 @@
                             class="badge badge-soft-dark mx-2">{{$orders->total()}}</span></h1>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <form action="{{ route('admin.orders.short-delivered') }}" id="sort-range" method="GET" class="d-flex">
-                        @csrf
+                    <form action="{{ url()->current() }}" id="sort-range" method="GET" class="d-flex">
+                        {{-- @csrf --}}
                         <div class="input-group">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">{{\App\CPU\translate('start_date')}}</span>
@@ -253,6 +253,7 @@
 
         }
     );
+
         function filter_order() {
             $.get({
                 url: '{{route('admin.orders.inhouse-order-filter')}}',

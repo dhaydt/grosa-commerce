@@ -17,8 +17,9 @@ class OrderController extends Controller
     {
         $query_param = [];
         $search = $request['search'];
-        $start = '';
-        $end = '';
+        // dd($request);
+        $start = $request['start-date'];
+        $end = $request['end-date'];
         if (session()->has('show_inhouse_orders') && session('show_inhouse_orders') == 1) {
             $query = Order::whereHas('details', function ($query) {
                 $query->whereHas('product', function ($query) {
@@ -43,6 +44,11 @@ class OrderController extends Controller
                 });
                 $query_param = ['search' => $request['search']];
             }
+
+            if ($request->has('start-date')) {
+                $orders = $orders->whereBetween('delivery_date', [$start, $end]);
+                $query_param = ['start-date' => $start, 'end-date' => $end];
+            }
         } else {
             if ($status != 'all') {
                 $orders = Order::with(['customer'])->where(['order_status' => $status]);
@@ -60,44 +66,18 @@ class OrderController extends Controller
                     }
                 });
                 $query_param = ['search' => $request['search']];
+                // dd($query_param);
+            }
+
+            if ($request->has('start-date')) {
+                $orders = $orders->whereBetween('delivery_date', [$start, $end]);
+                $query_param = ['start-date' => $start, 'end-date' => $end];
             }
         }
 
         $orders = $orders->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
 
         return view('admin-views.order.list', compact('orders', 'search', 'start', 'end'));
-    }
-
-    public function sort_delivered(Request $request)
-    {
-        // dd($request);
-        $query_param = [];
-        $start = $request['start-date'];
-        $end = $request['end-date'];
-        $search = '';
-        $status = 'sort';
-
-        $query = Order::whereBetween('delivery_date', [$start, $end])->whereHas('details', function ($query) {
-            $query->whereHas('product', function ($query) {
-                $query->where('added_by', 'admin');
-            });
-        })->with(['customer']);
-
-        $orders = $query;
-
-        $key = $start;
-        $orders = $orders;
-        // ->where(function ($q) use ($key) {
-        //     foreach ($key as $value) {
-        //         $q->where('delivered_date', 'like', "%{$value}%");
-        //     }
-        // });
-        $query_param = ['start' => $start, 'end' => $end];
-
-        $orders = $orders->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
-        // dd($orders);
-
-        return view('admin-views.order.list', compact('orders', 'start', 'end', 'search'));
     }
 
     public function details($id)
