@@ -34,9 +34,9 @@
                             </div>
                             <input type="text" autocomplete="off" value="{{ $end }}" name="end-date" required class="form-control dated" id="end-date" aria-describedby="basic-addon2">
                         </div>
-                        <button class="btn btn-primary mx-3" type="submit">Filter</button>
+                        <button class="btn btn-primary btn-sm mx-3" type="submit">Filter</button>
                     </form>
-                    <button class="btn btn-primary">Export</button>
+                    <button class="btn btn-primary btn-sm">Export</button>
                 </div>
                 <div>
                     <i class="tio-shopping-cart" style="font-size: 30px"></i>
