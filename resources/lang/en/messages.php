@@ -1407,4 +1407,6 @@
   'shipping_date' => 'Shipping date',
   'delivery_date' => 'Delivery date',
   'delivery' => 'Delivery',
+  'invalid_customer_data' => 'Invalid customer data',
+  'date_range' => 'Date range',
 );

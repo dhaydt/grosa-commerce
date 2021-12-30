@@ -3,7 +3,11 @@
 @section('title', \App\CPU\translate('Order List'))
 
 @push('css_or_js')
-
+<style>
+    .form-control.dated {
+        max-width: 110px;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -14,6 +18,25 @@
                 <div>
                     <h1 class="page-header-title">{{\App\CPU\translate('Orders')}} <span
                             class="badge badge-soft-dark mx-2">{{$orders->total()}}</span></h1>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <form action="{{ route('admin.orders.short-delivered') }}" id="sort-range" method="GET" class="d-flex">
+                        @csrf
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">{{\App\CPU\translate('start_date')}}</span>
+                            </div>
+                            <input type="text" autocomplete="off" value="{{ $start }}" name="start-date" required class="form-control dated" id="start-date" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">{{\App\CPU\translate('end_date')}}</span>
+                            </div>
+                            <input type="text" autocomplete="off" value="{{ $end }}" name="end-date" required class="form-control dated" id="end-date" aria-describedby="basic-addon2">
+                        </div>
+                        <button class="btn btn-primary mx-3" type="submit">Filter</button>
+                    </form>
+                    <button class="btn btn-primary">Export</button>
                 </div>
                 <div>
                     <i class="tio-shopping-cart" style="font-size: 30px"></i>
@@ -93,8 +116,10 @@
                         </th>
                         <th class=" ">{{\App\CPU\translate('Order')}}</th>
                         <th>{{\App\CPU\translate('Date')}}</th>
+                        <th>{{\App\CPU\translate('delivery_date')}}</th>
                         <th>{{\App\CPU\translate('customer_name')}}</th>
                         <th>{{\App\CPU\translate('Status')}}</th>
+                        <th>{{\App\CPU\translate('payment')}}</th>
                         <th>{{\App\CPU\translate('Total')}}</th>
                         <th>{{\App\CPU\translate('Order')}} {{\App\CPU\translate('Status')}} </th>
                         <th>{{\App\CPU\translate('Action')}}</th>
@@ -103,6 +128,7 @@
 
                     <tbody>
                     @foreach($orders as $key=>$order)
+                    {{-- {{ dd($order) }} --}}
 
                         <tr class="status-{{$order['order_status']}} class-all">
                             <td class="">
@@ -112,6 +138,11 @@
                                 <a href="{{route('admin.orders.details',['id'=>$order['id']])}}">{{$order['id']}}</a>
                             </td>
                             <td>{{date('d M Y',strtotime($order['created_at']))}}</td>
+                            <td>
+                                @if ($order['delivery_date'])
+                                {{date('d M Y',strtotime($order['delivery_date']))}}
+                                @endif
+                            </td>
                             <td>
                                 @if($order->customer)
                                     <a class="text-body text-capitalize"
@@ -132,6 +163,9 @@
                                             style="{{Session::get('direction') === "rtl" ? 'margin-right: 0;margin-left: .4375rem;' : 'margin-left: 0;margin-right: .4375rem;'}}"></span>{{\App\CPU\translate('unpaid')}}
                                     </span>
                                 @endif
+                            </td>
+                            <td>
+                                {{str_replace('_',' ',$order['payment_method'])}}
                             </td>
                             <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}</td>
                             <td class="text-capitalize">
@@ -213,6 +247,12 @@
 
 @push('script_2')
     <script>
+        $( function() {
+            $( "#start-date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#end-date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+        }
+    );
         function filter_order() {
             $.get({
                 url: '{{route('admin.orders.inhouse-order-filter')}}',

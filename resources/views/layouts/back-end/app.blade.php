@@ -25,6 +25,9 @@
         <link rel="stylesheet" href="{{asset('public/assets/back-end')}}/css/menurtl.css">
     @endif
     @stack('css_or_js')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <style>
         :root {
             --theameColor: #045cff;
@@ -211,6 +214,8 @@
 <script src="{{asset('public/assets/back-end')}}/js/sweet_alert.js"></script>
 <script src="{{asset('public/assets/back-end')}}/js/toastr.js"></script>
 {!! Toastr::message() !!}
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
 @if ($errors->any())
     <script>

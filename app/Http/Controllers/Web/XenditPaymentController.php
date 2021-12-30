@@ -126,7 +126,7 @@ class XenditPaymentController extends Controller
         $order_ids = [];
         foreach (CartManager::get_cart_group_ids() as $group_id) {
             $data = [
-                'payment_method' => 'Virtual Account'.$type,
+                'payment_method' => $type,
                 'order_status' => 'confirmed',
                 'payment_status' => 'paid',
                 'transaction_ref' => session('transaction_ref'),
