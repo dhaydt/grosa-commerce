@@ -34,6 +34,15 @@
             .mobile-shipping {
                 margin-top: -40px
             }
+            #datepicker {
+                font-size: 13px;
+            }
+            #basic-addon1 {
+                font-size: 13px;
+            }
+            #basic-addon2 {
+                font-size: 13px;
+            }
         }
     </style>
 @endpush
@@ -60,13 +69,14 @@
                             <ul class="list-group">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">Tanggal Pengiriman</span>
+                                      <span class="input-group-text" id="basic-addon1">Pengiriman</span>
                                     </div>
-                                    <input type="text" class="form-control" autocomplete="off" name="date" aria-describedby="basic-addon1" id="datepicker">
+                                    <input type="text" class="form-control" autocomplete="off" name="dated" aria-describedby="basic-addon1" id="datepicker">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
                                       </div>
                                   </div>
+                                  <input type="text" id="dateBackend" name="date">
                                 @foreach($shipping_addresses as $key=>$address)
                                     <li class="list-group-item mb-2 mt-2"
                                         style="cursor: pointer;background: rgba(245,245,245,0.51)"
@@ -257,12 +267,37 @@
 
 @push('script')
 <script>
-$( function() {
-    $( "#datepicker" ).datepicker({ minDate: +1, dateFormat: 'yy-m-d' });
-  } );
+    $( function() {
+            $( "#datepicker" ).datepicker({ minDate: +1, dateFormat: 'DD, dd MM yy' });
+            $("#datepicker").on('change', function(){
+                var date = $('#datepicker').val()
+                var convert = new Date(date)
+                var year = convert.getFullYear();
+                var dates = convert.getDate();
+                var month = ((convert.getMonth() + 1) < 10 ? '0' : '') + (convert.getMonth() + 1);
+                var fullDate = year + '-' + month + '-' + dates
+                console.log(fullDate)
+                $("#dateBackend").attr('value', fullDate)
+
+
+            })
+        }
+    );
+
     $(document).ready(function(){
         //ini ketika provinsi tujuan di klik maka akan eksekusi perintah yg kita mau
         //name select nama nya "provinve_id" kalian bisa sesuaikan dengan form select kalian
+        var hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+        var bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "Sepetember", "Oktober", "November", "Desember"]
+        var now = new Date();
+        now.setDate(new Date().getDate() + 1)
+
+        var tanggal = now.getDate()
+        var day = hari[now.getDay()]
+        var month = bulan[now.getMonth()]
+        var year = now.getFullYear()
+        $("#datepicker").attr('placeholder', day + ', ' + tanggal + " " + month + ' ' + year)
+        $("#dateBackend").attr('value', now.getFullYear()+'-'+(now.getMonth() + 1)+'-'+now.getDate());
 
         $('select[name="state"]').on('change', function(){
             if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){

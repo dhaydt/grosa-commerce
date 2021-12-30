@@ -49,7 +49,7 @@ class SystemController extends Controller
 
     public static function insert_into_cart_shipping($request)
     {
-        dd($request);
+        // dd($request);
         $shipping = CartShipping::where(['cart_group_id' => $request['cart_group_id']])->first();
         if (isset($shipping) == false) {
             $shipping = new CartShipping();
@@ -119,6 +119,7 @@ class SystemController extends Controller
         $validator = Validator::make($request->all(), [
             'date' => 'required',
         ]);
+        // dd($request);
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)]);
         }
