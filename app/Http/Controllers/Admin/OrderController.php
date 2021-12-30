@@ -46,7 +46,7 @@ class OrderController extends Controller
             }
 
             if ($request->has('start-date')) {
-                $orders = $orders->whereBetween('delivery_date', [$start, $end]);
+                $orders = $orders->whereBetween('created_at', [$start, $end]);
                 $query_param = ['start-date' => $start, 'end-date' => $end];
             }
         } else {
@@ -70,7 +70,7 @@ class OrderController extends Controller
             }
 
             if ($request->has('start-date')) {
-                $orders = $orders->whereBetween('delivery_date', [$start, $end]);
+                $orders = $orders->whereBetween('created_at', [$start, $end]);
                 $query_param = ['start-date' => $start, 'end-date' => $end];
             }
         }

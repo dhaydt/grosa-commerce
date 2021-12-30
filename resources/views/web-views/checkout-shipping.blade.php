@@ -438,6 +438,7 @@
                 });
                 $.post({
                     url: '{{route('customer.choose-shipping-address')}}',
+                    method: 'POST',
                     dataType: 'json',
                     data: $('#address-form').serialize(),
                     beforeSend: function () {

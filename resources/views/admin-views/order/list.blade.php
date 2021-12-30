@@ -251,8 +251,65 @@
             $( "#start-date" ).datepicker({ dateFormat: 'yy-mm-dd' });
             $( "#end-date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
+            }
+        );
+
+        function export_data() {
+            let allAreFilled = true;
+            document.getElementById("sort-range").querySelectorAll("[required]").forEach(function (i) {
+                if (!allAreFilled) return;
+                if (!i.value) allAreFilled = false;
+            });
+            // console.log(form)
+
+            if (allAreFilled) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.post({
+                    url: '{{route('admin.export')}}',
+                    dataType: 'json',
+                    data: $('#sort-range').serialize(),
+                    beforeSend: function () {
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').addClass('loading-mobile');
+                    }
+                        $('#loading').show();
+                    },
+                    success: function (data) {
+                        if (data.errors) {
+                            for (var i = 0; i < data.errors.length; i++) {
+                                toastr.error(data.errors[i].message, {
+                                    CloseButton: true,
+                                    ProgressBar: true
+                                });
+                            }
+                        } else {
+                            window.open(data, '_blank');
+                        }
+                    },
+                    complete: function () {
+                        $('#loading').hide();
+                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                        $('#loading').removeClass('loading-mobile');
+                    }
+                    },
+                    error: function () {
+                        toastr.error('{{\App\CPU\translate('Something went wrong!')}}', {
+                            CloseButton: true,
+                            ProgressBar: true
+                        });
+                    }
+                });
+            }else{
+                toastr.error('{{\App\CPU\translate('Please fill all both start date & end date field')}}', {
+                    CloseButton: true,
+                    ProgressBar: true
+                });
+            }
         }
-    );
 
         function filter_order() {
             $.get({

@@ -1409,4 +1409,6 @@
   'delivery' => 'Delivery',
   'invalid_customer_data' => 'Invalid customer data',
   'date_range' => 'Date range',
+  'Please fill both start and end date' => 'Please fill both start and end date',
+  'Please fill all both start date & end date field' => 'Please fill all both start date & end date field',
 );
