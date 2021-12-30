@@ -76,7 +76,7 @@
                                         <span class="input-group-text" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
                                       </div>
                                   </div>
-                                  <input type="text" id="dateBackend" name="date">
+                                  <input type="hidden" id="dateBackend" name="date">
                                 @foreach($shipping_addresses as $key=>$address)
                                     <li class="list-group-item mb-2 mt-2"
                                         style="cursor: pointer;background: rgba(245,245,245,0.51)"
