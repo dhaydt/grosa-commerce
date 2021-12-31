@@ -340,7 +340,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
             Route::get('inhouse-order-filter', 'OrderController@inhouse_order_filter')->name('inhouse-order-filter');
         });
 
-        Route::post('export', 'ExportController@export')->name('export');
+        Route::get('export', 'ExportController@export')->name('export');
 
         Route::group(['prefix' => 'helpTopic', 'as' => 'helpTopic.', 'middleware' => ['module:web_&_app_settings']], function () {
             Route::get('list', 'HelpTopicController@list')->name('list');

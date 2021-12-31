@@ -36,7 +36,11 @@
                         </div>
                         <button class="btn btn-primary btn-sm mx-3" type="submit">Filter</button>
                     </form>
-                    <button class="btn btn-primary btn-sm">Export</button>
+                    <form action="{{ route('admin.export') }}" method="GET" class="d-flex">
+                        <input type="hidden" name="start-date" id="start-export">
+                        <input type="hidden" name="end-date" id="end-export">
+                        <button class="btn btn-primary btn-sm" type="submit">Export</button>
+                    </form>
                 </div>
                 <div>
                     <i class="tio-shopping-cart" style="font-size: 30px"></i>
@@ -254,62 +258,22 @@
             }
         );
 
-        function export_data() {
-            let allAreFilled = true;
-            document.getElementById("sort-range").querySelectorAll("[required]").forEach(function (i) {
-                if (!allAreFilled) return;
-                if (!i.value) allAreFilled = false;
-            });
-            // console.log(form)
+        $("#start-date").on('change', function(){
+            $start = $("#start-date").val()
+            $("#start-export").attr("value", $start)
+            console.log('val', $("#start-export").val());
+        })
 
-            if (allAreFilled) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }
-                });
-                $.post({
-                    url: '{{route('admin.export')}}',
-                    dataType: 'json',
-                    data: $('#sort-range').serialize(),
-                    beforeSend: function () {
-                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-                        $('#loading').addClass('loading-mobile');
-                    }
-                        $('#loading').show();
-                    },
-                    success: function (data) {
-                        if (data.errors) {
-                            for (var i = 0; i < data.errors.length; i++) {
-                                toastr.error(data.errors[i].message, {
-                                    CloseButton: true,
-                                    ProgressBar: true
-                                });
-                            }
-                        } else {
-                            window.open(data, '_blank');
-                        }
-                    },
-                    complete: function () {
-                        $('#loading').hide();
-                        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-                        $('#loading').removeClass('loading-mobile');
-                    }
-                    },
-                    error: function () {
-                        toastr.error('{{\App\CPU\translate('Something went wrong!')}}', {
-                            CloseButton: true,
-                            ProgressBar: true
-                        });
-                    }
-                });
-            }else{
-                toastr.error('{{\App\CPU\translate('Please fill all both start date & end date field')}}', {
-                    CloseButton: true,
-                    ProgressBar: true
-                });
-            }
-        }
+        $("#end-date").on('change', function(){
+            $end = $("#end-date").val()
+            $("#end-export").attr("value", $end)
+            console.log('val-end', $("#end-export").val());
+        })
+
+        $(document).ready(function(){
+            $("#start-export").attr("value", $("#start-date").val())
+            $("#end-export").attr("value", $("#end-date").val())
+        })
 
         function filter_order() {
             $.get({

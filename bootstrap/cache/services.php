@@ -54,6 +54,7 @@
     50 => 'App\\Providers\\ConfigServiceProvider',
     51 => 'Laravelpkg\\Laravelchk\\LaravelchkServiceProvider',
     52 => 'Amirami\\Localizator\\ServiceProvider',
+    53 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'eager' => 
   array (
@@ -95,6 +96,7 @@
     35 => 'App\\Providers\\ConfigServiceProvider',
     36 => 'Laravelpkg\\Laravelchk\\LaravelchkServiceProvider',
     37 => 'Amirami\\Localizator\\ServiceProvider',
+    38 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (
