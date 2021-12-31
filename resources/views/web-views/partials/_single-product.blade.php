@@ -30,6 +30,11 @@
         align-items: center;
         justify-content: center;
     }
+
+    .product-card.card.stock-card label {
+            left: 29%;
+            top: 29% !important;
+        }
     .card-header {
         cursor: pointer;
         max-height: 193px;
@@ -124,6 +129,11 @@
             border-radius: 5px 5px;
         }
 
+        .product-card.card.stock-card label {
+            left: 16%;
+            top: 20% !important;
+        }
+
         .product-card.card .card-body-hidden {
             visibility: visible !important;
             opacity: 1 !important;
@@ -152,7 +162,7 @@
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
 <div class="product-card card {{$product['current_stock']==0?'stock-card':''}}">
-    @if($product['current_stock']<=0) <label style="left: 29%!important; top: 29%!important;"
+    @if($product['current_stock']<=0) <label
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
 
