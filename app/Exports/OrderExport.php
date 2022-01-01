@@ -60,7 +60,7 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
             'B' => 35,
             'C' => 20,
             'D' => 30,
-            'E' => 20,
+            'E' => 50,
             'F' => 15,
             'G' => 5,
             'H' => 10,

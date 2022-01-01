@@ -47,21 +47,41 @@ class ExportController extends Controller
         }
 
         // dd($orders);
+        // $export = $orders->map(function ($order, $i) {
+        //     $shipping = $order->shipping_address_data;
+        //     $arr = json_decode($shipping);
+        //     $detail = $order->details->first();
+        //     $products = json_decode(($detail->product_details));
+
         $export = $orders->map(function ($order, $i) {
             $shipping = $order->shipping_address_data;
             $arr = json_decode($shipping);
-            $detail = $order->details->first();
-            $products = json_decode(($detail->product_details));
+            $detail = $order->details;
+
+            $prod = $detail->map(function ($det) {
+                $p = json_decode($det->product_details);
+
+                return $p->name;
+            });
+
+            $var = $detail->map(function ($det) {
+                return $det->variation;
+            });
+
+            $qty = $detail->map(function ($det) {
+                return $det->qty;
+            });
+            // dd($detail);
 
             return ['no' => $i + 1,
             'order_date' => date('d F Y, h:i:s A', strtotime($order->created_at)),
             'delivery_date' => date('d F Y', strtotime($order->delivery_date)),
             'customer_name' => $arr->contact_person_name,
-            'product_name' => $products->name,
-            'variation' => $detail->variation,
-            'Qty' => $detail->qty,
+            'product_name' => $prod->toArray(),
+            'variation' => $var,
+            'Qty' => $qty,
             'price' => $order->order_amount,
-            'order_no' => $detail->order_id,
+            'order_no' => $detail[0]['order_id'],
             'payment' => $order->payment_method,
         ];
         });
