@@ -15,8 +15,27 @@
         .mobile-payment {
             margin-top: 20px;
         }
+        .indomaret {
+            max-width: 200px;
+            margin-top: -15px !important;
+            min-width: 200px;
+        }
+
+        @media(max-width: 400px){
+            button.btn .indomaret {
+                max-width: 125px;
+                margin-top: -8px !important;
+                min-width: 125px;
+                margin-left: -4px;
+            }
+        }
 
         @media(max-width: 600px){
+            .indomaret {
+                max-width: 140px;
+                margin-top: -8px !important;
+                min-width: 140px;
+            }
             .card-body {
                 display: flex;
                 align-items: center;
@@ -59,7 +78,7 @@
                 @if ($ship->shipping_cost !== "0.00")
                 <h2 class="h6 pb-3 mb-2 mt-2">{{\App\CPU\translate('choose_payment')}}</h2>
 
-                <div class="row">
+                <div class="row justify-content-center">
                     @php($config=\App\CPU\Helpers::get_business_settings('cash_on_delivery'))
                     @if($config['status'])
                         <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
@@ -153,12 +172,101 @@
                             <form class="needs-validation" method="POST" id="payment-form"
                                 action="{{route('xendit-payment.vaInvoice')}}">
 
+                                <input type="hidden" name="type" value="BCA">
+                                {{-- <input class="price" type="hidden" name="price" value="price"> --}}
+                                {{ csrf_field() }}
+                                <button class="btn btn-block" type="submit">
+                                    <img width="150" style="margin-top: -10px"
+                                    src="{{asset('public/assets/front-end/img/bca.png')}}" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
+                    <div class="card">
+                        <div class="card-body" style="height: 100px">
+                            <form class="needs-validation" method="POST" id="payment-form"
+                                action="{{route('xendit-payment.vaInvoice')}}">
+
                                 <input type="hidden" name="type" value="BNI">
                                 {{-- <input class="price" type="hidden" name="price" value="price"> --}}
                                 {{ csrf_field() }}
                                 <button class="btn btn-block" type="submit">
                                     <img width="150" style="margin-top: -10px"
                                     src="{{asset('public/assets/front-end/img/bni.png')}}" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+               <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
+                    <div class="card">
+                        <div class="card-body" style="height: 100px">
+                            <form class="needs-validation" method="POST" id="payment-form"
+                                action="{{route('xendit-payment.vaInvoice')}}">
+
+                                <input type="hidden" name="type" value="BRI">
+                                {{-- <input class="price" type="hidden" name="price" value="price"> --}}
+                                {{ csrf_field() }}
+                                <button class="btn btn-block" type="submit">
+                                    <img width="150" style="margin-top: -10px"
+                                    src="{{asset('public/assets/front-end/img/bri.png')}}" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
+                    <div class="card">
+                        <div class="card-body" style="height: 100px">
+                            <form class="needs-validation" method="POST" id="payment-form"
+                                action="{{route('xendit-payment.vaInvoice')}}">
+
+                                <input type="hidden" name="type" value="MANDIRI">
+                                {{-- <input class="price" type="hidden" name="price" value="price"> --}}
+                                {{ csrf_field() }}
+                                <button class="btn btn-block" type="submit">
+                                    <img width="150" style="margin-top: -10px"
+                                    src="{{asset('public/assets/front-end/img/mandiri.png')}}" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
+                    <div class="card">
+                        <div class="card-body" style="height: 100px">
+                            <form class="needs-validation" method="POST" id="payment-form"
+                                action="{{route('xendit-payment.vaInvoice')}}">
+
+                                <input type="hidden" name="type" value="INDOMARET">
+                                {{-- <input class="price" type="hidden" name="price" value="price"> --}}
+                                {{ csrf_field() }}
+                                <button class="btn btn-block" type="submit">
+                                    <img class="indomaret" width="150" style="margin-top: -10px;"
+                                    src="{{asset('public/assets/front-end/img/indo.png')}}" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4 col-6" style="cursor: pointer">
+                    <div class="card">
+                        <div class="card-body" style="height: 100px">
+                            <form class="needs-validation" method="POST" id="payment-form"
+                                action="{{route('xendit-payment.vaInvoice')}}">
+
+                                <input type="hidden" name="type" value="ALFAMART">
+                                {{-- <input class="price" type="hidden" name="price" value="price"> --}}
+                                {{ csrf_field() }}
+                                <button class="btn btn-block" type="submit">
+                                    <img width="150" style="margin-top: -10px"
+                                    src="{{asset('public/assets/front-end/img/alfa.png')}}" />
                                 </button>
                             </form>
                         </div>
