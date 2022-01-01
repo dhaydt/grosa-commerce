@@ -96,11 +96,12 @@
 
         .for-dicount-div {
             margin-top: 0%;
+            margin-bottom: 0%;
         }
 
         .card-header {
-            max-height: 168px;
-            min-height: 168px;
+            max-height: 186px;
+            min-height: 186px;
             margin-bottom: 5px;
         }
         .card-body {
