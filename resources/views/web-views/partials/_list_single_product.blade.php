@@ -161,6 +161,12 @@
             font-size: 14px !important;
         }
     }
+    @media(max-width: 400px) {
+        .card-header {
+            max-height: 160px;
+            min-height: 160px;
+        }
+    }
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
 <div class="product-card card flash-card {{$product['current_stock']==0?'stock-card':''}}">
