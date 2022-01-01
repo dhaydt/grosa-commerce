@@ -172,6 +172,15 @@
             .cz-preview-item.active {
                 padding: 0% !important;
             }
+            .mobile-btn {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                padding: 0 0 10px 0;
+                right: 0;
+                background-color: #fff;
+                z-index: 1;
+            }
         }
         thead {
             color: white;
@@ -634,9 +643,10 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-between mt-2">
-                            <button
+                        <div class="mobile-btn">
+                            <div class="d-flex justify-content-between mt-2">
+                               <div class="container d-flex justify-content-between">
+                                <button
                                 class="btn btn-secondary element-center btn-gap-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}"
                                 onclick="buy_now()"
                                 type="button"
@@ -657,8 +667,10 @@
                                    aria-hidden="true"></i>
                                 <span class="countWishlist-{{$product['id']}}">{{$countWishlist}}</span>
                             </button>
-                        </div>
-                    </form>
+                               </div>
+                            </div>
+                        </form>
+                    </div>
                     <hr style="padding-bottom: 10px">
                     <div style="text-align:{{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
                          class="sharethis-inline-share-buttons"></div>
