@@ -169,6 +169,9 @@
             .detail-mobile {
                 margin-top: -22px !important;
             }
+            .cz-preview-item.active {
+                padding: 0% !important;
+            }
         }
         thead {
             color: white;

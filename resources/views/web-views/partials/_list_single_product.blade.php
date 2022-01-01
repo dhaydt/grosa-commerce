@@ -1,9 +1,29 @@
 <style>
+    .for-dicount-div {
+        margin-top: -6%;
+        margin-bottom: 6%;
+    }
+    span.for-discoutn-value {
+        padding: 5px 10px;
+        right: -100px;
+        top: -20px;
+        position: absolute;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 0px 5px 0 15px;
+        z-index: 1;
+    }
     .product-card {
         margin-bottom: 40px;
         display: flex;
+        max-width: 200px;
         align-items: center;
         justify-content: center;
+    }
+    .product-card.card label {
+        left: 29%;
+        top: 29% !important;
+        font-size: 14px;
     }
 
     .card-header {
@@ -11,7 +31,11 @@
         max-height: 193px;
         min-height: 193px;
         padding: 0px;
-        margin-bottom: -5px;
+        margin-bottom: -11px;
+    }
+
+    .product-title1 {
+        text-transform: capitalize;
     }
 
 
@@ -31,33 +55,60 @@
         min-height: 200px;
         max-height: 200px!important;
     }
+    .discount-div {
+        margin: 5px 0;
+    }
+    .new-discoutn-value{
+        background-color: {{ $web_config['secondary_color'] }};
+        border-radius: 15px;
+        font-size: 13px;
+        color: #fff;
+        font-weight: 600;
+        padding: 2px 10px;
+    }
+
     @media(min-width: 600px){
         .flash-card .card-header{
-        position: relative;
+            position: relative;
+        }
+        .flash-card .card-header .center-div {
+            position: absolute;
+            top: -17px;
+        }
+        .flash-card .card-header .center-div img{
+            border-radius: 5px 5px 0 0;
+        }
     }
 
-    .flash-card .card-header .center-div {
-        position: absolute;
-        top: -17px;
-    }
-
-    .flash-card .card-header .center-div img{
-        border-radius: 5px 5px 0 0;
-    }
-    }
     @media (max-width: 600px) {
+        span.for-discoutn-value{
+            padding: 2px 9px;
+            font-size: 12px;
+            font-weight: 500;
+            right: 0;
+            top: 0;
+            border-radius: 0px 5px 0 15px;
+            z-index: 1;
+        }
+        .new-discoutn-value {
+            font-size: 10px;
+        }
+
+        .for-dicount-div {
+            margin-top: 0%;
+        }
+
         .card-header {
             max-height: 168px;
             min-height: 168px;
             margin-bottom: 5px;
         }
-
         .card-body {
             margin-top: -9px;
             max-height: 4.5rem;
             min-height: 4.5rem;
+            margin-bottom: 43px !important;
         }
-
         .center-div {
             position: relative;
         }
@@ -67,7 +118,6 @@
             min-height: 100%;
             border-radius: 5px 5px 0 0;
         }
-
         .product-card.card {
             margin-bottom: 0px !important;
             display: block;
@@ -75,10 +125,13 @@
             justify-content: start;
         }
 
+        .product-card.card label {
+            left: 25%;
+            top: 25% !important;
+        }
         .product-card.card {
             border-radius: 5px 5px;
         }
-
         .product-card.card .card-body-hidden {
             visibility: visible !important;
             opacity: 1 !important;
@@ -87,19 +140,22 @@
             padding-top: 0;
             z-index: 2;
         }
-
         .product-card.card .card-body-hidden .text-center a{
             font-size:10px;
         }
-
+        .new-discoutn-value {
+            font-size: 10px;
+        }
+        .discount-div {
+            margin: 0;
+            margin-top: -5px;
+        }
         .product-title1 a{
             font-size: 12px;
         }
-
         .product-price {
             margin-top: -10px;
         }
-
         .product-price .text-accent {
             font-size: 14px !important;
         }
@@ -107,20 +163,15 @@
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
 <div class="product-card card flash-card {{$product['current_stock']==0?'stock-card':''}}">
-    @if($product['current_stock']<=0) <label style="left: 29%!important; top: 29%!important;"
+    @if($product['current_stock']<=0) <label
         class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
 
         <div class="card-header inline_product clickable">
-            @if($product->discount > 0)
-            <div class="d-flex" style="right: 0;top:0;position: absolute; z-index: 1;">
-                <span class="for-discoutn-value pr-1 pl-1">
-                    @if ($product->discount_type == 'percent')
-                    {{round($product->discount,2)}}%
-                    @elseif($product->discount_type =='flat')
-                    {{\App\CPU\Helpers::currency_converter($product->discount)}}
-                    @endif
-                    {{\App\CPU\translate('off')}}
+            @if(isset($product->label))
+            <div class="d-flex justify-content-end for-dicount-div discount-hed">
+                <span class="for-discoutn-value">
+                    {{ $product->label }}
                 </span>
             </div>
             @else
@@ -149,6 +200,24 @@
                         {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
                     </strike><br>
                     @endif
+
+                    @if($product->discount > 0)
+                    <div class="text-center discount-div">
+                        <span class="new-discoutn-value">
+                            {{\App\CPU\translate('off')}}
+                            @if ($product->discount_type == 'percent')
+                            {{round($product->discount,2)}}%
+                            @elseif($product->discount_type =='flat')
+                            {{\App\CPU\Helpers::currency_converter($product->discount)}}
+                            @endif
+                        </span>
+                    </div>
+                    @else
+                    <div class="d-flex justify-content-end for-dicount-div-null">
+                        <span class="for-discoutn-value-null"></span>
+                    </div>
+                    @endif
+
                     <span class="text-accent">
                         {{\App\CPU\Helpers::currency_converter(
                         $product->unit_price-(\App\CPU\Helpers::get_product_discount($product,$product->unit_price))
