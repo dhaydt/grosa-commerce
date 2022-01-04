@@ -88,8 +88,6 @@ class ProductController extends BaseController
             'unit.required' => 'Unit  is required!',
         ]);
 
-        // dd($request);
-
         if ($request['discount_type'] == 'percent') {
             $dis = ($request['unit_price'] / 100) * $request['discount'];
         } else {
@@ -561,7 +559,11 @@ class ProductController extends BaseController
 
     public function remove_image(Request $request)
     {
-        ImageManager::delete('/product/'.$request['image']);
+        if (env('APP_ENV') != 'live') {
+            ImageManager::delete('/product/'.$request['name']);
+        } else {
+            ImageManager::delete('/product/'.$request['image']);
+        }
         $product = Product::find($request['id']);
         $array = [];
         if (count(json_decode($product['images'])) < 2) {

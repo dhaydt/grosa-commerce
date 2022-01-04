@@ -9,17 +9,31 @@ class ImageManager
 {
     public static function upload(string $dir, string $format, $image = null)
     {
-        if ($image != null) {
-            $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
-            if (!Storage::disk('public')->exists($dir)) {
-                Storage::disk('public')->makeDirectory($dir);
+        if (env('APP_ENV') == 'live') {
+            if ($image != null) {
+                $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
+                if (!Storage::disk('public')->exists($dir)) {
+                    Storage::disk('public')->makeDirectory($dir);
+                }
+                Storage::disk('public')->put($dir.$imageName, file_get_contents($image));
+            } else {
+                $imageName = 'def.png';
             }
-            Storage::disk('public')->put($dir.$imageName, file_get_contents($image));
-        } else {
-            $imageName = 'def.png';
-        }
 
-        return $imageName;
+            return $imageName;
+        } else {
+            if ($image != null) {
+                $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
+                if (!Storage::disk('public')->exists('/app/public/'.$dir)) {
+                    Storage::disk('public')->makeDirectory('/app/public/'.$dir);
+                }
+                Storage::disk('public')->put('/app/public/'.$dir.$imageName, file_get_contents($image));
+            } else {
+                $imageName = 'def.png';
+            }
+
+            return $imageName;
+        }
     }
 
     public static function update(string $dir, $old_image, string $format, $image = null)
@@ -34,13 +48,27 @@ class ImageManager
 
     public static function delete($full_path)
     {
-        if (Storage::disk('public')->exists($full_path)) {
-            Storage::disk('public')->delete($full_path);
-        }
+        if (env('APP_ENV') == 'live') {
+            if (Storage::disk('public')->exists($full_path)) {
+                Storage::disk('public')->delete($full_path);
+            }
 
-        return [
-            'success' => 1,
-            'message' => 'Removed successfully !',
-        ];
+            return [
+                'success' => 1,
+                'message' => 'Removed successfully !',
+            ];
+        } else {
+            $path = '/app/public'.$full_path;
+            // dd($path);
+
+            if (Storage::disk('public')->exists('/app/public'.$full_path)) {
+                Storage::disk('public')->delete('/app/public'.$full_path);
+            }
+
+            return [
+                'success' => 1,
+                'message' => 'Removed successfully !',
+            ];
+        }
     }
 }

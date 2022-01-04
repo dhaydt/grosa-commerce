@@ -71,20 +71,32 @@ class ExportController extends Controller
             $qty = $detail->map(function ($det) {
                 return $det->qty;
             });
-            // dd($detail);
+
+            $siku = ['[', ']', '"'];
+            $rep = ['', '', ' '];
+            $exProd = str_replace($siku, $rep, $prod);
+
+            $siku2 = ['[]', '[', ']', '"'];
+            $rep2 = ['-', '', '', ' '];
+            $exVar = str_replace($siku2, $rep2, $var);
+
+            $siku3 = ['[', ']'];
+            $rep3 = ['', ''];
+            $exQty = str_replace($siku3, $rep3, $qty);
 
             return ['no' => $i + 1,
             'order_date' => date('d F Y, h:i:s A', strtotime($order->created_at)),
             'delivery_date' => date('d F Y', strtotime($order->delivery_date)),
             'customer_name' => $arr->contact_person_name,
-            'product_name' => $prod->toArray(),
-            'variation' => $var,
-            'Qty' => $qty,
+            'product_name' => $exProd,
+            'variation' => $exVar,
+            'Qty' => $exQty,
             'price' => $order->order_amount,
             'order_no' => $detail[0]['order_id'],
             'payment' => $order->payment_method,
         ];
         });
+        // dd($export);
         // $data = Order::whereBetween('created_at', [$start, $end])->get();
         // $order = Order::whereBetween('delivery_date', [$start, $end])->get();
 

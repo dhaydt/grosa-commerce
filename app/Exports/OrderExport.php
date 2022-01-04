@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Alignment as StyleAlignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, WithStyles
@@ -71,6 +72,8 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
 
     public function styles(Worksheet $data)
     {
+        $data->getStyle('G')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_LEFT);
+
         return [
             // Style the first row as bold text.
             1 => [

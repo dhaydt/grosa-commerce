@@ -609,41 +609,49 @@
   ),
   'mail' => 
   array (
-    'driver' => 'SMTP',
-    'host' => 'mail.wshopdev.xyz',
-    'port' => '465',
-    'username' => 'info@wshopdev.xyz',
-    'password' => 'HmHp&0Lf3$hb',
-    'encryption' => 'SSL',
+    'driver' => 'smtp',
+    'host' => 'smtp.mailgun.org',
+    'port' => 587,
     'from' => 
     array (
-      'address' => 'info@wshopdev.xyz',
-      'name' => 'Grosa',
+      'address' => 'hello@example.com',
+      'name' => 'Example',
     ),
+    'encryption' => 'tls',
+    'username' => NULL,
+    'password' => NULL,
     'sendmail' => '/usr/sbin/sendmail -bs',
-    'pretend' => false,
+    'markdown' => 
+    array (
+      'theme' => 'default',
+      'paths' => 
+      array (
+        0 => '/home/mh/code/project.co/Tigatech/umkm-shop/resources/views/vendor/mail',
+      ),
+    ),
+    'log_channel' => NULL,
   ),
   'nexmo' => 
   array (
-    'api_key' => 'custo5cc042f7abf4c',
-    'api_secret' => 'custo5cc042f7abf4c@ssl',
+    'api_key' => '',
+    'api_secret' => '',
     'signature_secret' => '',
     'private_key' => '',
     'application_id' => '',
     'app' => 
     array (
-      'name' => '',
-      'version' => '',
+      'name' => 'NexmoLaravel',
+      'version' => '1.1.2',
     ),
     'http_client' => '',
   ),
   'paypal' => 
   array (
-    'client_id' => 'AW5EXx9-Bw1BOMVo5pP3_xFw20zofw08e-X7F_guyMBi37f4LcFc8TCB7oO4kBBmQPx0hN6H7uYXfgYi',
-    'secret' => 'EJBws5JMPZI-qDRbX6w1wjd2H1_DLRhOdD-qEfV2h9t8UPXeLM30a1sMQ3aqAqoui832SNhD81MpY12G',
+    'client_id' => '',
+    'secret' => '',
     'settings' => 
     array (
-      'mode' => 'live',
+      'mode' => 'sandbox',
       'http.ConnectionTimeOut' => 30,
       'log.LogEnabled' => true,
       'log.FileName' => '/home/mh/code/project.co/Tigatech/umkm-shop/storage/logs/paypal.log',
@@ -724,8 +732,8 @@
   ),
   'razor' => 
   array (
-    'razor_key' => NULL,
-    'razor_secret' => NULL,
+    'razor_key' => '',
+    'razor_secret' => '',
   ),
   'services' => 
   array (
@@ -789,11 +797,11 @@
   'sslcommerz' => 
   array (
     'projectPath' => NULL,
-    'apiDomain' => 'https://securepay.sslcommerz.com',
+    'apiDomain' => 'https://sandbox.sslcommerz.com',
     'apiCredentials' => 
     array (
-      'store_id' => NULL,
-      'store_password' => NULL,
+      'store_id' => '',
+      'store_password' => '',
     ),
     'apiUrl' => 
     array (
@@ -803,7 +811,7 @@
       'refund_payment' => '/validator/api/merchantTransIDvalidationAPI.php',
       'refund_status' => '/validator/api/merchantTransIDvalidationAPI.php',
     ),
-    'connect_from_localhost' => false,
+    'connect_from_localhost' => true,
     'success_url' => '/success',
     'failed_url' => '/fail',
     'cancel_url' => '/cancel',
@@ -1020,14 +1028,6 @@
     'proxies' => NULL,
     'headers' => 30,
   ),
-  'paystack' => 
-  array (
-    'publicKey' => NULL,
-    'secretKey' => NULL,
-    'paymentUrl' => 'https://api.paystack.co',
-    'merchantEmail' => NULL,
-  ),
-  'timezone' => 'UTC',
   'tinker' => 
   array (
     'commands' => 
