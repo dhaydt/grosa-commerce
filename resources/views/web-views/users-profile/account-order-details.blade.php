@@ -355,7 +355,7 @@
                                         @if ($order->payment_status == 'unpaid' && $order->payment_method != 'cash_on_delivery')
                                         <form class="needs-validation" method="POST" id="payment-form"
                                         action="{{route('xendit-payment.vaInvoice')}}">
-                                            <input type="hidden" name="type" value="{{ session()->get('payment') }}">
+                                            <input type="hidden" name="type" value="{{ $order->payment_method }}">
                                             <input type="hidden" name="order_id" value="{{ $order->id }}">
                                             {{ csrf_field() }}
                                             <button class="btn btn-danger" type="submit">

@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1420,4 +1418,5 @@ return [
   'Please fill all both start date & end date field' => 'Please fill all both start date & end date field',
   'Verification_code_or_OTP mismatched' => 'Verification code or OTP mismatched',
   'incomplete_info' => 'Incomplete info',
-];
+  'pay_now' => 'Pay now',
+);

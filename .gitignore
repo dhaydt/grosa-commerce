@@ -6,6 +6,7 @@
 /public/
 .env
 /storage/
+/resources/lang/
 index.copy.php
 # .env.backup
 # .phpunit.result.cache

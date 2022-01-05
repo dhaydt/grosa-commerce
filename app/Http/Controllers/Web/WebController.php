@@ -96,6 +96,7 @@ class WebController extends Controller
 
         Session()->forget('category');
         Session()->forget('ordered');
+        Session()->forget('payment_status');
 
         $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('deal_of_the_days.status', 1)->first();
 
