@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1421,4 +1419,6 @@ return [
   'Verification_code_or_OTP mismatched' => 'Verification code or OTP mismatched',
   'incomplete_info' => 'Incomplete info',
   'pay_now' => 'Pay now',
-];
+  'virtual_account' => 'Virtual account',
+  'other' => 'Other',
+);
