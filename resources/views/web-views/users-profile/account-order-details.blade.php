@@ -81,19 +81,6 @@
             cursor: pointer;
         }
 
-        @media (max-width: 600px) {
-            .sidebar_heading {
-                background: #1B7FED;
-            }
-
-            .sidebar_heading h1 {
-                text-align: center;
-                color: aliceblue;
-                padding-bottom: 17px;
-                font-size: 19px;
-            }
-        }
-
         @media (max-width: 768px) {
             .for-tab-img {
                 width: 100% !important;
@@ -119,8 +106,25 @@
         }
 
         @media (max-width: 600px) {
+            .sidebar_heading {
+                background: #1B7FED;
+            }
+
+            .sidebar_heading h1 {
+                text-align: center;
+                color: aliceblue;
+                padding-bottom: 17px;
+                font-size: 19px;
+            }
             .for-mobile-glaxy {
                 display: flex !important;
+                position: fixed;
+                justify-content: center;
+                bottom: 57px;
+                padding: 10px;
+                background-color: #fff;
+                width: 100%;
+                left: 0;
             }
 
             .for-glaxy-mobile {
@@ -525,7 +529,7 @@
                                 </div>
 
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer mobile-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{\App\CPU\translate('close')}}</button>
                                 <button type="submit" class="btn btn-primary">{{\App\CPU\translate('submit')}}</button>
                             </div>
