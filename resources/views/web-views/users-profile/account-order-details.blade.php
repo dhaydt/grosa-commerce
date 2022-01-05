@@ -273,19 +273,24 @@
                                         </div>
                                     </div>
                                 </td>
-                                                                <td class="order_table_td">
+                                <td class="order_table_td">
                                     <div class="order_table_info_div">
                                         <div class="order_table_info_div_1 py-2">
                                             <span
-                                                class="d-block spandHeadO">{{\App\CPU\translate('Seller')}}: </span>
+                                                class="d-block spandHeadO">{{\App\CPU\translate('Status')}}: </span>
                                         </div>
 
                                         <div class="order_table_info_div_2">
                                             <span class="spanTr">
-                                                {{-- {{ dd($order) }} --}}
-                                                {{-- @php($shop=App\Model\Shop::where('seller_id', $order->seller_id)->first())
-                                                {{$shop->name}} --}}
-                                                {{ env('APP_NAME') }}
+                                                @if($order->payment_status == 'paid')
+                                                <span class="text-success capitalize">
+                                                    {{\App\CPU\translate($order->payment_status)}}
+                                                </span>
+                                                @else($order['order_status']=='confirmed' || $order['order_status']=='processing' || $order['order_status']=='delivered')
+                                                <span class="text-info">
+                                                    {{\App\CPU\translate($order->payment_status)}}
+                                                </span>
+                                                @endif
                                             </span>
                                         </div>
                                     </div>
@@ -334,7 +339,7 @@
                                         </div>
                                     </div>
                                     <td>
-                                        @if($order->order_status=='delivered')
+                                        {{-- @if($order->order_status=='delivered')
                                             <a href="javascript:" class="btn btn-primary btn-sm" data-toggle="modal"
                                                data-target="#review-{{$detail->id}}">{{\App\CPU\translate('review')}}</a>
                                         @else
@@ -342,6 +347,17 @@
                                                 <a href="javascript:" onclick="review_message()"
                                                    class="btn btn-primary btn-sm">{{\App\CPU\translate('review')}}</a>
                                             </label>
+                                        @endif --}}
+                                        @if ($order->payment_status == 'unpaid' && $order->payment_method != 'cash_on_delivery')
+                                        <form class="needs-validation" method="POST" id="payment-form"
+                                        action="{{route('xendit-payment.vaInvoice')}}">
+                                            <input type="hidden" name="type" value="{{ session()->get('payment') }}">
+                                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                            {{ csrf_field() }}
+                                            <button class="btn btn-danger" type="submit">
+                                                {{\App\CPU\translate('pay_now')}}
+                                            </button>
+                                        </form>
                                         @endif
                                     </td>
                                 </tr>

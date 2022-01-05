@@ -15,19 +15,19 @@
     <link rel="stylesheet" media="screen"
           href="{{asset('public/assets/front-end')}}/vendor/nouislider/distribute/nouislider.min.css"/>
     <style>
-        .order-track {
-            height: 400px;
-            border: 1px solid rgb(189, 187, 187);
-            border-radius: 10px;
-        }
-       .closet{
+        .closet{
             float: {{Session::get('direction') === "rtl" ? 'left' : 'right'}};
             font-size: 1.5rem;
             font-weight: 300;
             line-height: 1;
             color: #4b566b;
-            text-shadow: none;
             opacity: .5;
+            text-shadow: none;
+        }
+        .order-track {
+            height: 400px;
+            border: 1px solid rgb(189, 187, 187);
+            border-radius: 10px;
         }
     </style>
 @endpush

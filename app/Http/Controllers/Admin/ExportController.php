@@ -14,23 +14,6 @@ class ExportController extends Controller
     {
         $start = $request['start-date'];
         $end = $request['end-date'];
-        $users = [
-            [
-                'id' => 1,
-                'name' => 'Hardik',
-                'email' => 'hardik@gmail.com',
-            ],
-            [
-                'id' => 2,
-                'name' => 'Vimal',
-                'email' => 'vimal@gmail.com',
-            ],
-            [
-                'id' => 3,
-                'name' => 'Harshad',
-                'email' => 'harshad@gmail.com',
-            ],
-        ];
 
         if ($start == $end) {
             $orders = Order::where('created_at', 'like', "%{$start}%")->whereHas('details', function ($query) {
@@ -84,22 +67,75 @@ class ExportController extends Controller
             $rep3 = ['', ''];
             $exQty = str_replace($siku3, $rep3, $qty);
 
-            return ['no' => $i + 1,
+            return [
             'order_date' => date('d F Y, h:i:s A', strtotime($order->created_at)),
             'delivery_date' => date('d F Y', strtotime($order->delivery_date)),
             'customer_name' => $arr->contact_person_name,
-            'product_name' => $exProd,
-            'variation' => $exVar,
-            'Qty' => $exQty,
+            'product_name' => $prod,
+            'variation' => $var,
+            'Qty' => $qty,
             'price' => $order->order_amount,
             'order_no' => $detail[0]['order_id'],
             'payment' => $order->payment_method,
         ];
         });
+
+        $data = [];
+        foreach ($export as $item => $key) {
+            $each = [];
+            foreach ($key as $k => $value) {
+                // $valu = "{{$f} : {{$val} : {$person}}}"
+
+                $valu = $value;
+
+                // echo ;
+                array_push($each, $valu);
+            }
+            array_push($data, $each);
+        }
+
+        // dd($data);
+
+        // $fam = ['thom' => ['room' => 'shane'],
+        //     'andy' => ['cousin' => 'michelle', 'mother' => 'shope'],
+        //      'jwall' => ['friend' => 'chunk'], ];
+
+        // $data = [];
+        // foreach ($fam as $f => $value) {
+        //     // array_push($data, [$f => $value]);
+        //     foreach ($value as $val => $person) {
+        //         // $valu = "{{$f} : {{$val} : {$person}}}"
+        //         $valu = [$f => [$val => $person]];
+
+        //         // echo ;
+        //         array_push($data, $valu);
+        //     }
+        // }
+        // dd($data);
+
+        // $data = [];
+        // foreach ($export as $item => $key) {
+        //     $row = [];
+        //     // dd(count($key));
+        //     foreach ($key as $k => $val) {
+        //         if (is_object($val)) {
+        //             $r = [$k => $val];
+        //             array_push($row, $r);
+        //             if (count($val) > 1) {
+        //                 foreach ($val as $v) {
+        //                     array_push($data, [$k => $v]);
+        //                 }
+        //             }
+        //         } else {
+        //             // array_push($row, [$k => $val]);
+        //         }
+        //     }
+        //     array_push($data, $row);
+        // }
         // dd($export);
         // $data = Order::whereBetween('created_at', [$start, $end])->get();
         // $order = Order::whereBetween('delivery_date', [$start, $end])->get();
 
-        return Excel::download(new OrderExport($export), 'rekap'.$start.' to '.$end.'.xlsx');
+        return Excel::download(new OrderExport($data), 'rekap'.$start.' to '.$end.'.xlsx');
     }
 }

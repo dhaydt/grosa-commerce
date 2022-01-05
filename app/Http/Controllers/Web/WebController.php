@@ -272,11 +272,12 @@ class WebController extends Controller
 
     public function checkout_complete(Request $request)
     {
+        // dd($request);
         $unique_id = OrderManager::gen_unique_id();
         $order_ids = [];
         foreach (CartManager::get_cart_group_ids() as $group_id) {
             $data = [
-                'payment_method' => 'cash_on_delivery',
+                'payment_method' => $request['payment_method'],
                 'order_status' => 'pending',
                 'payment_status' => 'unpaid',
                 'transaction_ref' => '',
@@ -284,8 +285,11 @@ class WebController extends Controller
                 'cart_group_id' => $group_id,
             ];
             $order_id = OrderManager::generate_order($data);
+            session()->put('orderID', $order_id);
             array_push($order_ids, $order_id);
         }
+
+        session()->put('payment', $request['payment_method']);
 
         CartManager::cart_clean();
 

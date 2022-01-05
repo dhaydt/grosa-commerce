@@ -105,19 +105,27 @@
                             <span class="font-weight-bold d-block mt-4" style="font-size: 17px;">{{\App\CPU\translate('Hello')}}, {{auth('customer')->user()->f_name}}</span>
                             <span>{{\App\CPU\translate('You order has been confirmed and will be shipped according to the method you selected!')}}</span>
 
-                            <div class="row mt-4">
-                                <div class="col-6">
+                            <div class="row mt-4 justify-content-between">
                                     <a href="{{route('home')}}" class="btn btn-primary">
                                         {{\App\CPU\translate('go_to_shopping')}}
                                     </a>
-                                </div>
 
-                                <div class="col-6">
+                                @if (session()->get('payment') != 'cash_on_delivery' && session()->get('payment_status') != 'success')
+                                    <form class="needs-validation" method="POST" id="payment-form"
+                                    action="{{route('xendit-payment.vaInvoice')}}">
+                                        <input type="hidden" name="type" value="{{ session()->get('payment') }}">
+                                        <input type="hidden" name="order_id" value="{{ session()->get('orderID') }}">
+                                        {{ csrf_field() }}
+                                        <button class="btn btn-danger" type="submit">
+                                            {{\App\CPU\translate('pay_now')}}
+                                        </button>
+                                    </form>
+                                @endif
+
                                     <a href="{{route('account-oder')}}"
                                        class="btn btn-secondary pull-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">
                                         {{\App\CPU\translate('check_orders')}}
                                     </a>
-                                </div>
                             </div>
                         </div>
                     @endif

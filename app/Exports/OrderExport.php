@@ -41,7 +41,7 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
     public function headings(): array
     {
         return [
-            'No',
+            // 'No',
             'Order Date',
             'Delivery Date',
             'Customer Name',
@@ -57,16 +57,26 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 4,
-            'B' => 35,
-            'C' => 20,
-            'D' => 30,
-            'E' => 50,
-            'F' => 15,
-            'G' => 5,
+            // 'A' => 4,
+            // 'B' => 35,
+            // 'C' => 20,
+            // 'D' => 30,
+            // 'E' => 50,
+            // 'F' => 15,
+            // 'G' => 5,
+            // 'H' => 10,
+            // 'I' => 10,
+            // 'J' => 20,
+
+            'A' => 35,
+            'B' => 20,
+            'C' => 30,
+            'D' => 50,
+            'E' => 15,
+            'F' => 5,
+            'G' => 10,
             'H' => 10,
-            'I' => 10,
-            'J' => 20,
+            'I' => 20,
         ];
     }
 

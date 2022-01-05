@@ -129,21 +129,35 @@
                             src="{{asset("public/assets/front-end/img/bni-ready.png")}}"
                             alt="payment">
                     </a>
+                    <a class="bank-logo" href="javascript:void(0)" role="button"><img class="pt-2 mt-1"
+                            src="{{asset("public/assets/front-end/img/cimb-ready.png")}}"
+                            alt="payment">
+                    </a>
                         </li>
                         <li class="widget-list-item mt-3">
                             <a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
-                                src="{{asset("public/assets/front-end/img/gopay-ready.png")}}"
-                                alt="payment">
-                        </a><a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
                                 src="{{asset("public/assets/front-end/img/ovo-ready.png")}}"
                                 alt="payment">
                         </a><a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
                                 src="{{asset("public/assets/front-end/img/dana-ready.png")}}"
                                 alt="payment">
                         </a>
+                        <a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
+                            src="{{asset("public/assets/front-end/img/link-ready.png")}}"
+                            alt="payment">
+                        </a>
+                        <a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
+                            src="{{asset("public/assets/front-end/img/shopee-ready.png")}}"
+                            alt="payment">
+                        </a>
                         </li>
 
-                        <li class="widget-list-item mt-3"><a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
+                        <li class="widget-list-item mt-3">
+                            <a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
+                                src="{{asset("public/assets/front-end/img/qris-ready.png")}}"
+                                alt="payment">
+                        </a>
+                            <a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img
                             src="{{asset("public/assets/front-end/img/indo-ready.png")}}"
                             alt="payment">
                     </a><a class="mr-2 bank-logo" href="javascript:void(0)" role="button"><img

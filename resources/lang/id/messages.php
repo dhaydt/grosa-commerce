@@ -1416,4 +1416,6 @@
   'delivery_date' => 'Delivery date',
   'delivery' => 'Delivery',
   'Please fill all both start date & end date field' => 'Please fill all both start date & end date field',
+  'pay_now' => 'Pay now',
+  'incomplete_info' => 'Incomplete info',
 );
