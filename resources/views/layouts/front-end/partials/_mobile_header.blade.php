@@ -1,12 +1,14 @@
 <style>
     @media(max-width:600px) {
-        .navbar.navbar-expand-md.navbar-dark{
-            padding: 5px;
-        }
         .mobile-search-col {
             display: flex;
             align-items: center;
             padding-right: 0;
+            justify-content: center;
+        }
+        .input-group-overlay{
+            width: 90%;
+            margin-right: -10px;
         }
         .search-card-mobile {
             position: absolute;
@@ -69,15 +71,27 @@
             color: #fff !important;
             font-size: 17px;
         }
-
+        .navbar.navbar-expand-md.navbar-dark{
+            padding: 5px;
+        }
+        .navbar-toolbar {
+            justify-content: center;
+        }
         .navbar-tool.dropdown .navbar-tool-icon-box {
             background-color: transparent !important;
             height: 36px;
-            margin-left: -11px;
+            width: 36px;
         }
         .navbar-tool-icon{
             font-size: 24px;
             line-height: 36px;
+        }
+        .mobile-cart-col{
+            padding-left: 0;
+        }
+
+        #loc-mobile {
+            padding: 0.25rem 1.5rem 0.25rem 1.5rem !important;
         }
     }
 </style>
@@ -150,7 +164,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-2 col-2">
+                    <div class="col-md-2 col-2 mobile-cart-col">
                         <!-- Toolbar-->
                         <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
                             <a class="navbar-tool navbar-stuck-toggler" href="#">
