@@ -1,5 +1,8 @@
 <style>
     @media(max-width:600px) {
+        .navbar.navbar-expand-md.navbar-dark{
+            padding: 5px;
+        }
         .mobile-search-col {
             display: flex;
             align-items: center;
@@ -15,7 +18,7 @@
 
         .search-mobile-input {
             background-color: #dfdfdf;
-            height: 32px;
+            height: 36px;
             font-size: 13px;
         }
 
@@ -65,6 +68,16 @@
             line-height: 2.1;
             color: #fff !important;
             font-size: 17px;
+        }
+
+        .navbar-tool.dropdown .navbar-tool-icon-box {
+            background-color: transparent !important;
+            height: 36px;
+            margin-left: -11px;
+        }
+        .navbar-tool-icon{
+            font-size: 24px;
+            line-height: 36px;
         }
     }
 </style>
