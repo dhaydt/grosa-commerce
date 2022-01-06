@@ -111,12 +111,12 @@
                                     </a>
 
                                 @if (session()->get('payment') != 'cash_on_delivery' && session()->get('payment_status') != 'success')
-                                    <form class="needs-validation" method="POST" id="payment-form"
+                                    <form class="needs-validation" target="_blank" method="POST" id="payment-form"
                                     action="{{route('xendit-payment.vaInvoice')}}">
                                         <input type="hidden" name="type" value="{{ session()->get('payment') }}">
                                         <input type="hidden" name="order_id" value="{{ session()->get('orderID') }}">
                                         {{ csrf_field() }}
-                                        <button class="btn btn-danger" type="submit">
+                                        <button class="btn btn-danger" id="pay-btn" type="submit" onclick="hidePay()">
                                             {{\App\CPU\translate('pay_now')}}
                                         </button>
                                     </form>
@@ -136,5 +136,9 @@
 @endsection
 
 @push('script')
-
+<script>
+    function hidePay(){
+        $('#pay-btn').attr('class', 'd-none');
+    }
+</script>
 @endpush

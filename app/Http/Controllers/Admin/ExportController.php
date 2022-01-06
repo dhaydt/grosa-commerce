@@ -100,33 +100,7 @@ class ExportController extends Controller
                 ];
                 array_push($data, $item);
             }
-            // if (count($ex['product_name']) > 1) {
-            //     dd($ex['product_name'][2]);
-            // }
-            // foreach ($ex['product_name'] as $e => $val) {
-            //     $item = $e.':'.$val;
-
-            //     return $item;
-            // }
-            // array_push($data, $dat);
-
-            // return $dat;
         });
-
-        // foreach ($export as $item => $key) {
-        //     $each = [];
-
-        //     foreach ($key as $k => $value) {
-        //         foreach ($value as $v) {
-        //             $val = $k.' => '.$v;
-        //             array_push($each, $val);
-        //         }
-        //         // $item = $k.':'.$value;
-
-        //         // array_push($each, $item);
-        //     }
-        //     array_push($data, $each);
-        // }
 
         // dd($data);
 
