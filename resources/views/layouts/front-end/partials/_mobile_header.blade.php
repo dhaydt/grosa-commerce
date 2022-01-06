@@ -7,8 +7,8 @@
             justify-content: center;
         }
         .input-group-overlay{
-            width: 90%;
-            margin-right: -10px;
+            width: 100%;
+            /* margin-right: -10px; */
         }
         .search-card-mobile {
             position: absolute;
@@ -71,8 +71,9 @@
             color: #fff !important;
             font-size: 17px;
         }
-        .navbar.navbar-expand-md.navbar-dark{
-            padding: 5px;
+        .navbar-sticky .navbar.navbar-expand-md.navbar-dark .container{
+            display: flex;
+            justify-content: end;
         }
         .navbar-toolbar {
             justify-content: center;
