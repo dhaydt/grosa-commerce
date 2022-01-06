@@ -71,8 +71,8 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
             'A' => 35,
             'B' => 20,
             'C' => 30,
-            'D' => 50,
-            'E' => 15,
+            'D' => 20,
+            'E' => 25,
             'F' => 5,
             'G' => 10,
             'H' => 10,
@@ -82,7 +82,15 @@ class OrderExport implements FromCollection, WithHeadings, WithColumnWidths, Wit
 
     public function styles(Worksheet $data)
     {
-        $data->getStyle('G')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_LEFT);
+        $data->getStyle('A')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('B')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('C')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('D')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('E')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('F')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('G')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('H')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
+        $data->getStyle('I')->getAlignment()->setHorizontal(StyleAlignment::HORIZONTAL_CENTER);
 
         return [
             // Style the first row as bold text.

@@ -68,23 +68,49 @@ class ExportController extends Controller
             $exQty = str_replace($siku3, $rep3, $qty);
 
             return [
-            'order_date' => [date('d F Y, h:i:s A', strtotime($order->created_at))],
-            'delivery_date' => [date('d F Y', strtotime($order->delivery_date))],
-            'customer_name' => [$arr->contact_person_name],
+            'order_date' => date('d F Y, h:i:s A', strtotime($order->created_at)),
+            'delivery_date' => date('d F Y', strtotime($order->delivery_date)),
+            'customer_name' => $arr->contact_person_name,
             'product_name' => $prod->toArray(),
             'variation' => $var->toArray(),
-            'Qty' => $qty->toArray(),
-            'price' => [$order->order_amount],
-            'order_no' => [$detail[0]['order_id']],
-            'payment' => [$order->payment_method],
+            'qty' => $qty->toArray(),
+            'price' => $order->order_amount,
+            'order_no' => $detail[0]['order_id'],
+            'payment' => $order->payment_method,
         ];
         });
+        $data = [];
+        $export->map(function ($ex, $i) use (&$data) {
+            $prod = count($ex['product_name']);
 
-        $data = $export->map(function ($ex, $i) {
-            $data = [];
-            array_push($data, $ex);
+            for ($in = 0; $in < $prod; ++$in) {
+                $product = $ex['product_name'];
+                $var = $ex['variation'];
+                $qty = $ex['qty'];
+                $item = [
+                    'order_date' => $ex['order_date'],
+                    'delivery_date' => $ex['delivery_date'],
+                    'customer_name' => $ex['customer_name'],
+                    'product_name' => $product[$in],
+                    'variation' => $var[$in],
+                    'qty' => $qty[$in],
+                    'price' => $ex['price'],
+                    'order_no' => $ex['order_no'],
+                    'payment' => $ex['payment'],
+                ];
+                array_push($data, $item);
+            }
+            // if (count($ex['product_name']) > 1) {
+            //     dd($ex['product_name'][2]);
+            // }
+            // foreach ($ex['product_name'] as $e => $val) {
+            //     $item = $e.':'.$val;
 
-            return $data;
+            //     return $item;
+            // }
+            // array_push($data, $dat);
+
+            // return $dat;
         });
 
         // foreach ($export as $item => $key) {
@@ -102,8 +128,8 @@ class ExportController extends Controller
         //     array_push($data, $each);
         // }
 
-        dd($data);
+        // dd($data);
 
-        return Excel::download(new OrderExport($data), 'rekap'.$start.' to '.$end.'.xlsx');
+        return Excel::download(new OrderExport($data), 'Grosa | '.$start.' -- '.$end.'.xlsx');
     }
 }
