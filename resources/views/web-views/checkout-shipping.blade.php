@@ -43,6 +43,19 @@
             #basic-addon2 {
                 font-size: 13px;
             }
+            .mobile-checkout-shipping{
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #fff;
+                padding: 10px;
+            }
+        }
+        @media(max-width: 400px){
+            .mobile-checkout-shipping a{
+                padding: 10px;
+            }
         }
     </style>
 @endpush
@@ -239,7 +252,7 @@
                         @include('web-views.partials._order-summary')
                     </div>
                     <!-- Navigation (desktop)-->
-                    <div class="row">
+                    <div class="row  mobile-checkout-shipping">
                         <div class="col-6">
                             <a class="btn btn-secondary btn-block" href="{{route('shop-cart')}}">
                                 <i class="czi-arrow-{{Session::get('direction') === "rtl" ? 'right' : 'left'}} mt-sm-0 mx-1"></i>

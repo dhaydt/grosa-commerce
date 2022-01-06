@@ -72,6 +72,14 @@
             .mobile-payment {
                 margin-top: -40px;
             }
+            .mobile-checkout-payment{
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 10px;
+                background-color: #fff;
+            }
         }
     </style>
 
@@ -577,7 +585,7 @@
                 @endif
 
                     <!-- Navigation (desktop)-->
-                    <div class="row">
+                    <div class="row mobile-checkout-payment">
                         <div class="col-4 d-none d-md-block"></div>
                         <div class="col-12 col-md-4">
                             <a class="btn btn-secondary btn-block" href="{{route('checkout-details')}}">

@@ -109,7 +109,17 @@
                 padding-bottom: 17px;
                 font-size: 19px;
             }
+            .nav-profiile {
+                position: fixed;
+                display: flex;
+                justify-content: center;
+                left: 0;
+                right: 0;
+                bottom: 58px;
+                background-color: #fff;
+                padding: 10px;
 
+            }
         }
     </style>
 @endpush
@@ -223,8 +233,11 @@
                                             <div id='message'></div>
                                         </div>
                                     </div>
-                                    <button type="submit"
-                                            class="btn btn-primary float-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">{{\App\CPU\translate('update')}} {{\App\CPU\translate('Informations')}}  </button>
+                                    <div class="nav-profiile">
+                                        <button type="submit"
+                                            class="btn btn-primary float-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}">{{\App\CPU\translate('update')}} {{\App\CPU\translate('Informations')}}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>

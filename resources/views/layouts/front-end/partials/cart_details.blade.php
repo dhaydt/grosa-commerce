@@ -9,6 +9,14 @@
         .ship-mobile {
             padding: 0 20px;
         }
+        .mobile-cart-detail {
+            position: fixed;
+            background-color: #fff;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+        }
     }
 </style>
 {{-- <div class="feature_header">
@@ -153,7 +161,7 @@
                 @include('web-views.partials._order-summary')
             </div>
         </div>
-        <div class="row pt-2">
+        <div class="row pt-2 mobile-cart-detail">
             <div class="col-6">
                 <a href="{{route('home')}}" class="btn btn-primary">
                     <i class="fa fa-{{Session::get('direction') === "rtl" ? 'forward' : 'backward'}} px-1"></i> {{\App\CPU\translate('continue_shopping')}}
