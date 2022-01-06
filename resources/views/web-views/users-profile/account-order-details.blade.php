@@ -352,17 +352,6 @@
                                                    class="btn btn-primary btn-sm">{{\App\CPU\translate('review')}}</a>
                                             </label>
                                         @endif --}}
-                                        @if ($order->payment_status == 'unpaid' && $order->payment_method != 'cash_on_delivery')
-                                        <form class="needs-validation" method="POST" id="payment-form"
-                                        action="{{route('xendit-payment.vaInvoice')}}">
-                                            <input type="hidden" name="type" value="{{ $order->payment_method }}">
-                                            <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                            {{ csrf_field() }}
-                                            <button class="btn btn-danger" type="submit">
-                                                {{\App\CPU\translate('pay_now')}}
-                                            </button>
-                                        </form>
-                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -469,17 +458,31 @@
                         </table>
                     </div>
                 </div>
-                <div class="justify-content mt-4 for-mobile-glaxy ">
-                    <a href="{{route('generate-invoice',[$order->id])}}" class="btn btn-primary for-glaxy-mobile"
-                       style="width:49%;">
+                <div class="justify-content-around d-flex mt-4 for-mobile-glaxy ">
+                    @if ($order->payment_status != 'unpaid' || $order->payment_method == 'cash_on_delivery')
+                    <a href="{{route('generate-invoice',[$order->id])}}" class="btn btn-primary for-glaxy-mobile col-md-5"
+                       style="">
                         {{\App\CPU\translate('generate_invoice')}}
                     </a>
-                    <a class="btn btn-secondary" type="button"
+                    <a class="btn btn-secondary col-md-5" type="button"
                        href="{{route('track-order.result',['order_id'=>$order['id']])}}"
-                       style="width:50%; color: white">
+                       style="color: white">
                         {{\App\CPU\translate('Track')}} {{\App\CPU\translate('Order')}}
                     </a>
-
+                    @endif
+                    @if ($order->payment_status == 'unpaid' && $order->payment_method != 'cash_on_delivery')
+                    <a class="col-md-12">
+                        <form class="needs-validation" method="POST" id="payment-form"
+                    action="{{route('xendit-payment.vaInvoice')}}">
+                        <input type="hidden" name="type" value="{{ $order->payment_method }}">
+                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                        {{ csrf_field() }}
+                        <button class="btn btn-danger w-100" type="submit">
+                            {{\App\CPU\translate('pay_now')}}
+                        </button>
+                    </form>
+                    </a>
+                    @endif
                 </div>
             </section>
         </div>

@@ -68,73 +68,41 @@ class ExportController extends Controller
             $exQty = str_replace($siku3, $rep3, $qty);
 
             return [
-            'order_date' => date('d F Y, h:i:s A', strtotime($order->created_at)),
-            'delivery_date' => date('d F Y', strtotime($order->delivery_date)),
-            'customer_name' => $arr->contact_person_name,
-            'product_name' => $prod,
-            'variation' => $var,
-            'Qty' => $qty,
-            'price' => $order->order_amount,
-            'order_no' => $detail[0]['order_id'],
-            'payment' => $order->payment_method,
+            'order_date' => [date('d F Y, h:i:s A', strtotime($order->created_at))],
+            'delivery_date' => [date('d F Y', strtotime($order->delivery_date))],
+            'customer_name' => [$arr->contact_person_name],
+            'product_name' => $prod->toArray(),
+            'variation' => $var->toArray(),
+            'Qty' => $qty->toArray(),
+            'price' => [$order->order_amount],
+            'order_no' => [$detail[0]['order_id']],
+            'payment' => [$order->payment_method],
         ];
         });
 
-        $data = [];
-        foreach ($export as $item => $key) {
-            $each = [];
-            foreach ($key as $k => $value) {
-                // $valu = "{{$f} : {{$val} : {$person}}}"
+        $data = $export->map(function ($ex, $i) {
+            $data = [];
+            array_push($data, $ex);
 
-                $valu = $value;
+            return $data;
+        });
 
-                // echo ;
-                array_push($each, $valu);
-            }
-            array_push($data, $each);
-        }
-
-        // dd($data);
-
-        // $fam = ['thom' => ['room' => 'shane'],
-        //     'andy' => ['cousin' => 'michelle', 'mother' => 'shope'],
-        //      'jwall' => ['friend' => 'chunk'], ];
-
-        // $data = [];
-        // foreach ($fam as $f => $value) {
-        //     // array_push($data, [$f => $value]);
-        //     foreach ($value as $val => $person) {
-        //         // $valu = "{{$f} : {{$val} : {$person}}}"
-        //         $valu = [$f => [$val => $person]];
-
-        //         // echo ;
-        //         array_push($data, $valu);
-        //     }
-        // }
-        // dd($data);
-
-        // $data = [];
         // foreach ($export as $item => $key) {
-        //     $row = [];
-        //     // dd(count($key));
-        //     foreach ($key as $k => $val) {
-        //         if (is_object($val)) {
-        //             $r = [$k => $val];
-        //             array_push($row, $r);
-        //             if (count($val) > 1) {
-        //                 foreach ($val as $v) {
-        //                     array_push($data, [$k => $v]);
-        //                 }
-        //             }
-        //         } else {
-        //             // array_push($row, [$k => $val]);
+        //     $each = [];
+
+        //     foreach ($key as $k => $value) {
+        //         foreach ($value as $v) {
+        //             $val = $k.' => '.$v;
+        //             array_push($each, $val);
         //         }
+        //         // $item = $k.':'.$value;
+
+        //         // array_push($each, $item);
         //     }
-        //     array_push($data, $row);
+        //     array_push($data, $each);
         // }
-        // dd($export);
-        // $data = Order::whereBetween('created_at', [$start, $end])->get();
-        // $order = Order::whereBetween('delivery_date', [$start, $end])->get();
+
+        dd($data);
 
         return Excel::download(new OrderExport($data), 'rekap'.$start.' to '.$end.'.xlsx');
     }
