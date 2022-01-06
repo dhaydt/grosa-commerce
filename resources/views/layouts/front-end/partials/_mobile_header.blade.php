@@ -1,11 +1,27 @@
 <style>
     @media(max-width:600px) {
+        .mobile-search-col {
+            display: flex;
+            align-items: center;
+            padding-right: 0;
+        }
         .search-card-mobile {
             position: absolute;
             background: white;
             z-index: 999;
             width: 100%;
             display: none
+        }
+
+        .search-mobile-input {
+            background-color: #dfdfdf;
+            height: 32px;
+            font-size: 13px;
+        }
+
+        .search_button span {
+            font-size: 14px !important;
+            padding: 6px ;
         }
 
         .search-card-mobile .card-body{
@@ -98,7 +114,7 @@
             <div class="container ">
                 <div class="row w-100">
 
-                    <div class="col-md-6 col-sm-10 col-10">
+                    <div class="col-md-6 col-sm-10 col-10 mobile-search-col">
                         <div class="input-group-overlay" style="text-align: {{Session::get('direction') === " rtl"
                             ? 'right' : 'left' }}">
                             <form action="{{route('products')}}" type="submit" class="search_form">
