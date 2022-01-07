@@ -22,11 +22,6 @@
     margin-top: 15px;
 }
 
-.deal-product-col .owl-carousel .owl-stage .owl-item {
-        min-width: 200px;
-        margin-right: 12px !important;
-    }
-
 .div-flash {
   position: relative;
   width: 100%; /* The size you want */

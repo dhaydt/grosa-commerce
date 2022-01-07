@@ -7,7 +7,7 @@
         font-size: 14px;
         font-weight: 600;
         text-transform: capitalize;
-        border-radius: 0px 0px 0 15px;
+        border-radius: 0px 10px 0 15px;
     }
     .new-discoutn-value{
         background-color: {{ $web_config['secondary_color'] }};
@@ -20,15 +20,21 @@
     .discount-div {
         margin: 5px 0;
     }
+    .strike-price {
+        font-size: 14px !important;
+        color: grey!important;
+    }
     .product-item {
         margin-right: 0;
     }
     .product-card {
         margin-bottom: 40px;
         display: flex;
-        max-width: 200px;
+        max-width: 191.9px;
         align-items: center;
         justify-content: center;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px #0000000d !important;
     }
 
     .product-card.card.stock-card label {
@@ -41,6 +47,7 @@
         min-height: 193px;
         padding: 0px;
         margin-bottom: 10px;
+        border-radius: 10px 10px 0 0 !important;
     }
 
     .product-title1{
@@ -66,11 +73,12 @@
         min-height: 23px !important;
     }
     .center-div a img {
-        min-width:200px;
+        min-width:191.9px;
         width: 100%;
-        min-height: 200px;
-        max-height: 200px!important;
-        }
+        min-height: 191.9px;
+        max-height: 191.9px !important;
+        border-radius: 10px 10px 0 0;
+    }
 
         @media(max-width: 373px){
         .discount-hed{
@@ -82,9 +90,12 @@
             padding: 2px 9px;
             font-size: 12px;
             font-weight: 500;
-            border-radius: 0px 0px 0 15px;
+            border-radius: 0px 5px 0 15px;
             z-index: 1;
         }
+        .strike-price {
+        font-size: 12px !important;
+    }
         .new-discoutn-value {
             font-size: 10px;
         }
@@ -196,7 +207,7 @@
             <div class="justify-content-between text-center">
                 <div class="product-price text-center">
                     @if($product->discount > 0)
-                    <strike style="font-size: 12px!important;color: grey!important;">
+                    <strike class="strike-price">
                         {{\App\CPU\Helpers::currency_converter($product->unit_price)}}
                     </strike><br>
                     @endif
