@@ -1,4 +1,6 @@
-<?php return array (
+<?php
+
+return [
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -499,7 +501,7 @@
   'Seller_details' => 'Seller details',
   'Back_to_seller_list' => 'Back to seller list',
   '#SL' => 'SL',
-  'paid' => 'Paid',
+  'paid' => 'Sudah Bayar',
   'products' => 'Products',
   'No_data_to_show' => 'No data to show',
   'Review_list' => 'Review list',
@@ -561,7 +563,7 @@
   'order_no' => 'Order no',
   'order_date' => 'Tanggal Order',
   'Item' => 'Item',
-  'generate_invoice' => 'Generate invoice',
+  'generate_invoice' => 'Cetak Invoice',
   'coupon_discount' => 'Coupon discount',
   'Seller_Details' => 'Seller Details',
   'inhouse_shipping_method' => 'Inhouse shipping method',
@@ -648,7 +650,7 @@
   'hold' => 'Hold',
   'seller_name' => 'Seller name',
   'transaction_id' => 'Transaction id',
-  'unpaid' => 'Unpaid',
+  'unpaid' => 'Belum Bayar',
   'sub_sub_category_form' => 'Sub sub category form',
   'main' => 'Main',
   'sub_sub_category_table' => 'Sub sub category table',
@@ -1264,7 +1266,7 @@
   'Back to Shipping' => 'Back to Shipping',
   'Order Complete' => 'Order Complete',
   'You order has been confirmed and will be shipped according to the method you selected!' => 'Pesanan Anda telah dikonfirmasi dan akan dikirimkan',
-  'Track Order' => 'Track Order',
+  'Track Order' => 'Lacak Order',
   'order_status' => 'Order status',
   'estimated_delivery_date' => 'Estimated delivery date',
   'first_step' => 'First step',
@@ -1413,14 +1415,12 @@
   'conditions' => 'Conditions',
   'OFF' => 'Hemat',
   'Label' => 'Label',
-  'delivery_date' => 'Delivery date',
+  'delivery_date' => 'Tanggal Pengiriman',
   'delivery' => 'Delivery',
   'Please fill all both start date & end date field' => 'Please fill all both start date & end date field',
   'Verification_code_or_OTP mismatched' => 'Verification code or OTP mismatched',
   'incomplete_info' => 'Incomplete info',
-  'pay_now' => 'Pay now',
+  'pay_now' => 'Bayar',
   'virtual_account' => 'Virtual account',
   'other' => 'Other',
-  'my_address' => 'My address',
-  'my_tickets' => 'My tickets',
-);
+];
