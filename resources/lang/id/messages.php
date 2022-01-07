@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1423,4 +1421,6 @@ return [
   'pay_now' => 'Bayar',
   'virtual_account' => 'Virtual account',
   'other' => 'Other',
-];
+  'my_tickets' => 'My tickets',
+  'my_address' => 'My address',
+);

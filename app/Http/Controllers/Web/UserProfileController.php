@@ -225,6 +225,11 @@ class UserProfileController extends Controller
     {
         if (auth('customer')->check()) {
             $shippingAddresses = \App\Model\ShippingAddress::where('customer_id', auth('customer')->id())->get();
+            $data = [
+                'name' => 'address',
+            ];
+            session()->put('category', $data);
+            session()->put('ordered', true);
 
             return view('web-views.users-profile.account-address', compact('shippingAddresses'));
         } else {
@@ -329,6 +334,11 @@ class UserProfileController extends Controller
     {
         if (auth('customer')->check()) {
             $supportTickets = SupportTicket::where('customer_id', auth('customer')->id())->get();
+            $data = [
+                'name' => 'tickets',
+            ];
+            session()->put('category', $data);
+            session()->put('ordered', true);
 
             return view('web-views.users-profile.account-tickets', compact('supportTickets'));
         } else {
