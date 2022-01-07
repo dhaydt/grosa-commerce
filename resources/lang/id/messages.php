@@ -1421,4 +1421,6 @@
   'pay_now' => 'Pay now',
   'virtual_account' => 'Virtual account',
   'other' => 'Other',
+  'my_address' => 'My address',
+  'my_tickets' => 'My tickets',
 );

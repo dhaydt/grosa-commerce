@@ -13,6 +13,14 @@
             margin-top: 1rem;
         }
 
+        .modal-dialog .modal-content{
+            background-color: #fff;
+        }
+
+        .mobile-address {
+            margin-top: 1rem;
+        }
+
         body {
             font-family: 'Titillium Web', sans-serif
         }
@@ -163,11 +171,36 @@
         }
 
         @media (max-width: 600px) {
+            .modal-dialog .modal-content {
+                max-width: 100%;
+                margin-left: 0;
+            }
+            .modal-header {
+                padding-bottom: 5px;
+            }
+            .modal-body{
+                margin-top: -27px;
+            }
+            .modal-body .col-md-12 {
+                justify-content: center;
+            }
             .sidebar_heading h1 {
                 text-align: center;
                 color: aliceblue;
                 padding-bottom: 17px;
                 font-size: 19px;
+            }
+            .mobile-address{
+                margin-top: -82px;
+            }
+            .mobile-footer-address{
+                position: fixed;
+                bottom: 62px;
+                left: 0;
+                right: 0;;
+                background-color: #fff;
+                padding: 10px;
+                justify-content: center;
             }
         }
     </style>
@@ -263,8 +296,10 @@
         </div>
     </div>
 
+    <!-- Modal mobile -->
+
     <!-- Page Content-->
-    <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container pb-5 mb-2 mb-md-4 rtl mobile-address" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <!-- Sidebar-->
         @include('web-views.partials._profile-aside')
@@ -273,7 +308,7 @@
 
                 <!-- Addresses list-->
                 <div class="row">
-                    <div class="col-lg-12 col-md-12  d-flex justify-content-between overflow-hidden">
+                    <div class="col-lg-12 col-md-12 justify-content-between overflow-hidden d-none d-md-flex">
                         <div class="col-sm-4">
                             <h1 class="h3  mb-0 folot-left headerTitle">{{\App\CPU\translate('ADDRESSES')}}</h1>
                         </div>
@@ -405,9 +440,13 @@
                                         <div><span class="font-nameA"> <strong>{{\App\CPU\translate('Country')}} :</strong> {{$c_name->country_name}}</span>
                                         </div>
 
-                    
+
                                     </div>
-                                {{-- </div> --}}
+                                <div class="mobile-footer-address d-flex d-md-none">
+                                        <button type="submit" class="btn btn-primary float-right" data-toggle="modal"
+                                            data-target="#exampleModal">{{\App\CPU\translate('add_new_address')}}
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     @endforeach

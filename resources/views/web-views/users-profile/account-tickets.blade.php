@@ -4,21 +4,25 @@
 
 @push('css_or_js')
     <style>
+        .modal-dialog .modal-content {
+            background-color: #fff;
+            padding: 15px;
+        }
         .headerTitle {
             font-size: 24px;
             font-weight: 600;
             margin-top: 1rem;
         }
-
+        .mobile-tickets{
+            margin-top: 1rem;
+        }
         body {
             font-family: 'Titillium Web', sans-serif
         }
-
         .product-qty span {
             font-size: 14px;
             color: #6A6A6A;
         }
-
         .font-nameA {
             font-weight: 600;
             display: inline-block;
@@ -26,12 +30,10 @@
             font-size: 17px;
             color: #030303;
         }
-
         .spandHeadO {
             color: #FFFFFF !important;
             font-weight: 600 !important;
             font-size: 14px !important;
-
         }
 
         .tdBorder {
@@ -64,6 +66,9 @@
         }
 
         @media (max-width: 600px) {
+            .mobile-tickets{
+                margin-top: -20px;
+            }
             .sidebar_heading {
                 background: {{$web_config['primary_color']}};
             }
@@ -73,6 +78,16 @@
                 color: aliceblue;
                 padding-bottom: 17px;
                 font-size: 19px;
+            }
+            .mobile-ticket-footer{
+                position: fixed;
+                bottom: 62px;
+                padding: 10px;
+                left: 0;
+                display: flex;
+                justify-content: center;
+                right: 0;
+                background-color: #fff;
             }
         }
     </style>
@@ -149,7 +164,7 @@
         </div>
     </div>
     <!-- Page Title-->
-    <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container rtl d-none d-md-block" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-9 sidebar_heading">
@@ -158,7 +173,7 @@
         </div>
     </div>
     <!-- Page Content-->
-    <div class="container pb-5 mb-2 mb-md-4 mt-3 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="mobile-tickets container pb-5 mb-2 mb-md-4 rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row">
             <!-- Sidebar-->
         @include('web-views.partials._profile-aside')
@@ -254,7 +269,7 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <div class="mt-3">
+                <div class="mt-3 mobile-ticket-footer">
                     <button type="submit" class="btn btn-primary float-{{Session::get('direction') === "rtl" ? 'left' : 'right'}}" data-toggle="modal"
                             data-target="#open-ticket">
                             {{\App\CPU\translate('add_new_ticket')}}

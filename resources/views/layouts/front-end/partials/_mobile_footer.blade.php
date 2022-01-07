@@ -30,7 +30,8 @@
                 {{auth('customer')->user()->f_name}}
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{route('account-oder')}}"> {{ \App\CPU\translate('my_order')}} </a>
+                <a class="dropdown-item" href="{{route('account-address')}}"> {{ \App\CPU\translate('my_address')}} </a>
+                <a class="dropdown-item" href="{{route('account-tickets')}}"> {{ \App\CPU\translate('my_tickets')}} </a>
                 <a class="dropdown-item" href="{{route('user-account')}}"> {{ \App\CPU\translate('my_profile')}}</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('logout')}}</a>
