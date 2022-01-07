@@ -30,6 +30,9 @@
         overflow:hidden;
         text-align: center;
     }
+    .stock-out{
+        z-index: 1;
+    }
 
     .flash_deal_product_details{
         justify-content: center;
@@ -72,6 +75,9 @@
             font-weight: 500;
             border-radius: 0px 0px 0 15px;
             z-index: 1;
+        }
+        .stock-out {
+            left: 15%;
         }
         .css-1xpribl {
             position: relative;
@@ -231,6 +237,7 @@
             </div>
         </a>
     </div>
+    {{-- {{ dd($flash_deals) }} --}}
     <div class="col-md-10 col-6 d-flex align-items-center deal-product-col">
         <div class="owl-carousel owl-theme mt-2" id="flash-deal-slider">
             @foreach($flash_deals->products as $key=>$deal)
@@ -253,19 +260,22 @@
                 <span class="for-discoutn-value-null"></span>
               </div> --}}
               {{-- @endif --}}
-              @if($deal->product->label)
+                @if($deal->product->label)
                 <div class="d-flex justify-content-end for-dicount-div discount-hed">
                     <span class="for-discoutn-value">
                         {{ $deal->product->label }}
                     </span>
                 </div>
-            @else
-            <div class="d-flex justify-content-end for-dicount-div-null">
-                <span class="for-discoutn-value-null"></span>
-            </div>
-            @endif
+                @else
+                <div class="d-flex justify-content-end for-dicount-div-null">
+                    <span class="for-discoutn-value-null"></span>
+                </div>
+                @endif
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center justify-content-center div-flash">
+                    @if($deal->product['current_stock'] <= 0)
+                        <label class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
+                    @endif
                   <img class="w-100"
                     src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" />
@@ -352,7 +362,10 @@
                 <span class="for-discoutn-value-null"></span>
             </div>
             @endif
-                                <div class="css-1sfomcl" data-testid="imgProduct"><img crossorigin="anonymous"
+
+                                <div class="css-1sfomcl" data-testid="imgProduct">@if($deal->product['current_stock'] <= 0)
+                                    <label class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
+                                @endif<img crossorigin="anonymous"
                                     src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$deal->product['thumbnail']}}"
                                     onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                         title="" alt=""></div></div>

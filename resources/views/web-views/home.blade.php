@@ -22,8 +22,9 @@
     margin-top: 15px;
 }
 
-.cat-owl .owl-stage-outer .owl-item {
-        height: 145px;
+.deal-product-col .owl-carousel .owl-stage .owl-item {
+        min-width: 200px;
+        margin-right: 12px !important;
     }
 
 .div-flash {
@@ -769,57 +770,6 @@ a .footer_banner_img {
     </div>
   </section>
   @endif
-
-
-  <!-- top sellers -->
-  {{-- @if(count($top_sellers) > 0)
-  <section class="container rtl">
-    <!-- Heading-->
-    <div class="section-header">
-      <div class="feature_header">
-        <span>{{ \App\CPU\translate('sellers')}}</span>
-      </div>
-      <div>
-        <a class="btn btn-outline-accent btn-sm viw-btn-a" href="{{route('sellers')}}">{{
-          \App\CPU\translate('view_all')}}
-          <i class="czi-arrow-{{Session::get('direction') === " rtl" ? 'left mr-1 ml-n1' : 'right ml-1 mr-n1' }}"></i>
-        </a>
-      </div>
-    </div>
-    <!-- top seller Grid-->
-    <div class="mt-2 mb-3 brand-slider">
-      <div class="owl-carousel owl-theme" id="top-seller-slider">
-        @foreach($top_sellers as $seller)
-        @if($seller->shop)
-        <div style="height: 100px; padding: 2%; background: white;border-radius: 5px">
-          <center>
-            <a href="{{route('shopView',['id'=>$seller['id']])}}">
-              <img style="vertical-align: middle; padding: 2%;width:75px;height: 75px;border-radius: 50%"
-                onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'" src="{{asset("
-                storage/app/public/shop")}}/{{$seller->shop->image}}"
-              alt="{{$seller->name}}">
-              <p class="text-center small font-weight-bold">{{Str::limit($seller->name, 14)}}</p>
-            </a>
-          </center>
-           <div class="d-flex justify-content-start w-100"
-                        style="position: absolute;bottom: 10px;left: 10px;z-index: 1;">
-                        <div class="flag d-flex align-items-center">
-                            <img class="{{Session::get('direction') === " rtl" ? 'ml-2' : 'mr-2' }}" width="20"
-                                src="{{asset('public/assets/front-end')}}/img/flags/{{ strtolower($seller->country)  }}.png"
-                                alt="Eng" style="width: 20px">
-                        </div>
-                        @php($c_name = App\Country::where('country', $seller->country)->get())
-                        <span style="font-size: 13px; color: #616166;">{{ $c_name[0]->country_name
-                            }}</span>
-                    </div>
-        </div>
-        @endif
-        @endforeach
-      </div>
-    </div>
-
-  </section>
-  @endif --}}
 
   {{-- Categorized product --}}
   @foreach($home_categories as $category)

@@ -162,8 +162,9 @@
 </style>
 @php($overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews))
 <div class="product-card card {{$product['current_stock']==0?'stock-card':''}}">
-    @if($product['current_stock']<=0) <label
-        class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
+    {{-- {{ dd($product) }} --}}
+        @if($product['current_stock']<=0)
+            <label class="badge badge-danger stock-out">{{\App\CPU\translate('stock_out')}}</label>
         @endif
 
         <div class="card-header inline_product clickable">
