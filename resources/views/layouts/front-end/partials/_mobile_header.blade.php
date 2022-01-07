@@ -99,7 +99,7 @@
 @php($cat = session()->get('category'))
 @if (isset($cat))
 {{-- --}}<div class="navbar-sticky bg-dark mobile-head">
-    <div class="navbar navbar-expand-md navbar-dark p-2" style="height: 62px">
+    <div class="navbar navbar-expand-md navbar-dark p-2" style="height: 52px">
         <div class="container">
             <div class="row w-100">
                 <div class="col-2 d-flex justify-content-center">
