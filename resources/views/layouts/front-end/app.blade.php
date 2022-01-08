@@ -61,7 +61,7 @@
 
         @media(max-width: 600px){
             .bod {
-                margin-top: 156px;
+                margin-top: 85px;
                 padding-bottom: 70px;
             }
 
@@ -787,6 +787,14 @@
         $('#mobile-footer').addClass('d-none')
         console.log('desktop')
     }
+
+    $(window).on("load",function(){
+        var header = $(".banner_dynamic").length
+        if(header){
+            console.log('banner');
+            $('.bod').attr('style', 'margin-top: 156px;');
+        }
+    })
 
     function closeBanHeader(){
         $('.bod').attr('style', 'margin-top: 85px;');
