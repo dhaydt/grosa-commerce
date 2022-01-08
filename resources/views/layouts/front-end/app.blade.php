@@ -732,7 +732,7 @@
 </div>
 {{--loader--}}
 @if (Route::is('home'))
-<div class="header_banner"></div>
+<div class="header_banner d-none"></div>
 @endif
 <!-- Page Content-->
 <div class="bod">
