@@ -130,6 +130,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode']], funct
     Route::get('top-rated', 'WebController@top_rated')->name('topRated');
     Route::get('best-sell', 'WebController@best_sell')->name('bestSell');
     Route::get('new-product', 'WebController@new_product')->name('newProduct');
+    Route::get('close-banner', 'WebController@close_banner')->name('closeBanner');
 
     Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
         Route::post('store', 'WebController@contact_store')->name('store');

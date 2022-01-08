@@ -98,8 +98,7 @@
 </style>
 @php($cat = session()->get('category'))
 @if (isset($cat))
-{{-- --}}<div class="navbar-sticky bg-dark mobile-head">
-    @include('layouts.front-end.partials._banner_dynamic')
+<div class="navbar-sticky bg-dark mobile-head">
     <div class="navbar navbar-expand-md navbar-dark p-2" style="height: 52px">
         <div class="container">
             <div class="row w-100">
@@ -139,7 +138,9 @@
     </div> --}}
     @else
     <div class="navbar-sticky bg-dark mobile-head">
-        @include('layouts.front-end.partials._banner_dynamic')
+        @if (session()->get('hide_banner') !== true)
+            @include('layouts.front-end.partials._banner_dynamic')
+        @endif
         <div class="navbar navbar-expand-md navbar-dark p-2">
             <div class="container ">
                 <div class="row w-100">

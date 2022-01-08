@@ -43,6 +43,11 @@ class WebController extends Controller
         return redirect()->route('home');
     }
 
+    public function close_banner()
+    {
+        session()->put('hide_banner', true);
+    }
+
     public function home()
     {
         $home_categories = Category::where('home_status', true)->get();

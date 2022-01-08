@@ -164,7 +164,7 @@
 
         @media(max-width: 600px){
             .list-product {
-                margin-top: -40px;
+                margin-top: -33px;
             }
         }
 
@@ -262,7 +262,7 @@
     </div> --}}
 
     <!-- Page Content-->
-    <div class="container mt-4 pb-5 mb-2 mb-md-4 rtl list-product"
+    <div class="container pb-5 mb-2 mb-md-4 rtl list-product"
          style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row justify-content-center">
             <!-- Sidebar-->

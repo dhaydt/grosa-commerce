@@ -70,6 +70,9 @@
                 top: 45vw;
                 position: absolute;
             }
+            .header_banner{
+                margin-top: 156px;
+            }
         }
 
     .new-discoutn-value{
@@ -728,7 +731,9 @@
     </div>
 </div>
 {{--loader--}}
-
+@if (Route::is('home'))
+<div class="header_banner"></div>
+@endif
 <!-- Page Content-->
 <div class="bod">
     @yield('content')
@@ -792,12 +797,16 @@
         var header = $(".banner_dynamic").length
         if(header){
             console.log('banner');
-            $('.bod').attr('style', 'margin-top: 156px;');
+            $('.header_banner').attr('class', 'header_banner d-block');
         }
     })
 
     function closeBanHeader(){
-        $('.bod').attr('style', 'margin-top: 85px;');
+        $('.header_banner').attr('class', 'header_banner d-none');
+        $.ajax({
+            url: "{{ route('closeBanner') }}",
+            method: 'GET'
+        });
     };
     function closeBanner(){
             $('#bannerDynamic').attr('class', 'd-none');
