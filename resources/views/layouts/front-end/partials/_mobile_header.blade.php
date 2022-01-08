@@ -99,6 +99,7 @@
 @php($cat = session()->get('category'))
 @if (isset($cat))
 {{-- --}}<div class="navbar-sticky bg-dark mobile-head">
+    @include('layouts.front-end.partials._banner_dynamic')
     <div class="navbar navbar-expand-md navbar-dark p-2" style="height: 52px">
         <div class="container">
             <div class="row w-100">
