@@ -170,7 +170,7 @@ class XenditPaymentController extends Controller
         ]);
         Toastr::success(translate('order_expired_for_order_ID').': '.$id);
 
-        return back();
+        return redirect()->route('home');
     }
 
     public function success($type)
