@@ -206,6 +206,7 @@
                             </thead>
 
                             <tbody>
+                                {{-- {{ dd($orders) }} --}}
                             @foreach($orders as $order)
                                 <tr>
                                     <td class="bodytr font-weight-bold">
@@ -235,7 +236,7 @@
                                            class="btn btn-view py-0 px-2 btn-sm">
                                             {{\App\CPU\translate('view')}}
                                         </a>
-                                        @if($order['payment_method']=='cash_on_delivery' && $order['order_status']=='pending')
+                                        @if($order['order_status']=='pending')
                                             <a href="javascript:"
                                                onclick="route_alert('{{ route('order-cancel',[$order->id]) }}','{{\App\CPU\translate('want_to_cancel_this_order?')}}')"
                                                class="btn btn-cancel py-0 px-2 btn-sm top-margin">

@@ -476,6 +476,15 @@ class UserProfileController extends Controller
 
             return back();
         }
+        if ($order['payment_method'] != 'cash_on_delivery' && $order['order_status'] == 'pending') {
+            OrderManager::stock_update_on_order_status_change($order, 'canceled');
+            Order::where(['id' => $id])->update([
+                'order_status' => 'canceled',
+        ]);
+            Toastr::success(translate('successfully_canceled'));
+
+            return back();
+        }
         Toastr::error(translate('status_not_changable_now'));
 
         return back();
