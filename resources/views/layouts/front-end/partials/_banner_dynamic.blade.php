@@ -10,11 +10,20 @@
         background-color: #fff;
     }
     .downloadApp {
-        background-color: {{$web_config['secondary_color']}};
-        border: 1px solid {{$web_config['secondary_color']}};
+        border: none;
         position: absolute;
-        right: 15px;
-        top: 15px;
+        right: 110px;
+        top: 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .googleApp {
+        border: none;
+        position: absolute;
+        right: 10px;
+        top: 20px;
         border-radius: 8px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -38,16 +47,13 @@
     <button type="button" class="closeBan btn" aria-label="Close" onclick="closeBanner()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <a class="downloadApp btn btn-sm btn-success" target="_blank"  href="{{ $main_banner['url'] }}">
-        Download
+    <a class="downloadApp" target="_blank"  href="{{ $main_banner['url2'] }}" role="button"><img
+        src="{{asset("public/assets/front-end/png/apple_app.png")}}"
+        alt="" style="height: 30px!important;">
+    </a>
+    <a class="googleApp" target="_blank"  href="{{ $main_banner['url'] }}" role="button"><img
+            src="{{asset("public/assets/front-end/png/google_app.png")}}"
+            alt="" style="height: 30px!important;">
     </a>
 </div>
 @endif
-
-@push('script')
-    <script>
-        function closeBanner(){
-            $('#bannerDynamic').attr('class', 'd-none')
-        }
-    </script>
-@endpush

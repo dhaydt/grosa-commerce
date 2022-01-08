@@ -61,7 +61,7 @@
 
         @media(max-width: 600px){
             .bod {
-                margin-top: 85px;
+                margin-top: 156px;
                 padding-bottom: 70px;
             }
 
@@ -787,6 +787,14 @@
         $('#mobile-footer').addClass('d-none')
         console.log('desktop')
     }
+
+    function closeBanHeader(){
+        $('.bod').attr('style', 'margin-top: 85px;');
+    };
+    function closeBanner(){
+            $('#bannerDynamic').attr('class', 'd-none');
+            closeBanHeader();
+        }
 
     function addWishlist(product_id) {
         $.ajaxSetup({

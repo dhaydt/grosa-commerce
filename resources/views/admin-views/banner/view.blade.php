@@ -203,8 +203,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <input type="hidden" id="id" name="id">
-                                        <label for="name">{{ \App\CPU\translate('banner_url')}}</label>
+                                        <label for="name">{{ \App\CPU\translate('playstore_url')}}</label>
                                         <input type="text" name="url" class="form-control" id="headerurl" required>
+                                        <label for="name">{{ \App\CPU\translate('app_store_url')}}</label>
+                                        <input type="text" name="url2" class="form-control" id="headerurl2" required>
                                         <input type="hidden" id="headertype" name="banner_type" value="Header Banner">
                                         <label for="name">{{\App\CPU\translate('Image')}}</label><span
                                             class="badge badge-soft-danger">( {{\App\CPU\translate('ratio')}} 6:1 )</span>
@@ -541,6 +543,8 @@
                         // $('#id').val(data.id);
                         $('#headerurl').val(data.url);
                         $('#headerurl').siblings('#id').val(data.id);
+                        $('#headerurl2').val(data.url2);
+                        $('#headerurl2').siblings('#id').val(data.id);
                         $('#fbImageviewer').attr('src', "{{asset('storage/app/public/banner')}}" + "/" + data.photo);
                         $('#cate-table').hide();
 
