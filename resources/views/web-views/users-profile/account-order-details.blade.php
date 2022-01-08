@@ -470,9 +470,10 @@
                         {{\App\CPU\translate('Track')}} {{\App\CPU\translate('Order')}}
                     </a>
                     @endif
+                    @if ($order->order_status != 'canceled')
                     @if ($order->payment_status == 'unpaid' && $order->payment_method != 'cash_on_delivery')
                     <a class="col-md-12">
-                        <form class="needs-validation" method="POST" id="payment-form"
+                        <form class="needs-validation" target="_blank" method="POST" id="payment-form"
                     action="{{route('xendit-payment.vaInvoice')}}">
                         <input type="hidden" name="type" value="{{ $order->payment_method }}">
                         <input type="hidden" name="order_id" value="{{ $order->id }}">
@@ -482,6 +483,7 @@
                         </button>
                     </form>
                     </a>
+                    @endif
                     @endif
                 </div>
             </section>

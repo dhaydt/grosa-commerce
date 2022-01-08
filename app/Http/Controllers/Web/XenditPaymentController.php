@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\CPU\CartManager;
 use App\CPU\Convert;
 use App\CPU\OrderManager;
+use function App\CPU\translate;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
 use Brian2694\Toastr\Facades\Toastr;
@@ -109,7 +110,8 @@ class XenditPaymentController extends Controller
 
     public function invoice(Request $request)
     {
-        // dd($request);
+        $date = Carbon::now()->toDateString().'T13:30:00.674295Z';
+        // dd($date);
         $customer = auth('customer')->user();
         // $discount = session()->has('coupon_discount') ? session('coupon_discount') : 0;
         $order_id = $request->order_id;
@@ -136,8 +138,10 @@ class XenditPaymentController extends Controller
             'address' => $customer->district.', '.$customer->city.', '.$customer->province,
         ];
 
+        $idVa = 'ws'.$customer->phone.$customer->id;
+
         $params = [
-            'external_id' => 'ws'.$customer->phone.$customer->id,
+            'external_id' => $idVa,
             'amount' => Convert::usdToidr($value),
             'payer_email' => $customer->email,
             'description' => 'GROSA',
@@ -145,12 +149,28 @@ class XenditPaymentController extends Controller
             'fixed_va' => true,
             'should_send_email' => true,
             'customer' => $user,
+            'expiration_date' => $date,
             'success_redirect_url' => env('APP_URL').'/xendit-payment/success/'.$order_id,
+            'failure_redirect_url' => env('APP_URL').'/xendit-payment/expired/'.$order_id,
         ];
+
+        // dd($params);
 
         $checkout_session = \Xendit\Invoice::create($params);
 
         return redirect()->away($checkout_session['invoice_url']);
+    }
+
+    public function expire($id)
+    {
+        $order = Order::where(['id' => $id])->first();
+        OrderManager::stock_update_on_order_status_change($order, 'canceled');
+        Order::where(['id' => $id])->update([
+                'order_status' => 'canceled',
+        ]);
+        Toastr::success(translate('order_expired_for_order_ID').': '.$id);
+
+        return back();
     }
 
     public function success($type)
