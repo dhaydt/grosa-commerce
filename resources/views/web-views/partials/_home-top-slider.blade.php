@@ -104,7 +104,7 @@
             <div class="carousel-inner">
                 @foreach($main_banner as $key=>$banner)
                     <div class="carousel-item h-100 {{$key==0?'active':''}}">
-                        <a href="{{$banner['url']}}">
+                        <a href="//{{$banner['url']}}">
                             <img class="d-block"
                                  onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                  src="{{asset('storage/app/public/banner')}}/{{$banner['photo']}}"

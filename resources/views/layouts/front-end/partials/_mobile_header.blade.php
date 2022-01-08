@@ -138,6 +138,7 @@
     </div> --}}
     @else
     <div class="navbar-sticky bg-dark mobile-head">
+        @include('layouts.front-end.partials._banner_dynamic')
         <div class="navbar navbar-expand-md navbar-dark p-2">
             <div class="container ">
                 <div class="row w-100">

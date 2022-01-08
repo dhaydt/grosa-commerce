@@ -1426,4 +1426,5 @@ return [
   'my_address' => 'My address',
   'my_tickets' => 'My tickets',
   'status_not_changable_now' => 'Status not changable now',
+  'order_expired_for_order_ID' => 'Order expired for order ID',
 ];

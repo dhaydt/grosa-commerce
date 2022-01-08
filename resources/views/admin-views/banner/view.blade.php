@@ -24,6 +24,9 @@
                 <button id="popup-banner-add"
                         class="btn btn-primary ml-2 propup"><i
                         class="tio-add-circle"></i> {{ \App\CPU\translate('add_popup_banner')}}</button>
+                <button id="header-banner-add"
+                        class="btn btn-primary ml-2 propup"><i
+                        class="tio-add-circle"></i> {{ \App\CPU\translate('add_header_banner')}}</button>
             </div>
         </div>
         <!-- Content Row -->
@@ -185,6 +188,59 @@
                 </div>
             </div>
         </div>
+        <div class="row pt-4" id="header-banner" style="display: none">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        {{ \App\CPU\translate('header_banner_form')}}
+                    </div>
+                    <div class="card-body">
+                        <form class="banner_form" action="{{route('admin.banner.store')}}" method="post"
+                              style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                              enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" id="id" name="id">
+                                        <label for="name">{{ \App\CPU\translate('banner_url')}}</label>
+                                        <input type="text" name="url" class="form-control" id="headerurl" required>
+                                        <input type="hidden" id="headertype" name="banner_type" value="Header Banner">
+                                        <label for="name">{{\App\CPU\translate('Image')}}</label><span
+                                            class="badge badge-soft-danger">( {{\App\CPU\translate('ratio')}} 6:1 )</span>
+                                        <br>
+                                        <div class="custom-file" style="text-align: left">
+                                            <input type="file" name="image" id="pbimageFileUploader"
+                                                   class="custom-file-input"
+                                                   accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+                                            <label class="custom-file-label"
+                                                   for="pbimageFileUploader">{{\App\CPU\translate('choose')}} {{\App\CPU\translate('file')}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <center>
+                                            <img
+                                                style="width: auto;border: 1px solid; border-radius: 10px; max-height:200px;"
+                                                id="pbImageviewer"
+                                                src="{{asset('public\assets\back-end\img\400x400\img2.jpg')}}"
+                                                alt="banner image"/>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-secondary">
+                                <a class="btn btn-secondary text-white cancel">{{ \App\CPU\translate('Cancel')}}</a>
+                                <button id="addpopup"
+                                        type="submit" class="btn btn-primary">{{ \App\CPU\translate('save')}}</button>
+                                <a id="popupupdate" class="btn btn-primary"
+                                   style="display: none; color: #fff;">{{ \App\CPU\translate('update')}}</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </div>
 
 
         <div class="row" style="margin-top: 20px" id="banner-table">
@@ -341,12 +397,14 @@
             $('#secondary-banner').hide();
             $('#popup-banner').hide();
             $('#banner-table').hide();
+            $('#header-banner').hide();
         });
         $('#secondary-banner-add').on('click', function () {
             $('#main-banner').hide();
             $('#secondary-banner').show();
             $('#popup-banner').hide();
             $('#banner-table').hide();
+            $('#header-banner').hide();
         });
 
         $('#popup-banner-add').on('click', function () {
@@ -354,6 +412,14 @@
             $('#secondary-banner').hide();
             $('#popup-banner').show();
             $('#banner-table').hide();
+            $('#header-banner').hide();
+        });
+        $('#header-banner-add').on('click', function () {
+            $('#main-banner').hide();
+            $('#secondary-banner').hide();
+            $('#popup-banner').hide();
+            $('#banner-table').hide();
+            $('#header-banner').show();
         });
 
         $('.cancel').on('click', function () {
@@ -361,6 +427,7 @@
             $('#main-banner').hide();
             $('#secondary-banner').hide();
             $('#popup-banner').hide();
+            $('#header-banner').hide();
             $('#banner-table').show();
         });
 

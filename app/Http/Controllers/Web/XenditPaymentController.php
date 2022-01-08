@@ -138,7 +138,7 @@ class XenditPaymentController extends Controller
             'address' => $customer->district.', '.$customer->city.', '.$customer->province,
         ];
 
-        $idVa = 'ws'.$customer->phone.$customer->id;
+        $idVa = $order_id;
 
         $params = [
             'external_id' => $idVa,
@@ -149,7 +149,7 @@ class XenditPaymentController extends Controller
             'fixed_va' => true,
             'should_send_email' => true,
             'customer' => $user,
-            'expiration_date' => $date,
+            'expiry_date' => Carbon::now(),
             'success_redirect_url' => env('APP_URL').'/xendit-payment/success/'.$order_id,
             'failure_redirect_url' => env('APP_URL').'/xendit-payment/expired/'.$order_id,
         ];
@@ -157,6 +157,7 @@ class XenditPaymentController extends Controller
         // dd($params);
 
         $checkout_session = \Xendit\Invoice::create($params);
+        // dd($checkout_session['id']);
 
         return redirect()->away($checkout_session['invoice_url']);
     }
@@ -170,7 +171,7 @@ class XenditPaymentController extends Controller
         ]);
         Toastr::success(translate('order_expired_for_order_ID').': '.$id);
 
-        return redirect()->route('home');
+        return redirect()->route('account-oder');
     }
 
     public function success($type)

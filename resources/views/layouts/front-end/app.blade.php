@@ -46,6 +46,14 @@
     <!--to make http ajax request to https-->
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <style>
+        .dropdown-menu {
+            min-width: 304px !important;
+            margin-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: -8px !important;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
+    </style>
+    <style>
 
         body {
             background-color: #f7f8fa94;
@@ -94,19 +102,19 @@
         align-items: flex-start;
     }
 
-    .css-11rf802{
-    padding: 4px 0px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 16px;
-    color: rgba(49, 53, 59, 0.68);
-    text-decoration: initial;
-    white-space: nowrap;
+    .css-11rf802 {
+        padding: 4px 0px;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 16px;
+        color: rgba(49, 53, 59, 0.68);
+        text-decoration: initial;
+        white-space: nowrap;
     }
 
         .rtl {
@@ -689,15 +697,6 @@
 
         html[dir="rtl"] .badge-style {
             left: 0 !important;
-        }
-    </style>
-
-    <style>
-        .dropdown-menu {
-            min-width: 304px !important;
-            margin-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: -8px !important;
-            border-top-left-radius: 0px;
-            border-top-right-radius: 0px;
         }
     </style>
 </head>
