@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1427,4 +1425,6 @@ return [
   'my_tickets' => 'My tickets',
   'status_not_changable_now' => 'Status not changable now',
   'order_expired_for_order_ID' => 'Order expired for order ID',
-];
+  'header_banner_form' => 'Header banner form',
+  'add_header_banner' => 'Add header banner',
+);

@@ -531,6 +531,20 @@
                         $('#cate-table').hide();
 
 
+                    } else if (data.banner_type == 'Header Banner') {
+
+                        $('#header-banner').show();
+                        $('#banner-table').hide();
+                        // $('#addfooter').hide();
+                        $('#addheader').html("{{ \App\CPU\translate('update')}}");
+                        // $('#footerupdate').show();
+                        // $('#id').val(data.id);
+                        $('#headerurl').val(data.url);
+                        $('#headerurl').siblings('#id').val(data.id);
+                        $('#fbImageviewer').attr('src', "{{asset('storage/app/public/banner')}}" + "/" + data.photo);
+                        $('#cate-table').hide();
+
+
                     } else {
                         $('#popup-banner').show();
                         $('#banner-table').hide();
