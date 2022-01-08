@@ -31,16 +31,18 @@
 
 </style>
 
+@php($main_banner=\App\Model\Banner::where('banner_type','Header Banner')->where('published',1)->orderBy('id','desc')->first())
+@if (isset($main_banner))
 <div class="banner_dynamic" id="bannerDynamic">
-    @php($main_banner=\App\Model\Banner::where('banner_type','Header Banner')->where('published',1)->orderBy('id','desc')->first())
     <img src="{{asset('storage/app/public/banner/'.$main_banner['photo'])}}" alt="">
     <button type="button" class="closeBan btn" aria-label="Close" onclick="closeBanner()">
         <span aria-hidden="true">&times;</span>
     </button>
     <a class="downloadApp btn btn-sm btn-success" target="_blank"  href="{{ $main_banner['url'] }}">
-       Download
+        Download
     </a>
 </div>
+@endif
 
 @push('script')
     <script>
