@@ -1,4 +1,6 @@
-<?php return array (
+<?php
+
+return [
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1427,5 +1429,6 @@
   'order_expired_for_order_ID' => 'Order expired for order ID',
   'header_banner_form' => 'Header banner form',
   'add_header_banner' => 'Add header banner',
+  'playstore_url' => 'Playstore url',
   'app_store_url' => 'App store url',
-);
+];
