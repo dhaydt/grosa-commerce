@@ -113,7 +113,7 @@ class XenditPaymentController extends Controller
     {
         $date = Carbon::now()->toTimeString();
         $limit = '21:00:00';
-        if ($date > strtotime($limit)) {
+        if (strtotime($date) > strtotime($limit)) {
             Toastr::success(translate('The_payment_deadline_has_expired_,_please_pay_tomorrow'));
 
             return Redirect::back();

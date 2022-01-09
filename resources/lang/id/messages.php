@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1431,4 +1429,5 @@ return [
   'add_header_banner' => 'Add header banner',
   'playstore_url' => 'Playstore url',
   'app_store_url' => 'App store url',
-];
+  'The_payment_deadline_has_expired_,_please_pay_tomorrow' => 'The payment deadline has expired   please pay tomorrow',
+);
