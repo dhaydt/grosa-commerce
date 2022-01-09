@@ -110,17 +110,17 @@ class XenditPaymentController extends Controller
 
     public function invoice(Request $request)
     {
-        $date = Carbon::now()->toDateString().'T13:30:00.674295Z';
-        // dd($date);
+        $date = Carbon::now()->toTimeString();
+        $limit = '21:00:00';
+        $duration = strtotime($limit) - strtotime($date);
+
         $customer = auth('customer')->user();
-        // $discount = session()->has('coupon_discount') ? session('coupon_discount') : 0;
         $order_id = $request->order_id;
         $order = Order::find($order_id);
         $value = $order['order_amount'];
         $tran = OrderManager::gen_unique_id();
 
         session()->put('transaction_ref', $tran);
-
         Xendit::setApiKey(config('xendit.apikey'));
 
         $products = [];
@@ -129,7 +129,6 @@ class XenditPaymentController extends Controller
                 'name' => $detail->product['name'],
             ]);
         }
-        // dd($products);
 
         $user = [
             'given_names' => $customer->f_name,
@@ -138,10 +137,8 @@ class XenditPaymentController extends Controller
             'address' => $customer->district.', '.$customer->city.', '.$customer->province,
         ];
 
-        $idVa = $order_id;
-
         $params = [
-            'external_id' => $idVa,
+            'external_id' => $order_id,
             'amount' => Convert::usdToidr($value),
             'payer_email' => $customer->email,
             'description' => 'GROSA',
@@ -149,15 +146,12 @@ class XenditPaymentController extends Controller
             'fixed_va' => true,
             'should_send_email' => true,
             'customer' => $user,
-            'expiry_date' => Carbon::now(),
+            'invoice_duration' => $duration,
             'success_redirect_url' => env('APP_URL').'/xendit-payment/success/'.$order_id,
             'failure_redirect_url' => env('APP_URL').'/xendit-payment/expired/'.$order_id,
         ];
 
-        // dd($params);
-
         $checkout_session = \Xendit\Invoice::create($params);
-        // dd($checkout_session['id']);
 
         return redirect()->away($checkout_session['invoice_url']);
     }
@@ -169,6 +163,7 @@ class XenditPaymentController extends Controller
         Order::where(['id' => $id])->update([
                 'order_status' => 'canceled',
         ]);
+
         Toastr::success(translate('order_expired_for_order_ID').': '.$id);
 
         return redirect()->route('account-oder');
