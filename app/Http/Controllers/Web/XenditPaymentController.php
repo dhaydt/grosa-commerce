@@ -11,6 +11,7 @@ use App\Model\Order;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Xendit\Xendit;
 
 class XenditPaymentController extends Controller
@@ -112,6 +113,11 @@ class XenditPaymentController extends Controller
     {
         $date = Carbon::now()->toTimeString();
         $limit = '21:00:00';
+        if ($date > strtotime($limit)) {
+            Toastr::success(translate('The_payment_deadline_has_expired_,_please_pay_tomorrow'));
+
+            return Redirect::back();
+        }
         $duration = strtotime($limit) - strtotime($date);
 
         $customer = auth('customer')->user();
