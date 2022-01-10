@@ -57,7 +57,7 @@ class SMS_module
         if (isset($config) && $config['status'] == 1) {
             $userkey = $config['sid'];
             $passkey = $config['messaging_service_sid'];
-            $telepon = '+62'.(int) $receiver;
+            $telepon = '+62'.$receiver;
             // $message = $config['otp_template'].$otp;
             $message = $otp;
             $url = 'https://console.zenziva.net/reguler/api/sendsms/';
