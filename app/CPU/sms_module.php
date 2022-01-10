@@ -14,67 +14,113 @@ class SMS_module
         $config = self::get_settings('twilio_sms');
         if (isset($config) && $config['status'] == 1) {
             $response = self::twilio($receiver, $otp);
+
             return $response;
         }
 
         $config = self::get_settings('nexmo_sms');
         if (isset($config) && $config['status'] == 1) {
             $response = self::nexmo($receiver, $otp);
+
             return $response;
         }
 
         $config = self::get_settings('2factor_sms');
         if (isset($config) && $config['status'] == 1) {
             $response = self::two_factor($receiver, $otp);
+
             return $response;
         }
 
         $config = self::get_settings('msg91_sms');
         if (isset($config) && $config['status'] == 1) {
             $response = self::msg_91($receiver, $otp);
+
             return $response;
         }
 
         $config = self::get_settings('releans_sms');
         if (isset($config) && $config['status'] == 1) {
             $response = self::releans($receiver, $otp);
+
             return $response;
         }
 
         return 'not_found';
     }
 
+    // zenziva
     public static function twilio($receiver, $otp)
     {
         $config = self::get_settings('twilio_sms');
         $response = 'error';
         if (isset($config) && $config['status'] == 1) {
-            $message = str_replace("#OTP#", $otp, $config['otp_template']);
-            $sid = $config['sid'];
-            $token = $config['token'];
+            $userkey = $config['sid'];
+            $passkey = $config['messaging_service_sid'];
+            $telepon = '+62'.(int) $receiver;
+            // $message = $config['otp_template'].$otp;
+            $message = $otp;
+            $url = 'https://console.zenziva.net/reguler/api/sendsms/';
+            $curlHandle = curl_init();
             try {
-                $twilio = new Client($sid, $token);
-                $twilio->messages
-                    ->create($receiver, // to
-                        array(
-                            "messagingServiceSid" => $config['messaging_service_sid'],
-                            "body" => $message
-                        )
-                    );
-                $response = 'success';
+                curl_setopt($curlHandle, CURLOPT_URL, $url);
+                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+                curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 2);
+                curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+                curl_setopt($curlHandle, CURLOPT_TIMEOUT, 30);
+                curl_setopt($curlHandle, CURLOPT_POST, 1);
+                curl_setopt($curlHandle, CURLOPT_POSTFIELDS, [
+                    'userkey' => $userkey,
+                    'passkey' => $passkey,
+                    'to' => $telepon,
+                    'message' => $message,
+                ]);
+                $results = json_decode(curl_exec($curlHandle), true);
+                curl_close($curlHandle);
+                // $response = 'success';
+                $response = $results;
+                // dd($response);
             } catch (\Exception $exception) {
                 $response = 'error';
             }
         }
+
         return $response;
     }
+
+    // twilio
+    // public static function twilio($receiver, $otp)
+    // {
+    //     $config = self::get_settings('twilio_sms');
+    //     $response = 'error';
+    //     if (isset($config) && $config['status'] == 1) {
+    //         $message = str_replace("#OTP#", $otp, $config['otp_template']);
+    //         $sid = $config['sid'];
+    //         $token = $config['token'];
+    //         try {
+    //             $twilio = new Client($sid, $token);
+    //             $twilio->messages
+    //                 ->create($receiver, // to
+    //                     array(
+    //                         "messagingServiceSid" => $config['messaging_service_sid'],
+    //                         "body" => $message
+    //                     )
+    //                 );
+    //             $response = 'success';
+    //         } catch (\Exception $exception) {
+    //             $response = 'error';
+    //         }
+    //     }
+    //     return $response;
+    // }
 
     public static function nexmo($receiver, $otp)
     {
         $sms_nexmo = self::get_settings('nexmo_sms');
         $response = 'error';
         if (isset($sms_nexmo) && $sms_nexmo['status'] == 1) {
-            $message = str_replace("#OTP#", $otp, $sms_nexmo['otp_template']);
+            $message = str_replace('#OTP#', $otp, $sms_nexmo['otp_template']);
             try {
                 $config = [
                     'api_key' => $sms_nexmo['api_key'],
@@ -83,19 +129,20 @@ class SMS_module
                     'private_key' => '',
                     'application_id' => '',
                     'app' => ['name' => '', 'version' => ''],
-                    'http_client' => ''
+                    'http_client' => '',
                 ];
                 Config::set('nexmo', $config);
                 Nexmo::message()->send([
                     'to' => $receiver,
                     'from' => $sms_nexmo['from'],
-                    'text' => $message
+                    'text' => $message,
                 ]);
                 $response = 'success';
             } catch (\Exception $exception) {
                 $response = 'error';
             }
         }
+
         return $response;
     }
 
@@ -106,15 +153,15 @@ class SMS_module
         if (isset($config) && $config['status'] == 1) {
             $api_key = $config['api_key'];
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://2factor.in/API/V1/" . $api_key . "/SMS/" . $receiver . "/" . $otp . "",
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://2factor.in/API/V1/'.$api_key.'/SMS/'.$receiver.'/'.$otp.'',
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
+                CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-            ));
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ]);
             $response = curl_exec($curl);
             $err = curl_error($curl);
             curl_close($curl);
@@ -125,6 +172,7 @@ class SMS_module
                 $response = 'error';
             }
         }
+
         return $response;
     }
 
@@ -133,21 +181,21 @@ class SMS_module
         $config = self::get_settings('msg91_sms');
         $response = 'error';
         if (isset($config) && $config['status'] == 1) {
-            $receiver = str_replace("+", "", $receiver);
+            $receiver = str_replace('+', '', $receiver);
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.msg91.com/api/v5/otp?template_id=" . $config['template_id'] . "&mobile=" . $receiver . "&authkey=" . $config['authkey'] . "",
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.msg91.com/api/v5/otp?template_id='.$config['template_id'].'&mobile='.$receiver.'&authkey='.$config['authkey'].'',
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
+                CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_POSTFIELDS => "{\"OTP\":\"$otp\"}",
-                CURLOPT_HTTPHEADER => array(
-                    "content-type: application/json"
-                ),
-            ));
+                CURLOPT_HTTPHEADER => [
+                    'content-type: application/json',
+                ],
+            ]);
             $response = curl_exec($curl);
             $err = curl_error($curl);
             curl_close($curl);
@@ -157,6 +205,7 @@ class SMS_module
                 $response = 'error';
             }
         }
+
         return $response;
     }
 
@@ -168,31 +217,31 @@ class SMS_module
             $curl = curl_init();
             $from = $config['from'];
             $to = $receiver;
-            $message = str_replace("#OTP#", $otp, $config['otp_template']);
+            $message = str_replace('#OTP#', $otp, $config['otp_template']);
 
             try {
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.releans.com/v2/message",
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://api.releans.com/v2/message',
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
+                    CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
                     CURLOPT_TIMEOUT => 0,
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_CUSTOMREQUEST => 'POST',
                     CURLOPT_POSTFIELDS => "sender=$from&mobile=$to&content=$message",
-                    CURLOPT_HTTPHEADER => array(
-                        "Authorization: Bearer ".$config['api_key']
-                    ),
-                ));
+                    CURLOPT_HTTPHEADER => [
+                        'Authorization: Bearer '.$config['api_key'],
+                    ],
+                ]);
                 $response = curl_exec($curl);
                 curl_close($curl);
                 $response = 'success';
             } catch (\Exception $exception) {
                 $response = 'error';
             }
-
         }
+
         return $response;
     }
 
@@ -206,6 +255,7 @@ class SMS_module
                 $config = $data['value'];
             }
         }
+
         return $config;
     }
 }

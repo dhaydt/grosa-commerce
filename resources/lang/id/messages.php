@@ -1430,4 +1430,7 @@
   'playstore_url' => 'Playstore url',
   'app_store_url' => 'App store url',
   'The_payment_deadline_has_expired_,_please_pay_tomorrow' => 'The payment deadline has expired   please pay tomorrow',
+  'API_key' => 'API key',
+  'user_key' => 'User key',
+  'zenziva_sms' => 'Zenziva sms',
 );
