@@ -74,10 +74,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body text-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}" style="padding: 20px">
-                        <h5 class="text-center">{{\App\CPU\translate('twilio_sms')}}</h5>
+                        <h5 class="text-center">{{\App\CPU\translate('zenziva_sms')}}</h5>
                         <span class="badge badge-soft-info mb-3">NB : #OTP# will be replace with otp</span>
                         @php($config=\App\CPU\Helpers::get_business_settings('twilio_sms'))
-                        <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['twilio_sms']):'javascript:'}}"
+                        <form action="{{env('APP_MODE')!='demo'?route('admin.business-settings.sms-module-update',['zenziva_sms']):'javascript:'}}"
                               style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
                               method="post">
                             @csrf
