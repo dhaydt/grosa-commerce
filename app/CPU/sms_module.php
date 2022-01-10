@@ -60,9 +60,9 @@ class SMS_module
             // $telepon = '+62'.(int) $receiver;
             $telepon = '+62'.(int) $receiver;
             // $message = $config['otp_template'].$otp;
-            $message = $otp;
+            $message = ['grosa' => str_split($otp)];
             $url = 'https://gsm.zenziva.net/api/sendsms/';
-            $curlHandle = curl_init();
+            // dd(json_encode($message));
             $curlHandle = curl_init();
             curl_setopt($curlHandle, CURLOPT_URL, $url);
             curl_setopt($curlHandle, CURLOPT_HEADER, 0);
@@ -75,11 +75,10 @@ class SMS_module
                 'userkey' => $userkey,
                 'passkey' => $passkey,
                 'nohp' => $telepon,
-                'pesan' => $message,
+                'pesan' => json_encode($message),
             ]);
             $results = json_decode(curl_exec($curlHandle), true);
             curl_close($curlHandle);
-            var_dump($results);
         }
 
         return $response;
