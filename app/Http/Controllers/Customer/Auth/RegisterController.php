@@ -52,11 +52,13 @@ class RegisterController extends Controller
                 'f_name.required' => 'First name is required',
             ]);
 
+        $numb = strval((int) $request['phone']);
+
         $user = User::create([
             'f_name' => $request['f_name'],
             'l_name' => $request['l_name'],
             'email' => $request['email'],
-            'phone' => $request['phone'],
+            'phone' => $numb,
             'is_active' => 1,
             'password' => bcrypt($request['password']),
         ]);
