@@ -35,6 +35,7 @@ class RegisterController extends Controller
 
     public function submit(Request $request)
     {
+        $numb = strval((int) $request['phone']);
         $user = User::where('email', $request->email)->orWhere('phone', $request->phone)->first();
         if (isset($user) && $user->is_phone_verified == 0 && $user->is_email_verified == 0) {
             return redirect(route('customer.auth.check', [$user->id]));
@@ -51,8 +52,6 @@ class RegisterController extends Controller
             [
                 'f_name.required' => 'First name is required',
             ]);
-
-        $numb = strval((int) $request['phone']);
 
         $user = User::create([
             'f_name' => $request['f_name'],
