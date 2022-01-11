@@ -804,6 +804,7 @@ a .footer_banner_img {
   </section>
   @endif
   @endforeach
+  @include('web-views.partials._floating')
   @include('layouts.front-end.partials._mobile_footer')
   @endsection
 

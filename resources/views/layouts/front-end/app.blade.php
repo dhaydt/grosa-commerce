@@ -784,6 +784,7 @@
 <script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
 {!! Toastr::message() !!}
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script src={{asset("public/assets/front-end/js/jquery.draggableTouch.js")}}></script>
 <script>
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         console.log('android')

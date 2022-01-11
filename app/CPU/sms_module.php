@@ -59,8 +59,22 @@ class SMS_module
             $passkey = $config['messaging_service_sid'];
             // $telepon = '+62'.(int) $receiver;
             $telepon = '+62'.(int) $receiver;
-            // $message = $config['otp_template'].$otp;
-            $message = ['grosa' => str_split($otp)];
+            $message = str_split($otp);
+            $convert = [];
+
+            $angka = ['{=kosong=}', '{=satu=}', '{=dua=}', '{=tiga=}', '{=empat=}', '{=lima=}', '{=enam=}', '{=tujuh=}', '{=delapan=}', '{=sembilan=}'];
+
+            foreach ($message as $m => $val) {
+                array_push($convert, $angka[$val]);
+            }
+
+            $n = $convert[0];
+            $n1 = $convert[1];
+            $n2 = $convert[2];
+            $n3 = $convert[3];
+            $convert = '{grosa}'.$n.$n1.$n2.$n3;
+            // dd($convert);
+
             $url = 'https://gsm.zenziva.net/api/sendsms/';
             // dd(json_encode($message));
             $curlHandle = curl_init();
@@ -75,7 +89,7 @@ class SMS_module
                 'userkey' => $userkey,
                 'passkey' => $passkey,
                 'nohp' => $telepon,
-                'pesan' => json_encode($message),
+                'pesan' => $convert,
             ]);
             $results = json_decode(curl_exec($curlHandle), true);
             curl_close($curlHandle);

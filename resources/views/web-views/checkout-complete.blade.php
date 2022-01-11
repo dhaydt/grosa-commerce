@@ -7,7 +7,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
         body {
-            font-family: 'Montserrat', sans-serif
+            font-style: 'Titillium Web', sans-serif;
         }
 
         .card {
