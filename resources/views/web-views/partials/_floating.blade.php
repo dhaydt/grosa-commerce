@@ -18,6 +18,11 @@
         width: 150px;
         height: auto;
     }
+    @media(min-width: 600px){
+        #floating {
+            display: none;
+        }
+    }
 </style>
 @php($floating=\App\Model\Banner::where('banner_type','Floating Banner')->where('published',1)->orderBy('id','desc')->first())
 @if (isset($floating))
