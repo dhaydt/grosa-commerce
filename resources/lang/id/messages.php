@@ -1,4 +1,6 @@
-<?php return array (
+<?php
+
+return [
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1433,8 +1435,11 @@
   'API_key' => 'API key',
   'user_key' => 'User key',
   'zenziva_sms' => 'Zenziva sms',
-  'add_floating_button' => 'Add floating button',
-  'floating_banner_form' => 'Floating banner form',
-  'Floating GIF' => 'Floating GIF',
-  'floating_url' => 'Floating url',
-);
+  'Reset Password' => 'Reset Password',
+  'Reset your password' => 'Reset your password',
+  'Change your password in two easy steps. This helps to keep your new password secure' => 'Change your password in two easy steps. This helps to keep your new password secure',
+  'New Password' => 'New Password',
+  'Confirm Password' => 'Confirm Password',
+  'Please provide valid password' => 'Please provide valid password',
+  'Reset password' => 'Reset password',
+];
