@@ -3,19 +3,27 @@
         position: fixed;
         z-index: 21;
         width: auto;
-        background-color: red;
+        background-color: transparent;
         cursor: move;
         border-radius: 50%;
         justify-content: center;
+        /* padding: 10px */
         align-items: center;
     }
     .chatus {
-        z-index: 23;
+        z-index: 25;
+        position: absolute;
+    }
+    .float-img {
+        width: 150px;
+        height: auto;
     }
 </style>
-{{-- <div class="draggable" style="position:fixed; z-index:21; top:50px; left:10px; width:50px; height:50px; background:#f00;"></div> --}}
-<div class="floating-btn d-flex d-md-none draggable" style="bottom:50px; left:10px; width:50px; height:50px;" onclick="openThis()">
-    <a href="http://grosa.id" target="_blank" class="chatus">chat</a>
+@php($floating=\App\Model\Banner::where('banner_type','Floating Banner')->where('published',1)->orderBy('id','desc')->first())
+{{-- {{ dd($floating) }} --}}
+<div class="floating-btn d-flex d-md-none draggable" style="bottom:65px; right:0px; width:85px; height:85px;">
+    <a href="{{ $floating['url'] }}" target="_blank" class="chatus">
+    <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
 </div>
 
 @push('script')

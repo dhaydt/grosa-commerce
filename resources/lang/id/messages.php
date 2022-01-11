@@ -1433,4 +1433,8 @@
   'API_key' => 'API key',
   'user_key' => 'User key',
   'zenziva_sms' => 'Zenziva sms',
+  'add_floating_button' => 'Add floating button',
+  'floating_banner_form' => 'Floating banner form',
+  'Floating GIF' => 'Floating GIF',
+  'floating_url' => 'Floating url',
 );

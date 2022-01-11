@@ -93,6 +93,7 @@ class BannerController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request);
         if ($request->banner_type == 'Header Banner') {
             $request->validate([
                 'url' => 'required',
