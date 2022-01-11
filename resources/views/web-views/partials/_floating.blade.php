@@ -20,11 +20,12 @@
     }
 </style>
 @php($floating=\App\Model\Banner::where('banner_type','Floating Banner')->where('published',1)->orderBy('id','desc')->first())
-{{-- {{ dd($floating) }} --}}
+@if (isset($floating))
 <div class="floating-btn d-flex d-md-none draggable" style="bottom:65px; right:0px; width:85px; height:85px;">
     <a href="{{ $floating['url'] }}" target="_blank" class="chatus">
     <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
 </div>
+@endif
 
 @push('script')
     <script>
