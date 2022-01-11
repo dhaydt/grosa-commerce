@@ -1,5 +1,5 @@
 <style>
-    .floating-btn{
+    #floating{
         position: fixed;
         z-index: 21;
         width: auto;
@@ -21,47 +21,31 @@
 </style>
 @php($floating=\App\Model\Banner::where('banner_type','Floating Banner')->where('published',1)->orderBy('id','desc')->first())
 @if (isset($floating))
-<div class="floating-btn d-flex d-md-none draggable" style="bottom:65px; right:0px; width:85px; height:85px;">
+<div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
     <a href="{{ $floating['url'] }}" target="_blank" class="chatus">
-    <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
+        <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
 </div>
 @endif
 
 @push('script')
     <script>
-        $(document).ready(function() {
-            function openThis() {
-                console.log('open')
-            }
-            $(".draggable").draggableTouch();
-                $("#enable").click(function() {
-                    $(".draggable").draggableTouch();
-                });
-                $("#enable-transform").click(function() {
-                    $(".draggable").draggableTouch({useTransform:true});
-                });
-                $("#disable").click(function() {
-                    $(".draggable").draggableTouch("disable");
-                });
+        $('#floating').draggable({
+            scroll: false,
+            containment: "#bg-container",
 
-                $(".draggable").bind("dragstart", function(e, pos) {
-                    console.log("dragstart:", this, pos.left + "," + pos.top);
-                }).bind("dragend", function(e, pos) {
-                    console.log("dragend:", this, pos.left + "," + pos.top);
-                });
-            });
+            start: function( event, ui ) {
+                console.log("start top is :" + ui.position.top)
+                console.log("start left is :" + ui.position.left)
+            },
+            drag: function(event, ui) {
+                console.log('draging.....');
+            },
+            stop: function( event, ui ) {
+                console.log("stop top is :" + ui.position.top)
+                console.log("stop left is :" + ui.position.left)
 
-            if ("ontouchstart" in document.documentElement) {
-                window.console = {
-                    log: function(a, b, c) {
-                        if (a && b && c)
-                            $("<div>" + a + " " + b + " " + c + "</div>").appendTo($("#console"));
-                        else if (a && b)
-                            $("<div>" + a + " " + b + "</div>").appendTo($("#console"));
-                        else if (a)
-                            $("<div>" + a + "</div>").appendTo($("#console"));
-                    }
-                };
+                // alert('left:'+ui.position.left + ' top:'+ui.position.top)
             }
+        });
     </script>
 @endpush

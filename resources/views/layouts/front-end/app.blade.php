@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css"/>
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/responsive1.css"/>
 
@@ -785,6 +786,7 @@
 {!! Toastr::message() !!}
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src={{asset("public/assets/front-end/js/jquery.draggableTouch.js")}}></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <script>
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         console.log('android')
