@@ -26,10 +26,11 @@
 </style>
 @php($floating=\App\Model\Banner::where('banner_type','Floating Banner')->where('published',1)->orderBy('id','desc')->first())
 @if (isset($floating))
-<div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
-    <a href="{{ $floating['url'] }}" class="chatus">
-        <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
-</div>
+<a href="{{ $floating['url'] }}" target="_blank" class="chatus">
+    <div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
+        <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating">
+    </div>
+</a>
 @endif
 
 @push('script')
