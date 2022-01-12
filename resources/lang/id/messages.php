@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1442,4 +1440,8 @@ return [
   'Confirm Password' => 'Confirm Password',
   'Please provide valid password' => 'Please provide valid password',
   'Reset password' => 'Reset password',
-];
+  'Floating GIF' => 'Floating GIF',
+  'floating_url' => 'Floating url',
+  'floating_banner_form' => 'Floating banner form',
+  'add_floating_button' => 'Add floating button',
+);

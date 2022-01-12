@@ -18,6 +18,19 @@
         width: 150px;
         height: auto;
     }
+    .chat {
+        position: fixed;
+        bottom: 70px;
+        left: 20px;
+        font-size: 20px;
+        font-weight: 800;
+        color: red !important;
+        z-index: 30;
+        transition: .5s;
+    }
+    .chat::hover{
+        color: blue;
+    }
     @media(min-width: 600px){
         #floating {
             display: none;
@@ -30,6 +43,7 @@
     <a href="{{ $floating['url'] }}" class="chatus">
         <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating"></a>
 </div>
+<a href="https://wa.me/6282382852283?text=Daging%20segarnya%20tersedia?"  class="chat">Chat Me</a>
 @endif
 
 @push('script')
