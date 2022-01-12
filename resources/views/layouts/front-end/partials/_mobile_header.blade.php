@@ -139,7 +139,9 @@
     @else
     <div class="navbar-sticky bg-dark mobile-head">
         @if (session()->get('hide_banner') !== true)
-            @include('layouts.front-end.partials._banner_dynamic')
+        @if (Route::current()->getName() == 'home')
+        @include('layouts.front-end.partials._banner_dynamic')
+        @endif
         @endif
         <div class="navbar navbar-expand-md navbar-dark p-2">
             <div class="container ">
