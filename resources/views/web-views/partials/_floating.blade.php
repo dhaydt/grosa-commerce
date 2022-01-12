@@ -28,7 +28,8 @@
 @if (isset($floating))
 <div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
     @php($url = $floating['url'])
-    <a href="javascript:" ontouchend="chatus(`{{ $url }}`)" class="chatus">
+    <input type="hidden" value="{{ $url }}" id="url">
+    <a href="javascript:" class="chatus">
         <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating">
     </a>
 </div>
@@ -36,9 +37,10 @@
 
 @push('script')
     <script>
-        function chatus(val){
-            window.open(val)
-        }
+        $(".chatus").on("tap",function(){
+            var url = $('#url').val()
+            window.open(url)
+        });
         $('#floating').draggable({
             scroll: false,
             containment: "#bg-container",
