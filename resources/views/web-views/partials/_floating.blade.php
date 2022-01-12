@@ -28,7 +28,7 @@
 @if (isset($floating))
 <div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
     @php($url = $floating['url'])
-    <a href="javascript:" onclick="chatus(`{{ $url }}`)" class="chatus">
+    <a href="javascript:" ontouchend="chatus(`{{ $url }}`)" class="chatus">
         <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating">
     </a>
 </div>
