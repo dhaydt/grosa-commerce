@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'is_active' => 1,
             'password' => bcrypt($request['password']),
         ]);
+        session()->put('pass', $request['password']);
 
         $phone_verification = Helpers::get_business_settings('phone_verification');
         $email_verification = Helpers::get_business_settings('email_verification');
@@ -151,6 +152,16 @@ class RegisterController extends Controller
             } else {
                 Toastr::error('Verification code/ OTP mismatched');
             }
+        }
+        $remember = ($request['remember']) ? true : false;
+        if (isset($user) && $user->is_active && auth('customer')->attempt(['email' => $user->email, 'password' => session()->get('pass')], $remember)) {
+            session()->put('wish_list', Wishlist::where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+            Toastr::info('Welcome to '.Helpers::get_business_settings('company_name').'!');
+            CartManager::cart_to_db();
+
+            session()->forget('pass');
+
+            return redirect(session('keep_return_url'));
         }
 
         return redirect(route('customer.auth.login'));
