@@ -29,7 +29,7 @@
 <div id="floating" style="position: fixed; right: 0px; bottom: 65px; width: 80px;height: 80px;">
     @php($url = $floating['url'])
     <input type="hidden" value="{{ $url }}" id="url">
-    <a href="javascript:" class="chatus">
+    <a href="javascript:" class="chatus" id="test">
         <img class="float-img" src="{{asset('storage/app/public/banner')}}/{{$floating['photo']}}" alt="floating">
     </a>
 </div>
@@ -37,10 +37,55 @@
 
 @push('script')
     <script>
-        $(".chatus").on("tap",function(){
+         $(function() {
+      var tapCount=0;
+      var doubleTapCount=0;
+      var longTapCount=0;
+      var swipeCount=0;
+      var blackCount=0;
+      //Enable swiping...
+      $("#test").swipe( {
+        tap:function(event, target) {
             var url = $('#url').val()
             window.open(url)
-        });
+        //   msg(target);
+        console.log('work',tapCount);
+        },
+        doubleTap:function(event, target) {
+          doubleTapCount++;
+          msg(target);
+          return true;
+        },
+        longTap:function(event, target) {
+          longTapCount++;
+          msg(target);
+        },
+        swipe:function() {
+          swipeCount++;
+          $("#textText").html("You swiped " + swipeCount + " times");
+        },
+        excludedElements:"",
+        threshold:50
+      });
+    //   $("#test_btn").click(function() {
+    //     window.open("http://www.google.com");
+    //   });
+      //Assign a click handler to a child of the touchSwipe object
+      //This will require the jquery.ui.ipad.js to be picked up correctly.
+    //   $("#another_div").click( function(){
+    //     blackCount++;
+    //     $("#another_div").html("<h3 id='div text'>jQuery click handler fired on the black div : you clicked the black div "+
+    //     blackCount + " times</h3>");
+    //   });
+    //   function msg(target) {
+    //       $("#textText").html("You tapped " + tapCount +", double tapped " +  doubleTapCount + " and long tapped " +  longTapCount + " times on " +  $(target).attr("id"));
+    //   }
+    });
+
+        // $(".chatus").on("tap",function(){
+        //     var url = $('#url').val()
+        //     window.open(url)
+        // });
         $('#floating').draggable({
             scroll: false,
             containment: "#bg-container",
@@ -56,7 +101,6 @@
                 console.log("stop top is :" + ui.position.top)
                 console.log("stop left is :" + ui.position.left)
 
-                // alert('left:'+ui.position.left + ' top:'+ui.position.top)
             }
         });
     </script>

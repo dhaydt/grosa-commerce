@@ -779,6 +779,7 @@
 <!-- Main theme script-->
 <script src="{{asset('public/assets/front-end')}}/js/theme.min.js"></script>
 <script src="{{asset('public/assets/front-end')}}/js/slick.min.js"></script>
+<script src="{{asset('public/assets/front-end')}}/js/jquery-touchswipe.js"></script>
 
 <script src="{{asset('public/assets/front-end')}}/js/sweet_alert.js"></script>
 {{--Toastr--}}
