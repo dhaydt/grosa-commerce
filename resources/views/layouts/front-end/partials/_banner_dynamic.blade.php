@@ -14,6 +14,7 @@
         position: absolute;
         right: 110px;
         top: 20px;
+        width: 90px;
         border-radius: 8px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -24,6 +25,7 @@
         position: absolute;
         right: 10px;
         top: 20px;
+        width: 90px;
         border-radius: 8px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -35,6 +37,12 @@
         font-size: 32px;
         font-weight: 600;
         margin-top: 0;
+    }
+    @media(max-width: 375px){
+        .downloadApp, .googleApp{
+            width: 90px;
+            max-width: 90px;
+        }
     }
 
 
