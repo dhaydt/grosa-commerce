@@ -6,7 +6,7 @@
         @yield('title')
     </title>
     {{-- <meta name="viewport" content="width=1024"> --}}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{asset('storage/app/public/company')}}/{{$web_config['fav_icon']->value}}">
