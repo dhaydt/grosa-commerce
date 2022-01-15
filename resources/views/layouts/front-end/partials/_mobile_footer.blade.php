@@ -23,7 +23,6 @@
                     class="css-mw28ox"></div>Transaksi
         </a>
         @if(auth('customer')->check())
-        <div class="dropdown">
             <a class="css-11rf802" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
                 <div class="">
                     <div class="">
@@ -42,9 +41,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{route('customer.auth.logout')}}">{{ \App\CPU\translate('logout')}}</a>
             </div>
-        </div>
         @else
-        <div class="dropdown">
             <a class="css-11rf802 profile-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="">
                     <div class="">
@@ -65,7 +62,6 @@
                         }}"></i>{{\App\CPU\translate('sign_up')}}
                 </a>
             </div>
-        </div>
         @endif
     </div>
 </div>
