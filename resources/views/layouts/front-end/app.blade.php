@@ -736,7 +736,7 @@
 <div class="header_banner d-none"></div>
 @endif
 <!-- Page Content-->
-<div class="browser">this device is : <p id="type"></p></div>
+{{-- <div class="browser">this device is : <p id="type"></p></div> --}}
 <div class="bod">
     @yield('content')
 </div>
@@ -793,33 +793,21 @@
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
         console.log('android')
         $('#mobile-footer').addClass('d-block')
-        var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent); // fails on iPad iOS 13
-        if (iOS) { // <-- Use the one here above
-            if (window.indexedDB) { var iosType = 'iOS 8 and up'; }
-            if (window.SpeechSynthesisUtterance) { var iosType =  'iOS 7'; }
-            if (window.webkitAudioContext) { var iosType = 'iOS 6'; }
-            if (window.matchMedia) { var iosType = 'iOS 5'; }
-            if (window.history && 'pushState' in window.history) { var iosType = 'iOS 4'; }
-            var iosType = 'iOS 3 or earlier'
-        }else{
-            var iosType = 'Not an iOS device';
-        };
-        $('#type').text(iosType)
+        // var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent); // fails on iPad iOS 13
+        // if (iOS) { // <-- Use the one here above
+        //     if (window.indexedDB) { var iosType = 'iOS 8 and up'; }
+        //     if (window.SpeechSynthesisUtterance) { var iosType =  'iOS 7'; }
+        //     if (window.webkitAudioContext) { var iosType = 'iOS 6'; }
+        //     if (window.matchMedia) { var iosType = 'iOS 5'; }
+        //     if (window.history && 'pushState' in window.history) { var iosType = 'iOS 4'; }
+        //     var iosType = 'iOS 3 or earlier'
+        // }else{
+        //     var iosType = 'Not an iOS device';
+        // };
+        // $('#type').text(iosType)
     }else{
         $('#mobile-footer').addClass('d-none')
         console.log('desktop')
-    }
-
-    function iOSversion() {
-        if (iOS) { // <-- Use the one here above
-            if (window.indexedDB) { console.log( 'iOS 8 and up'); }
-        if (window.SpeechSynthesisUtterance) { console.log( 'iOS 7'); }
-        if (window.webkitAudioContext) { console.log('iOS 6'); }
-        if (window.matchMedia) { console.log('iOS 5'); }
-        if (window.history && 'pushState' in window.history) { console.log('iOS 4'); }
-        console.log('iOS 3 or earlier');
-    }
-    console.log('Not an iOS device');
     }
 
     $(window).on("load",function(){
