@@ -23,6 +23,10 @@
             height: 36px;
             font-size: 13px;
         }
+        .search_button{
+            height: 36px;
+            width: 42px;
+        }
 
         .search_button span {
             font-size: 14px !important;

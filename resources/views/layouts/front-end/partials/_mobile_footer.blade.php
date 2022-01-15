@@ -1,3 +1,9 @@
+<style>
+    .profile-btn {
+        max-width: 51px;
+        min-width: 51px;
+    }
+</style>
 <div class="mobile-footer d-block d-md-none" id="mobile-footer">
     <div class="unf-bottomnav css-15iqbvc">
         <a class="css-11rf802" href="{{route('home')}}">
@@ -39,7 +45,7 @@
         </div>
         @else
         <div class="dropdown">
-            <a class="css-11rf802" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="css-11rf802 profile-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="">
                     <div class="">
                         <i class="czi-user" style="font-size: 20px; color: #2e3137;"></i>
