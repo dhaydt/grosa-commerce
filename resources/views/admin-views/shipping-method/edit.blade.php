@@ -57,6 +57,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10">
+                                    <label for="cost">{{\App\CPU\translate('Free_Shipping_in_Shopping_Cost')}} <span class="badge badge-soft-danger">( {{ \App\CPU\translate('if_empty_or_0,_then_free_shipping_is_disabled') }} )</span></label>
+                                    <input type="number" min="0" max="1000000" name="min_price" value="{{\App\CPU\BackEndHelper::usd_to_currency($method['min_price'])}}" class="form-control" placeholder="{{\App\CPU\translate('Ex')}} : {{\App\CPU\translate('10 $')}}">
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary ">{{\App\CPU\translate('Update')}}</button>

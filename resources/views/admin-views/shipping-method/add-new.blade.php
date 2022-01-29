@@ -56,6 +56,16 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <label for="cost">{{\App\CPU\translate('Free_Shipping_in_Shopping_Cost')}} <span class="badge badge-soft-danger">( {{ \App\CPU\translate('if_empty_or_0,_then_free_shipping_is_disabled') }} )</span></label>
+                                        <input type="number" min="0" max="1000000" name="min_price" class="form-control" value="0"
+                                               placeholder="{{\App\CPU\translate('Ex')}} : {{\App\CPU\translate('10')}} ">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="card-footer">
                                 <button type="submit"
                                         class="btn btn-primary ">{{\App\CPU\translate('Submit')}}</button>
@@ -82,6 +92,7 @@
                                     <th scope="col">{{\App\CPU\translate('title')}}</th>
                                     <th scope="col">{{\App\CPU\translate('duration')}}</th>
                                     <th scope="col">{{\App\CPU\translate('cost')}}</th>
+                                    <th scope="col">{{\App\CPU\translate('min_price')}}</th>
                                     <th scope="col">{{\App\CPU\translate('status')}}</th>
                                     <th scope="col" style="width: 50px">{{\App\CPU\translate('action')}}</th>
                                 </tr>
@@ -96,6 +107,9 @@
                                         </td>
                                         <td>
                                             {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['cost']))}}
+                                        </td>
+                                        <td>
+                                            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['min_price']))}}
                                         </td>
 
                                         <td>

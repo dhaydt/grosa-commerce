@@ -1444,4 +1444,8 @@
   'floating_url' => 'Floating url',
   'floating_banner_form' => 'Floating banner form',
   'add_floating_button' => 'Add floating button',
+  'Free Shipping in Shopping Cost' => 'Free Shipping in Shopping Cost',
+  'min_price' => 'Min price',
+  'if_empty_or_0,_then_free_shipping_is_disabled' => 'If empty or 0  then free shipping is disabled',
+  'Free_Shipping_in_Shopping_Cost' => 'Free Shipping in Shopping Cost',
 );

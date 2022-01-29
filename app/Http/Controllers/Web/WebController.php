@@ -241,7 +241,7 @@ class WebController extends Controller
                 $sub_total += $item['price'] * $item['quantity'];
             }
             // dd($sub_total);
-            if ($sub_total >= floatval($ship['min_price'])) {
+            if ($sub_total >= floatval($ship['min_price']) && floatval($ship['min_price']) != 0) {
                 // dd('dison');
                 $shipping['shipping_cost'] = 0;
                 $shipping->save();
