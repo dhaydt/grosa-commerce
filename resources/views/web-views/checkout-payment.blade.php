@@ -106,7 +106,7 @@
 
                 <!-- Payment methods accordion-->
                 @php($ship = App\Model\CartShipping::where('cart_group_id', session()->get('cart_group_id'))->first())
-                @if ($ship->shipping_cost !== "0.00")
+                @if ($ship->shipping_cost !== "zz")
                 <h2 class="h6 pb-3 mb-2 mt-2">{{\App\CPU\translate('choose_payment')}}</h2>
 
                 <div class="row justify-content-center">
