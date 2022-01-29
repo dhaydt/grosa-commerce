@@ -72,7 +72,7 @@ class LoginController extends Controller
 
             return redirect(session('keep_return_url'));
         }
-        dd($user);
+        // dd($user);
 
         Toastr::error('Credentials do not match or account has been suspended.');
 

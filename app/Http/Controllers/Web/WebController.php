@@ -24,6 +24,7 @@ use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
 use App\Model\ShippingAddress;
+use App\Model\ShippingMethod;
 use App\Model\Shop;
 use App\Model\Wishlist;
 use Brian2694\Toastr\Facades\Toastr;
@@ -231,9 +232,24 @@ class WebController extends Controller
             }
             $shipping['cart_group_id'] = $cart_group_ids[0];
             $shipping['shipping_method_id'] = $ship['id'];
+            $ship = ShippingMethod::find($ship['id']);
+            // dd(floatval($ship['min_price']));
             // $shipping['shipping_service'] = 'JNE-REG';
-            $shipping['shipping_cost'] = $ship['cost'];
-            $shipping->save();
+            $cartCost = CartManager::get_cart();
+            $sub_total = 0;
+            foreach ($cartCost as $item) {
+                $sub_total += $item['price'] * $item['quantity'];
+            }
+            // dd($sub_total);
+            if ($sub_total >= floatval($ship['min_price'])) {
+                // dd('dison');
+                $shipping['shipping_cost'] = 0;
+                $shipping->save();
+            } else {
+                // dd('nodis');
+                $shipping['shipping_cost'] = $ship['cost'];
+                $shipping->save();
+            }
             // Toastr::info(translate('select_shipping_method_first'));
 
             // return redirect('shop-cart');
