@@ -232,7 +232,7 @@ class WebController extends Controller
             }
             $shipping['cart_group_id'] = $cart_group_ids[0];
             $shipping['shipping_method_id'] = $ship['id'];
-            $ship = ShippingMethod::find($ship['id']);
+            $ships = ShippingMethod::find($ship['id']);
             // dd(floatval($ship['min_price']));
             // $shipping['shipping_service'] = 'JNE-REG';
             $cartCost = CartManager::get_cart();
@@ -241,18 +241,44 @@ class WebController extends Controller
                 $sub_total += $item['price'] * $item['quantity'];
             }
             // dd($sub_total);
-            if ($sub_total >= floatval($ship['min_price']) && floatval($ship['min_price']) != 0) {
+            if ($sub_total >= floatval($ships['min_price']) && floatval($ships['min_price']) != 0) {
                 // dd('dison');
                 $shipping['shipping_cost'] = 0;
                 $shipping->save();
             } else {
                 // dd('nodis');
-                $shipping['shipping_cost'] = $ship['cost'];
+                $shipping['shipping_cost'] = $ships['cost'];
                 $shipping->save();
             }
             // Toastr::info(translate('select_shipping_method_first'));
 
             // return redirect('shop-cart');
+        } else {
+            $ship = \App\CPU\Helpers::get_shipping_methods('admin')->first();
+            $shipping = CartShipping::where(['cart_group_id' => $cart_group_ids[0]])->first();
+            if (isset($shipping) == false) {
+                $shipping = new CartShipping();
+            }
+            $shipping['cart_group_id'] = $cart_group_ids[0];
+            $shipping['shipping_method_id'] = $ship['id'];
+            $ships = ShippingMethod::find($ship['id']);
+            // dd(floatval($ship['min_price']));
+            // $shipping['shipping_service'] = 'JNE-REG';
+            $cartCost = CartManager::get_cart();
+            $sub_total = 0;
+            foreach ($cartCost as $item) {
+                $sub_total += $item['price'] * $item['quantity'];
+            }
+            // dd($sub_total);
+            if ($sub_total >= floatval($ships['min_price']) && floatval($ships['min_price']) != 0) {
+                // dd('dison');
+                $shipping['shipping_cost'] = 0;
+                $shipping->save();
+            } else {
+                // dd('nodis');
+                $shipping['shipping_cost'] = $ships['cost'];
+                $shipping->save();
+            }
         }
 
         if (count($cart_group_ids) > 0) {

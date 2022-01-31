@@ -75,6 +75,7 @@ class CartController extends Controller
     public function removeFromCart(Request $request)
     {
         $user = Helpers::get_customer();
+        var_dump($user);
         if ($user == 'offline') {
             if (session()->has('offline_cart') == false) {
                 session()->put('offline_cart', collect([]));

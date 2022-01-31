@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return array (
   'Dashboard' => 'Dashboard',
   'order_management' => 'Order management',
   'orders' => 'Orders',
@@ -1450,4 +1448,7 @@ return [
   'General settings' => 'General settings',
   'General Business Settings' => 'General Business Settings',
   'Language Table' => 'Language Table',
-];
+  'min_price' => 'Min price',
+  'if_empty_or_0,_then_free_shipping_is_disabled' => 'If empty or 0  then free shipping is disabled',
+  'Free_Shipping_in_Shopping_Cost' => 'Free Shipping in Shopping Cost',
+);
